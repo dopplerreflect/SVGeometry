@@ -18,7 +18,7 @@
 		radialPoint
 	} from '$lib/geometry';
 
-	const uid = 'A0';
+	const uid = 'GoldenHexiGlass';
 	const size = 2 ** 10;
 	const ro = size / 4.1;
 	const angles = anglesArray(6);
@@ -81,20 +81,20 @@
 <DopplerSvg {size} id={uid} logoProps={{ stroke: 'oklch(0.75 50% 200)' }}>
 	<defs>
 		<style>
-			svg#A0 circle {
+			svg#GoldenHexiGlass circle {
 				fill: none;
 				stroke: oklch(0.25 0.37 200);
 				stroke-width: 1;
 			}
-			svg#A0 #tiles path {
-				filter: url(#A0-shrink);
+			svg#GoldenHexiGlass #tiles path {
+				filter: url(#GoldenHexiGlass-shrink);
 				stroke: none;
 			}
-			svg#A0 #lines {
+			svg#GoldenHexiGlass #lines {
 				stroke: oklch(0.33 0.37 300);
 				stroke-width: 7;
 			}
-			svg#A0 #lines-top {
+			svg#GoldenHexiGlass #lines-top {
 				stroke: oklch(0.66 0.37 200);
 				stroke-width: 1;
 			}
