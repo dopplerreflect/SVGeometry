@@ -1,6 +1,30 @@
-<script>
+<script lang>
+	import { goto } from '$app/navigation';
+	import { onMount } from 'svelte';
+
 	/** @type {import('./$types').LayoutData } */
 	export let data;
+	$: drawingIndex = data.drawings.findIndex((d) => d.name === data.title);
+	function handleKeyDown(e) {
+		if (e.ctrlKey) return;
+		switch (e.key) {
+			case 'ArrowLeft':
+				drawingIndex > 0 &&
+					goto(`/drawings/${data.drawings[drawingIndex - 1].name}`, { replaceState: true });
+				break;
+			case 'ArrowRight':
+				drawingIndex < data.drawings.length - 1 &&
+					goto(`/drawings/${data.drawings[drawingIndex + 1].name}`, { replaceState: true });
+				break;
+			case 'PageUp':
+				goto('/');
+				break;
+		}
+	}
+	onMount(() => {
+		document.addEventListener('keydown', handleKeyDown);
+		return () => document.removeEventListener('keydown', handleKeyDown);
+	});
 </script>
 
 <svelte:head>

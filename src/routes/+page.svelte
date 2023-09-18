@@ -1,16 +1,8 @@
 <script lang="ts">
-	const modules = import.meta.glob('./drawings/**/+page.svelte', { eager: true });
+	import { get } from 'svelte/store';
+	import { drawingsStore } from '$lib/stores/drawingStore';
 
-	const drawings = Object.entries(modules)
-		.slice(0, 3)
-		.map(([path, module]: any) => ({
-			name: path.replace(/.*drawings\//, '').replace(/\/\+page\.svelte/, ''),
-			module: module
-		}))
-		.filter((d) => {
-			let metadata: DrawingMetadata = d.module.metadata;
-			return metadata;
-		});
+	const drawings = get(drawingsStore);
 </script>
 
 <svelte:head>
