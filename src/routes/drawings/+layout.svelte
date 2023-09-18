@@ -19,6 +19,9 @@
 			case 'PageUp':
 				goto('/');
 				break;
+			case 's':
+				goto(`/source/${data.drawings[drawingIndex].name}`);
+				break;
 		}
 	}
 	onMount(() => {
