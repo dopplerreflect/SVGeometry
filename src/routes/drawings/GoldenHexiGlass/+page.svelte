@@ -18,7 +18,7 @@
 		radialPoint
 	} from '$lib/geometry';
 
-	const uid = 'GoldenHexiGlass';
+	const id = 'GoldenHexiGlass';
 	const size = 2 ** 10;
 	const ro = size / 4.1;
 	const angles = anglesArray(6);
@@ -78,7 +78,7 @@
 	];
 </script>
 
-<DopplerSvg {size} id={uid} logoProps={{ stroke: 'oklch(0.75 50% 200)' }}>
+<DopplerSvg {size} {id} logoProps={{ stroke: 'oklch(0.75 50% 200)' }}>
 	<defs>
 		<style>
 			svg#GoldenHexiGlass circle {
@@ -99,22 +99,22 @@
 				stroke-width: 1;
 			}
 		</style>
-		<linearGradient id={`${uid}-gradient0`} gradientTransform="rotate(120)">
+		<linearGradient id={`${id}-gradient0`} gradientTransform="rotate(120)">
 			<stop offset="0%" stop-color="oklch(1 0.37 90 / 0.8)" />
 			<stop offset="33%" stop-color="oklch(1 0.37 60 / 0.8)" />
 			<stop offset="66%" stop-color="oklch(1 0.37 30 / 0.8)" />
 		</linearGradient>
-		<linearGradient id={`${uid}-gradient1`} gradientTransform="rotate(120)">
+		<linearGradient id={`${id}-gradient1`} gradientTransform="rotate(120)">
 			<stop offset="0%" stop-color="oklch(1 0.37 150 / 0.8)" />
 			<stop offset="33%" stop-color="oklch(1 0.37 120 / 0.8)" />
 			<stop offset="66%" stop-color="oklch(1 0.37 90 / 0.8)" />
 		</linearGradient>
-		<linearGradient id={`${uid}-gradient2`} gradientTransform="rotate(120)">
+		<linearGradient id={`${id}-gradient2`} gradientTransform="rotate(120)">
 			<stop offset="0%" stop-color="oklch(1 0.37 270 / 0.8)" />
 			<stop offset="50%" stop-color="oklch(0.75 0.37 270 / 0.8)" />
 			<stop offset="100%" stop-color="oklch(0.5 0.37 90 / 0.8)" />
 		</linearGradient>
-		<linearGradient id={`${uid}-gradient3`} gradientTransform="rotate(120)">
+		<linearGradient id={`${id}-gradient3`} gradientTransform="rotate(120)">
 			<stop offset="0%" stop-color="oklch(1 0.37 90 / 0.8)" />
 			<stop offset="33%" stop-color="oklch(1 0.37 60 / 0.8)" />
 			<stop offset="44%" stop-color="oklch(1 0.37 30 / 0.8)" />
@@ -122,46 +122,46 @@
 
 		<g id="tiles">
 			<path
-				fill={`url(#${uid}-gradient0)`}
+				fill={`url(#${id}-gradient0)`}
 				d={pathFromIntersectionsOfLines(['M', ...[0, 1, 34, 26, 0].map((i) => h[i]), 'Z'])}
 			/>
 			<path
-				fill={`url(#${uid}-gradient1)`}
+				fill={`url(#${id}-gradient1)`}
 				d={pathFromIntersectionsOfLines(['M', ...[0, 26, 34, 12, 0].map((i) => h[i]), 'Z'])}
 			/>
 			<path
-				fill={`url(#${uid}-gradient1)`}
+				fill={`url(#${id}-gradient1)`}
 				d={pathFromIntersectionsOfLines(['M', ...[1, 34, 26, 19, 1].map((i) => h[i]), 'Z'])}
 			/>
 			<path
-				fill={`url(#${uid}-gradient2)`}
+				fill={`url(#${id}-gradient2)`}
 				d={pathFromIntersectionsOfLines(['M', ...[0, 12, 35, 25, 24, 0].map((i) => h[i]), 'Z'])}
 			/>
 			<path
-				fill={`url(#${uid}-gradient2)`}
+				fill={`url(#${id}-gradient2)`}
 				d={pathFromIntersectionsOfLines(['M', ...[1, 19, 25, 35, 30, 1].map((i) => h[i]), 'Z'])}
 			/>
 			<path
-				fill={`url(#${uid}-gradient3)`}
+				fill={`url(#${id}-gradient3)`}
 				d={pathFromIntersectionsOfLines(['M', ...[0, 24, 60, 6, 0].map((i) => h[i]), 'Z'])}
 			/>
 			<path
-				fill={`url(#${uid}-gradient3)`}
+				fill={`url(#${id}-gradient3)`}
 				d={pathFromIntersectionsOfLines(['M', ...[1, 30, 66, 6, 1].map((i) => h[i]), 'Z'])}
 			/>
 			<path
-				fill={`url(#${uid}-gradient0)`}
+				fill={`url(#${id}-gradient0)`}
 				d={pathFromIntersectionsOfLines(['M', ...[34, 26, 25, 35, 34].map((i) => h[i]), 'Z'])}
 			/>
 			<path
-				fill={`url(#${uid}-gradient0)`}
+				fill={`url(#${id}-gradient0)`}
 				d={pathFromIntersectionsOfLines(['M', ...[25, 35, 66, 60, 25].map((i) => h[i]), 'Z'])}
 			/>
 		</g>
-		<filter id={`${uid}-shrink`}>
+		<filter id={`${id}-shrink`}>
 			<feMorphology in="SourceGraphic" operator="erode" radius={radii[2] / 12} result="eroded" />
 		</filter>
-		<filter id={`${uid}-dropshadow`}>
+		<filter id={`${id}-dropshadow`}>
 			<feMorphology in="SourceAlpha" operator="dilate" radius="5" result="morph" />
 			<feGaussianBlur in="morph" stdDeviation="5" result="blur" />
 			<feOffset in="blur" dx={3} dy={10} result="offset" />
@@ -171,14 +171,14 @@
 			</feMerge>
 		</filter>
 		<HexPattern
-			id={`${uid}-hexpattern`}
+			id={`${id}-hexpattern`}
 			size={radii[2] / 12}
 			stroke="oklch(0.5 0.37 200)"
 			patternTransform="rotate(30)"
 		/>
 	</defs>
 	<Background {size} fill="oklch(0 0.37 300)" />
-	<Background {size} fill={`url(#${uid}-hexpattern)`} />
+	<Background {size} fill={`url(#${id}-hexpattern)`} />
 	<g>
 		{#each angles as a, i}
 			<g class={`sixth ${i % 2 === 0 ? 'even' : 'odd'}`} transform={`rotate(${a - 30})`}>
@@ -189,7 +189,7 @@
 	{#each circles as c, i}
 		<circle r={c.r} cx={c.x} cy={c.y} />
 	{/each}
-	<g id="lines" filter={`url(#${uid}-dropshadow)`}>
+	<g id="lines" filter={`url(#${id}-dropshadow)`}>
 		<LineWithLegend name="" lineArray={h} />
 	</g>
 	<g id="lines-top" filter="">
