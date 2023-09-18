@@ -21,13 +21,6 @@
 	const ro = size / 4.1;
 	const radii = [ro, ro * phi, ro * phi ** 2, ro * phi ** 3, ro * phi ** 4];
 	const angles = anglesArray(10);
-	const paths: string[] = [
-		...angles
-			// .slice(0, 2)
-			.map((a, i) =>
-				radii.map((r) => polygonPath(5, r, { center: radialPoint(a, radii[0]), rotate: 36 * i }))
-			)
-	].flat();
 	const lines: Line[] = [
 		...[270, 306, 342]
 			.map((oa, oi) =>
@@ -65,13 +58,17 @@
 	<defs>
 		<filter id="GoldenPentagons2Filter">
 			<feMorphology in="SourceAlpha" operator="dilate" radius="1" result="dilate" />
-			<feGaussianBlur in="dilate" stdDeviation="2" result="blur" />
-			<feOffset in="blur" dx="0" dy="5" result="offset" />
+			<feGaussianBlur in="dilate" stdDeviation="5" result="blur" />
+			<feOffset in="blur" dx="0" dy="3" result="offset" />
 			<feMerge>
 				<feMergeNode in="offset" />
 				<feMergeNode in="SourceGraphic" />
 			</feMerge>
 		</filter>
+		<linearGradient id="lg0" gradientUnits="userSpaceOnUse" gradientTransform="rotate(18)">
+			<stop offset="0%" stop-color="white" />
+			<stop offset="50%" stop-color="black" />
+		</linearGradient>
 		<style>
 			line {
 				stroke: white;
@@ -79,92 +76,80 @@
 			text {
 				font-size: 1.5em;
 			}
+			.g {
+				filter: url(#GoldenPentagons2Filter);
+			}
+			.g.o {
+				stroke: oklch(90% 25% 300);
+			}
 			.g0 {
 				fill: oklch(0 0.37 300);
-				stroke: oklch(90% 25% 300);
-				stroke-width: 1;
-				filter: url(#GoldenPentagons2Filter);
 			}
 			.g1 {
 				fill: oklch(0.1 0.37 300);
-				stroke: oklch(90% 25% 300);
-				stroke-width: 1;
-				filter: url(#GoldenPentagons2Filter);
 			}
 			.g2 {
 				fill: oklch(0.3 0.37 300);
-				stroke: oklch(90% 25% 300);
-				stroke-width: 1;
-				filter: url(#GoldenPentagons2Filter);
 			}
 			.g3 {
 				fill: oklch(0.4 0.37 300);
-				stroke: oklch(90% 25% 300);
-				stroke-width: 1;
-				filter: url(#GoldenPentagons2Filter);
+			}
+			.g.i {
+				stroke: oklch(20% 100% 90);
 			}
 			.g4 {
 				fill: oklch(1 0.37 60);
-				stroke: oklch(20% 100% 90);
-				filter: url(#GoldenPentagons2Filter);
-			}
-			.g4.pentagram {
-				fill: none;
-				stroke: oklch(1 0.37 60);
-				stroke-width: 3;
-				stroke-linejoin: bevel;
-				filter: url(#GoldenPentagons2Filter);
 			}
 			.g5 {
 				fill: oklch(1 0.37 75);
-				stroke: oklch(20% 100% 90);
-				filter: url(#GoldenPentagons2Filter);
 			}
 			.g6 {
 				fill: oklch(1 0.37 90);
-				stroke: oklch(20% 100% 90);
-				filter: url(#GoldenPentagons2Filter);
 			}
 		</style>
 	</defs>
-	<Background {size} fill="oklch(0.66 0.045 300)" />
-	<g class="g0">
-		{#each angles as a, i}
-			<path d={paths2[0]} transform={`rotate(${a + 18})`} />
-		{/each}
-	</g>
-	<g class="g1">
-		{#each angles as a, i}
-			<path d={paths2[1]} transform={`rotate(${a + 18})`} />
-		{/each}
-	</g>
-	<g class="g2">
-		{#each angles as a, i}
-			<path d={paths2[2]} transform={`rotate(${a + 18})`} />
-		{/each}
-	</g>
-	<g class="g3">
-		{#each angles as a, i}
-			<path d={paths2[3]} transform={`rotate(${a + 18})`} />
-		{/each}
-	</g>
-	<path class="g3" d={polygonPath(10, radii[1] + radii[1] * phi ** 4, { rotate: 18 })} />
-	<path class="g0" d={polygonPath(10, radii[1], { rotate: 18 })} />
-	<path class="g4 pentagram" d={pentagram(radii[1], { rotate: 198 })} />
-	<path class="g4 pentagram" d={pentagram(radii[1], { rotate: 18 })} />
-	<g class="g4">
-		{#each angles as a, i}
-			<path d={paths2[4]} transform={`rotate(${a + 18})`} />
-		{/each}
-	</g>
-	<g class="g5">
-		{#each angles as a, i}
-			<path d={paths2[5]} transform={`rotate(${a + 18})`} />
-		{/each}
-	</g>
-	<g class="g6">
-		{#each angles as a, i}
-			<path d={paths2[6]} transform={`rotate(${a + 18})`} />
-		{/each}
+	<Background {size} fill="oklch(0.9 0.045 300)" />
+	<g id="g">
+		<g class="g o g0">
+			{#each angles as a, i}
+				<path d={paths2[0]} transform={`rotate(${a + 18})`} />
+			{/each}
+		</g>
+		<g class="g o g1">
+			{#each angles as a, i}
+				<path d={paths2[1]} transform={`rotate(${a + 18})`} />
+			{/each}
+		</g>
+		<g class="g o g2">
+			{#each angles as a, i}
+				<path d={paths2[2]} transform={`rotate(${a + 18})`} />
+			{/each}
+		</g>
+		<g class="g o g3">
+			{#each angles as a, i}
+				<path d={paths2[3]} transform={`rotate(${a + 18})`} />
+			{/each}
+		</g>
+		<g class="g i g4">
+			{#each angles as a, i}
+				<path d={paths2[4]} transform={`rotate(${a + 18})`} />
+			{/each}
+		</g>
+		<g class="g i g5">
+			{#each angles as a, i}
+				<path d={paths2[5]} transform={`rotate(${a + 18})`} />
+			{/each}
+		</g>
+		<g class="g i g6">
+			{#each angles as a, i}
+				<path d={paths2[6]} transform={`rotate(${a + 18})`} />
+			{/each}
+		</g>
+		<path class="g o g3" d={polygonPath(10, radii[1] + radii[1] * phi ** 4, { rotate: 18 })} />
+		<path class="g o g0" d={polygonPath(10, radii[1], { rotate: 18 })} />
+		<path class="g o g4" d={polygonPath(10, radii[1], { rotate: 18 })} />
+		<path class="g o g1" d={polygonPath(10, radii[2], { rotate: 18 })} />
+		<path class="g o g2" d={polygonPath(10, radii[3], { rotate: 18 })} />
+		<path class="g o g3" d={polygonPath(10, radii[4], { rotate: 18 })} />
 	</g>
 </DopplerSvg>
