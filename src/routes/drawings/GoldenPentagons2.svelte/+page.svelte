@@ -10,7 +10,6 @@
 	import {
 		anglesArray,
 		pathFromIntersectionsOfLines,
-		pentagram,
 		phi,
 		polygonPath,
 		radialPoint
@@ -65,10 +64,6 @@
 				<feMergeNode in="SourceGraphic" />
 			</feMerge>
 		</filter>
-		<linearGradient id="lg0" gradientUnits="userSpaceOnUse" gradientTransform="rotate(18)">
-			<stop offset="0%" stop-color="white" />
-			<stop offset="50%" stop-color="black" />
-		</linearGradient>
 		<style>
 			line {
 				stroke: white;
