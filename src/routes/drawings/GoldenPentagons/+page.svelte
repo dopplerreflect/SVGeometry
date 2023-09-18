@@ -26,7 +26,7 @@
 		<filter id="GoldenPentagonsFilter">
 			<feMorphology in="SourceAlpha" operator="dilate" radius="1" result="dilate" />
 			<feGaussianBlur in="dilate" stdDeviation="2" result="blur" />
-			<feOffset in="blur" dx="0" dy="5" result="offset" />
+			<feOffset in="blur" dx="0" dy="2" result="offset" />
 			<feMerge>
 				<feMergeNode in="offset" />
 				<feMergeNode in="SourceGraphic" />
