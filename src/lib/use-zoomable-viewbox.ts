@@ -48,16 +48,16 @@ export function useZoomableViewbox(
 			case '-':
 				zoomOut();
 				break;
-			case 'ArrowLeft':
+			case 'h':
 				panLeft();
 				break;
-			case 'ArrowRight':
+			case 'l':
 				panRight();
 				break;
-			case 'ArrowUp':
+			case 'k':
 				panUp();
 				break;
-			case 'ArrowDown':
+			case 'j':
 				panDown();
 				break;
 			case '0':
