@@ -1,5 +1,7 @@
 type DrawingMetadata = {
 	tags: string[];
+	created_at: Date;
+	updated_at: Date;
 };
 
 type Point = {
