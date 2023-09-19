@@ -43,15 +43,37 @@
 </script>
 
 <g id="DRLogo" {transform}>
-	<path d={dPath} {stroke} stroke-opacity={strokeOpacity} fill="none" stroke-width={strokeWidth} />
-	<path d={rPath} {stroke} stroke-opacity={strokeOpacity} fill="none" stroke-width={strokeWidth} />
-	<g id="guide" {stroke} stroke-opacity={strokeOpacity} stroke-width={strokeWidth * phi ** 4}>
+	<path
+		d={dPath}
+		style={`stroke: ${stroke}; stroke-opacity: ${strokeOpacity}; fill: none; stroke-width: ${strokeWidth}`}
+	/>
+	<path
+		d={rPath}
+		style={`stroke: ${stroke}; stroke-opacity: ${strokeOpacity}; stroke-width: ${strokeWidth}; fill: none`}
+		stroke-width={strokeWidth}
+	/>
+	<g>
 		{#each radii as r, i}
-			<circle {r} fill="none" />
+			<circle
+				{r}
+				style={`fill: none; stroke: ${stroke}; stroke-opacity: ${strokeOpacity}; stroke-width: ${
+					strokeWidth * phi ** 4
+				}`}
+			/>
 		{/each}
 		{#each angles as a, i}
-			<path d={`M${radialPointString(a, radii[2])}L${radialPointString(a, radii[0])}`} />
+			<path
+				d={`M${radialPointString(a, radii[2])}L${radialPointString(a, radii[0])}`}
+				style={`stroke: ${stroke}; stroke-opacity: ${strokeOpacity}; stroke-width: ${
+					strokeWidth * phi ** 4
+				}`}
+			/>
 		{/each}
-		<path d={starPath(radii[0])} fill="none" />
+		<path
+			d={starPath(radii[0])}
+			style={`fill: none; stroke: ${stroke}; stroke-opacity: ${strokeOpacity}; stroke-width: ${
+				strokeWidth * phi ** 4
+			}`}
+		/>
 	</g>
 </g>
