@@ -2,7 +2,7 @@
 	/** @type {import('./$types').PageData} */
 	export let data;
 
-	import { HighlightSvelte } from 'svelte-highlight';
+	import { HighlightSvelte, LineNumbers } from 'svelte-highlight';
 	import github from 'svelte-highlight/styles/github-dark';
 </script>
 
@@ -10,10 +10,13 @@
 	{@html github}
 </svelte:head>
 
-<HighlightSvelte code={data.source} />
+<HighlightSvelte code={data.source} let:highlighted>
+	<LineNumbers {highlighted} />
+</HighlightSvelte>
 
 <style>
 	:global(body) {
 		margin: 0;
+		background-color: black;
 	}
 </style>
