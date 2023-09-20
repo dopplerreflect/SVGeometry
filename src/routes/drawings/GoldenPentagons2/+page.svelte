@@ -1,6 +1,6 @@
 <script context="module" lang="ts">
 	export let metadata: DrawingMetadata = {
-		tags: [],
+		tags: ['favorites', 'pentagon', 'phi'],
 		created_at: new Date(2023, 8, 18),
 		updated_at: new Date(2023, 8, 18)
 	};
