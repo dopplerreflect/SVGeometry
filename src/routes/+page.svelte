@@ -19,12 +19,11 @@
 	}
 
 	function toggleNav() {
-		nav.classList.toggle('open');
+		nav.classList.toggle('hidden');
 		console.log(nav.classList);
 	}
 
 	function handleKeyDown(e: KeyboardEvent) {
-		console.log(e);
 		switch (e.key) {
 			case 'm':
 				toggleNav();
@@ -72,7 +71,7 @@
 		</filter>
 	</svg>
 </main>
-<nav bind:this={nav} class="">
+<nav bind:this={nav} class="hidden">
 	<select bind:value={tag} on:change={setTag}>
 		{#each tags as tag}
 			<option value={tag}>{tag}</option>
@@ -116,14 +115,14 @@
 	nav {
 		position: absolute;
 		left: 0;
-		top: -100vh;
+		top: 0;
 		width: 100vw;
 		height: 100vh;
 		background-color: oklch(0 100% 300 / 0.75);
 		transition: top 0.25s;
 	}
-	nav.open {
-		top: 0;
+	nav.hidden {
+		top: -100vh;
 		transition: top 0.25s;
 	}
 	nav select {
