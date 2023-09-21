@@ -116,7 +116,7 @@
 			}
 			svg#EEEE line {
 				/* display: none; */
-				stroke: oklch(1 50% 110);
+				stroke: oklch(1 50% 60);
 			}
 			svg#EEEE path.tile {
 				fill: oklch(1 0 0 / 0.2);
@@ -145,11 +145,11 @@
 			}
 		</style>
 		<filter id="EEEE-tileFilter">
-			<feMorphology in="SourceGraphic" operator="erode" radius="5" />
+			<feMorphology in="SourceGraphic" operator="erode" radius="2" />
 		</filter>
 		<filter id="EEEE-dsFilter">
 			<feMorphology in="SourceAlpha" operator="dilate" radius="1" result="dilate" />
-			<feFlood flood-color="oklch(0.75 100% 110)" result="color" />
+			<feFlood flood-color="oklch(0.5 100% 90)" result="color" />
 			<feComposite in="color" in2="dilate" operator="in" result="colorstroke" />
 			<feGaussianBlur in="dilate" stdDeviation="3" result="blur" />
 			<feOffset in="blur" dy="5" result="offsetblur" />
@@ -158,7 +158,7 @@
 				<feMergeNode in="colorstroke" />
 				<feMergeNode in="SourceGraphic" />
 			</feMerge>
-			<feOffset dy={0} />
+			<feOffset dy={-2} />
 		</filter>
 		<AngularGradient
 			id="ag0"
