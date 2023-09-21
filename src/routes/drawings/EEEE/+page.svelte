@@ -111,11 +111,9 @@
 				fill: none;
 			}
 			svg#EEEE #guide {
-				/* display: none; */
 				stroke: oklch(0.15 100% 200);
 			}
 			svg#EEEE line {
-				/* display: none; */
 				stroke: oklch(1 50% 60);
 			}
 			svg#EEEE path.tile {
@@ -218,7 +216,7 @@
 		/>
 	</defs>
 	<Background {size} fill="oklch(0.2 10% 90)" />
-	<g id="rays">
+	<g id="EEEE-rays">
 		{#each anglesArray(5 * radii.length * 6) as a}
 			<path
 				d={`M0 0 ${radialPointString(a, (size / 2) * Math.sqrt(2))}`}
@@ -226,7 +224,7 @@
 			/>
 		{/each}
 	</g>
-	<g id="tiles">
+	<g id="EEEE-tiles">
 		{#each anglesArray(5, 0).slice(0, 5) as a}
 			<g transform={`rotate(${a})`}>
 				{#each paths as d, i}
@@ -237,7 +235,7 @@
 		{/each}
 	</g>
 
-	<g id="guide">
+	<g id="EEEE-guide">
 		{#each radii as r}
 			<circle {r} />
 		{/each}

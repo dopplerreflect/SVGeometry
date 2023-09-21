@@ -16,7 +16,7 @@
 				drawingIndex < data.drawings.length - 1 &&
 					goto(`/drawings/${data.drawings[drawingIndex + 1].name}`, { replaceState: true });
 				break;
-			case 'PageUp':
+			case 'Escape':
 				goto('/');
 				break;
 			case 's':
