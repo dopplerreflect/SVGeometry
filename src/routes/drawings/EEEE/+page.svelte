@@ -31,7 +31,7 @@
 		...ten.map(
 			(i) =>
 				[
-					radialPoint(angles[i * 3], i % 2 === 0 ? radii[0] : radii[2]),
+					radialPoint(angles[(i * 3 + 0) % angles.length], i % 2 === 0 ? radii[0] : radii[2]),
 					radialPoint(angles[(i * 3 + 3) % angles.length], i % 2 === 0 ? radii[2] : radii[0])
 				] as Line
 		),
@@ -101,10 +101,9 @@
 		pathFromIntersectionsOfLines(['M', ...[20, 42, 52, 10, 20].map((i) => lineArray[i]), 'Z']),
 		pathFromIntersectionsOfLines(['M', ...[10, 42, 1, 0, 10].map((i) => lineArray[i]), 'Z'])
 	];
-	console.log(paths);
 </script>
 
-<DopplerSvg {id} {size} zoom={5} yPan={0} logoProps={{ stroke: 'oklch(0.2 100% 200)' }}>
+<DopplerSvg {id} {size} zoom={0} yPan={0} logoProps={{ stroke: 'oklch(0.5 50% 90)' }}>
 	<defs>
 		<style>
 			svg#EEEE circle,
@@ -113,12 +112,12 @@
 			}
 			svg#EEEE #EEEE-guide {
 				/* display: none; */
-				stroke: oklch(0.15 100% 200);
+				stroke: oklch(0.5 50% 90);
 			}
 			svg#EEEE #EEEE-lines {
 				/* display: none; */
 				stroke: oklch(1 50% 60);
-				/* filter: url(#EEEE-dsFilter); */
+				filter: url(#EEEE-dsFilter);
 			}
 			svg#EEEE path.tile {
 				fill: oklch(1 0 0 / 0.2);
@@ -261,9 +260,9 @@
 		{/each}
 	</g>
 	<g id="EEEE-tiles">
-		{#each anglesArray(5, 0).slice(0, 5) as a}
+		{#each anglesArray(5, 0) as a}
 			<g transform={`rotate(${a})`}>
-				{#each paths.slice(0, 9) as d, i}
+				{#each paths as d, i}
 					<path class={`tile t${i}`} {d} />
 				{/each}
 			</g>
