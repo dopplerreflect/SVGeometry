@@ -110,10 +110,12 @@
 			svg#EEEE path:not(.Background) {
 				fill: none;
 			}
-			svg#EEEE #guide {
+			svg#EEEE #EEEE-guide {
+				/* display: none; */
 				stroke: oklch(0.15 100% 200);
 			}
-			svg#EEEE line {
+			svg#EEEE #EEEE-lines {
+				/* display: none; */
 				stroke: oklch(1 50% 60);
 			}
 			svg#EEEE path.tile {
@@ -143,20 +145,45 @@
 			}
 		</style>
 		<filter id="EEEE-tileFilter">
-			<feMorphology in="SourceGraphic" operator="erode" radius="2" />
+			<feMorphology in="SourceGraphic" operator="erode" radius="3" result="shrink" />
+			<feColorMatrix
+				in="shrink"
+				type="matrix"
+				values="2.0 0.0 0.0 0 0
+      0.0 2.0 0.0 0 0
+      0.0 0.0 2.0 0 0
+      0 0 0 1 0"
+				result="lighten"
+			/>
+			<feOffset in="lighten" dy="-3" result="lighten-up" />
+			<feColorMatrix
+				in="shrink"
+				type="matrix"
+				values="0.25 0.0 0.0 0 0
+        0.0 0.25 0.0 0 0
+        0.0 0.0 0.25 0 0
+        0 0 0 1 0"
+				result="darken"
+			/>
+			<feOffset in="darken" dy="3" result="darken-down" />
+			<feMerge>
+				<feMergeNode in="lighten-up" />
+				<feMergeNode in="darken-down" />
+				<feMergeNode in="shrink" />
+			</feMerge>
 		</filter>
 		<filter id="EEEE-dsFilter">
 			<feMorphology in="SourceAlpha" operator="dilate" radius="1" result="dilate" />
 			<feFlood flood-color="oklch(0.5 100% 90)" result="color" />
 			<feComposite in="color" in2="dilate" operator="in" result="colorstroke" />
-			<feGaussianBlur in="dilate" stdDeviation="3" result="blur" />
-			<feOffset in="blur" dy="5" result="offsetblur" />
+			<feGaussianBlur in="dilate" stdDeviation="1" result="blur" />
+			<feOffset in="blur" dy="-2" result="offsetblur" />
 			<feMerge>
 				<feMergeNode in="offsetblur" />
 				<feMergeNode in="colorstroke" />
 				<feMergeNode in="SourceGraphic" />
 			</feMerge>
-			<feOffset dy={-2} />
+			<feOffset dx={0} dy={-2} />
 		</filter>
 		<AngularGradient
 			id="ag0"
@@ -228,7 +255,6 @@
 		{#each anglesArray(5, 0).slice(0, 5) as a}
 			<g transform={`rotate(${a})`}>
 				{#each paths as d, i}
-					<!-- <path class={`tile t${i}`} {d} style={`fill:oklch(1 100% ${45 + i * 5})`} /> -->
 					<path class={`tile t${i}`} {d} />
 				{/each}
 			</g>
@@ -243,7 +269,7 @@
 			<path d={`M${radialPointString(a, radii[radii.length - 1])} ${radialPointString(a, ro)}`} />
 		{/each}
 	</g>
-	<g id="lines" filter="url(#EEEE-dsFilter)">
+	<g id="EEEE-lines" filter="url(#EEEE-dsFilter)" transform="translate(0, 0)">
 		<LineWithLegend name="" {lineArray} />
 	</g>
 </DopplerSvg>
