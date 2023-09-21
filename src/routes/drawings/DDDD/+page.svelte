@@ -11,8 +11,6 @@
 	import DopplerSvg from '$lib/components/DopplerSVG.svelte';
 	import HexPattern from '$lib/components/HexPattern.svelte';
 	import {
-		Phi,
-		SQRT3,
 		anglesArray,
 		pathFromIntersectionsOfLines,
 		phi,
@@ -21,7 +19,7 @@
 	} from '$lib/geometry';
 
 	const id = 'DDDD';
-	const size = 2 ** 10;
+	const size = 2 ** 13;
 	const ro = size / 3;
 	const radii = [ro, ro * phi, ro * phi ** 2];
 	const angles = anglesArray(6, 0);
@@ -97,7 +95,7 @@
 			id="lg0"
 			gradientUnits="userSpaceOnUse"
 			x1={0}
-			y1={25}
+			y1={(size / 1024) * 25}
 			x2={0}
 			y2={pythag2(radii[2], radii[2] / 2)}
 		>
@@ -107,8 +105,8 @@
 		<linearGradient
 			id="lg1"
 			gradientUnits="userSpaceOnUse"
-			x1={radialPoint(120, radii[2] / 2 + 20).x}
-			y1={radialPoint(120, radii[2] / 2 + 20).y}
+			x1={radialPoint(120, radii[2] / 2 + (size / 1024) * 20).x}
+			y1={radialPoint(120, radii[2] / 2 + (size / 1024) * 20).y}
 			x2={radialPoint(120, radii[2] + 0).x}
 			y2={radialPoint(120, radii[2] + 0).y}
 		>
@@ -204,19 +202,19 @@
 			}
 		</style>
 		<filter id="DDDD-shrink">
-			<feMorphology in="SourceGraphic" operator="erode" radius="6" result="erode" />
+			<feMorphology in="SourceGraphic" operator="erode" radius={(size / 1024) * 6} result="erode" />
 			<feFlood flood-color="oklch(95% 25% 240)" result="color" />
 			<feComposite in="color" in2="erode" operator="in" result="composite" />
-			<feMorphology in="composite" operator="dilate" radius="2" result="dilate" />
+			<feMorphology in="composite" operator="dilate" radius={(size / 1024) * 2} result="dilate" />
 			<feMerge>
 				<feMergeNode in="dilate" />
 				<feMergeNode in="erode" />
 			</feMerge>
 		</filter>
 		<filter id="DDDD-dropshadow">
-			<feMorphology in="SourceAlpha" operator="dilate" radius="1" result="morph" />
-			<feGaussianBlur in="morph" stdDeviation="3" result="blur" />
-			<feOffset in="blur" dy="12" result="offset" />
+			<feMorphology in="SourceAlpha" operator="dilate" radius={size / 1024} result="morph" />
+			<feGaussianBlur in="morph" stdDeviation={(size / 1024) * 3} result="blur" />
+			<feOffset in="blur" dy={(size / 1024) * 12} result="offset" />
 			<feFlood flood-color="oklch(33% 100% 60)" result="color" />
 			<feComposite in="color" in2="morph" operator="in" result="composite" />
 			<feMerge>
@@ -225,7 +223,12 @@
 				<feMergeNode in="SourceGraphic" />
 			</feMerge>
 		</filter>
-		<HexPattern id="hp" size={5} stroke="oklch(15% 50% 90)" />
+		<HexPattern
+			id="hp"
+			size={(size / 1024) * 5}
+			stroke="oklch(15% 50% 90)"
+			strokeWidth={(size / 1024) * 1}
+		/>
 	</defs>
 	<Background {size} fill="oklch(25% 10% 300)" />
 	<Background {size} fill="url(#hp)" />
@@ -241,7 +244,7 @@
 			{#each paths as d, i}
 				<path
 					{d}
-					style="stroke-width:1;stroke: oklch(100% 100% 90);fill:none"
+					style={`stroke-width:${size / 1024};stroke: oklch(100% 100% 90);fill:none`}
 					transform={`rotate(${a})`}
 				/>
 			{/each}
