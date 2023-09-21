@@ -167,30 +167,22 @@
 			x2={radialPoint(90, radii[1] * 2.5).x}
 			y2={radialPoint(90, radii[1] * 2.5).y}
 		>
-			<stop offset="0%" stop-color="oklch(0.33 50% 300 )" />
-			<stop offset="100%" stop-color="oklch(0 20% 300)" />
+			<stop offset="0%" stop-color="oklch(1 100% 240 / 0.15)" />
+			<stop offset="100%" stop-color="oklch(0 100% 180 / 0.05)" />
 		</linearGradient>
 
 		<style>
-			svg#DDDD circle,
 			svg#DDDD path:not(.Background) {
 				stroke: oklch(100% 100% 90);
-				fill: none;
-			}
-			svg#DDDD path:not(.Background) {
-				fill: oklch(20% 100% 300);
 			}
 			svg#DDDD path.p0 {
-				/* fill: oklch(0.2 100% 90 / 1); */
 				fill: url(#lg0);
 			}
 			svg#DDDD path.p1 {
-				/* fill: oklch(0.4 100% 110 / 1); */
 				fill: url(#lg1);
 			}
 			svg#DDDD path.p2,
 			svg#DDDD path.p3 {
-				/* fill: oklch(0.5 100% 130 / 1); */
 				fill: url(#lg3);
 			}
 			svg#DDDD path.p4 {
@@ -202,28 +194,20 @@
 				fill: oklch(1 100% 170 / 1);
 			}
 			svg#DDDD path.p7 {
-				fill: oklch(0.4 100% 190 / 1);
 				fill: url(#lg4);
 			}
 			svg#DDDD path.p8 {
-				fill: oklch(0.3 100% 210 / 1);
 				fill: url(#lg6);
 			}
 			svg#DDDD path.p9 {
-				fill: oklch(0.2 100% 230 / 1);
 				fill: url(#lg7);
-			}
-
-			svg#DDDD line {
-				stroke: white;
-				stroke-width: 1;
 			}
 		</style>
 		<filter id="DDDD-shrink">
 			<feMorphology in="SourceGraphic" operator="erode" radius="6" result="erode" />
-			<feFlood flood-color="oklch(100% 100% 90)" result="color" />
+			<feFlood flood-color="oklch(95% 25% 240)" result="color" />
 			<feComposite in="color" in2="erode" operator="in" result="composite" />
-			<feMorphology in="composite" operator="dilate" radius="1" result="dilate" />
+			<feMorphology in="composite" operator="dilate" radius="2" result="dilate" />
 			<feMerge>
 				<feMergeNode in="dilate" />
 				<feMergeNode in="erode" />
@@ -245,14 +229,14 @@
 	</defs>
 	<Background {size} fill="oklch(25% 10% 300)" />
 	<Background {size} fill="url(#hp)" />
-	<g transform="translate(0, 3)">
+	<g fill-opacity={1}>
 		{#each angles.slice(0, 6) as a}
 			{#each paths as d, i}
 				<path filter="url(#DDDD-shrink)" {d} transform={`rotate(${a})`} class={`p${i}`} />
 			{/each}
 		{/each}
 	</g>
-	<g filter="url(#DDDD-dropshadow)">
+	<g filter="url(#DDDD-dropshadow)" transform="translate(0, -2)">
 		{#each angles as a}
 			{#each paths as d, i}
 				<path
