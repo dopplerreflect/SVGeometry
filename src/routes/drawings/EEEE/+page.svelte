@@ -45,20 +45,6 @@
 		...ten.map(
 			(i) =>
 				[
-					radialPoint(angles[(i * 3 + 29) % angles.length], i % 2 === 0 ? radii[1] : radii[3]),
-					radialPoint(angles[(i * 3 + 26) % angles.length], i % 2 === 0 ? radii[3] : radii[1])
-				] as Line
-		),
-		...ten.map(
-			(i) =>
-				[
-					radialPoint(angles[(i * 3 + 28) % angles.length], i % 2 === 0 ? radii[2] : radii[4]),
-					radialPoint(angles[(i * 3 + 25) % angles.length], i % 2 === 0 ? radii[4] : radii[2])
-				] as Line
-		),
-		...ten.map(
-			(i) =>
-				[
 					radialPoint(angles[(i * 3 + 2) % angles.length], i % 2 === 0 ? radii[2] : radii[4]),
 					radialPoint(angles[(i * 3 + 5) % angles.length], i % 2 === 0 ? radii[4] : radii[2])
 				] as Line
@@ -69,41 +55,56 @@
 					radialPoint(angles[(i * 3 + 3) % angles.length], i % 2 === 0 ? radii[3] : radii[5]),
 					radialPoint(angles[(i * 3 + 6) % angles.length], i % 2 === 0 ? radii[5] : radii[3])
 				] as Line
+		),
+		...ten.map(
+			(i) =>
+				[
+					radialPoint(angles[(i * 3 + 29) % angles.length], i % 2 === 0 ? radii[1] : radii[3]),
+					radialPoint(angles[(i * 3 + 26) % angles.length], i % 2 === 0 ? radii[3] : radii[1])
+				] as Line
+		),
+		...ten.map(
+			(i) =>
+				[
+					radialPoint(angles[(i * 3 + 28) % angles.length], i % 2 === 0 ? radii[2] : radii[4]),
+					radialPoint(angles[(i * 3 + 25) % angles.length], i % 2 === 0 ? radii[4] : radii[2])
+				] as Line
 		)
 	];
 	const paths: string[] = [
 		pathFromIntersectionsOfLines([
 			'M',
-			...[58, 59, 32, 31, 49, 48, 58].map((i) => lineArray[i]),
+			...[38, 28, 29, 51, 52, 39, 38].map((i) => lineArray[i]),
 			'Z'
 		]),
 		pathFromIntersectionsOfLines([
 			'M',
-			...[48, 49, 21, 22, 40, 32, 31, 19, 18, 30, 48].map((i) => lineArray[i]),
+			...[28, 50, 18, 19, 51, 52, 20, 42, 41, 29, 28].map((i) => lineArray[i]),
 			'Z'
 		]),
-		pathFromIntersectionsOfLines(['M', ...[31, 49, 21, 19, 31].map((i) => lineArray[i]), 'Z']),
+		pathFromIntersectionsOfLines(['M', ...[51, 19, 41, 29, 51].map((i) => lineArray[i]), 'Z']),
 		pathFromIntersectionsOfLines([
 			'M',
-			...[18, 19, 31, 30, 18].map((i) => lineArray[i]),
+			...[18, 19, 51, 50, 18].map((i) => lineArray[i]),
 			'Z',
 			'M',
-			...[21, 22, 40, 49, 21].map((i) => lineArray[i]),
+			...[42, 41, 29, 20, 42].map((i) => lineArray[i]),
 			'Z'
 		]),
 		pathFromIntersectionsOfLines([
 			'M',
-			...[20, 31, 19, 10, 49, 21, 20].map((i) => lineArray[i]),
+			...[40, 51, 19, 10, 29, 41, 40].map((i) => lineArray[i]),
 			'Z'
 		]),
-		pathFromIntersectionsOfLines(['M', ...[21, 19, 0, 9, 21].map((i) => lineArray[i]), 'Z']),
-		pathFromIntersectionsOfLines(['M', ...[40, 32, 10, 22, 40].map((i) => lineArray[i]), 'Z']),
-		pathFromIntersectionsOfLines(['M', ...[40, 22, 32, 10, 40].map((i) => lineArray[i]), 'Z']),
-		pathFromIntersectionsOfLines(['M', ...[10, 0, 1, 22, 10].map((i) => lineArray[i]), 'Z'])
+		pathFromIntersectionsOfLines(['M', ...[9, 0, 19, 41, 9].map((i) => lineArray[i]), 'Z']),
+		pathFromIntersectionsOfLines(['M', ...[20, 52, 10, 42, 20].map((i) => lineArray[i]), 'Z']),
+		pathFromIntersectionsOfLines(['M', ...[20, 42, 52, 10, 20].map((i) => lineArray[i]), 'Z']),
+		pathFromIntersectionsOfLines(['M', ...[10, 42, 1, 0, 10].map((i) => lineArray[i]), 'Z'])
 	];
+	console.log(paths);
 </script>
 
-<DopplerSvg {id} {size} zoom={0} yPan={0} logoProps={{ stroke: 'oklch(0.2 100% 200)' }}>
+<DopplerSvg {id} {size} zoom={5} yPan={0} logoProps={{ stroke: 'oklch(0.2 100% 200)' }}>
 	<defs>
 		<style>
 			svg#EEEE circle,
@@ -117,6 +118,7 @@
 			svg#EEEE #EEEE-lines {
 				/* display: none; */
 				stroke: oklch(1 50% 60);
+				/* filter: url(#EEEE-dsFilter); */
 			}
 			svg#EEEE path.tile {
 				fill: oklch(1 0 0 / 0.2);
@@ -139,6 +141,10 @@
 			}
 			svg#EEEE path.tile.t5 {
 				fill: url(#ag5);
+			}
+			svg#EEEE path.tile.t6,
+			svg#EEEE path.tile.t7 {
+				fill: 'white';
 			}
 			svg#EEEE path.tile.t8 {
 				fill: url(#ag8);
@@ -246,7 +252,10 @@
 	<g id="EEEE-rays">
 		{#each anglesArray(5 * radii.length * 6) as a}
 			<path
-				d={`M0 0 ${radialPointString(a, (size / 2) * Math.sqrt(2))}`}
+				d={`M${radialPointString(a, radii[radii.length - 1])} ${radialPointString(
+					a,
+					(size / 2) * Math.sqrt(2)
+				)}`}
 				style="stroke:oklch(0.33 100% 300)"
 			/>
 		{/each}
@@ -254,7 +263,7 @@
 	<g id="EEEE-tiles">
 		{#each anglesArray(5, 0).slice(0, 5) as a}
 			<g transform={`rotate(${a})`}>
-				{#each paths as d, i}
+				{#each paths.slice(0, 9) as d, i}
 					<path class={`tile t${i}`} {d} />
 				{/each}
 			</g>
@@ -269,7 +278,7 @@
 			<path d={`M${radialPointString(a, radii[radii.length - 1])} ${radialPointString(a, ro)}`} />
 		{/each}
 	</g>
-	<g id="EEEE-lines" filter="url(#EEEE-dsFilter)" transform="translate(0, 0)">
+	<g id="EEEE-lines" filter="" transform="translate(0, 0)">
 		<LineWithLegend name="" {lineArray} />
 	</g>
 </DopplerSvg>
