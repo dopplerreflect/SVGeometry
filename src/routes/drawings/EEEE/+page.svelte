@@ -10,6 +10,7 @@
 	import Background from '$lib/components/Background.svelte';
 	import DopplerSvg from '$lib/components/DopplerSVG.svelte';
 	import LineWithLegend from '$lib/components/LineWithLegend.svelte';
+	import AngularGradient from '$lib/components/angularGradient.svelte';
 	import {
 		anglesArray,
 		arrayMap,
@@ -114,16 +115,37 @@
 				stroke: oklch(0.15 100% 200);
 			}
 			svg#EEEE line {
+				/* display: none; */
 				stroke: oklch(1 50% 110);
 			}
 			svg#EEEE path.tile {
 				fill: oklch(1 0 0 / 0.2);
-				stroke: oklch(1 100% 30 / 0.5);
 				filter: url(#EEEE-tileFilter);
+			}
+			svg#EEEE path.tile.t0 {
+				fill: url(#ag0);
+			}
+			svg#EEEE path.tile.t1 {
+				fill: url(#ag1);
+			}
+			svg#EEEE path.tile.t2 {
+				fill: url(#ag2);
+			}
+			svg#EEEE path.tile.t3 {
+				fill: url(#ag3);
+			}
+			svg#EEEE path.tile.t4 {
+				fill: url(#ag4);
+			}
+			svg#EEEE path.tile.t5 {
+				fill: url(#ag5);
+			}
+			svg#EEEE path.tile.t8 {
+				fill: url(#ag8);
 			}
 		</style>
 		<filter id="EEEE-tileFilter">
-			<feMorphology in="SourceGraphic" operator="erode" radius="3" />
+			<feMorphology in="SourceGraphic" operator="erode" radius="5" />
 		</filter>
 		<filter id="EEEE-dsFilter">
 			<feMorphology in="SourceAlpha" operator="dilate" radius="1" result="dilate" />
@@ -136,23 +158,84 @@
 				<feMergeNode in="colorstroke" />
 				<feMergeNode in="SourceGraphic" />
 			</feMerge>
-			<feOffset dy={-3} />
+			<feOffset dy={0} />
 		</filter>
+		<AngularGradient
+			id="ag0"
+			line={[radialPoint(angles[0], radii[5]), radialPoint(angles[0], radii[3] - radii[6])]}
+			stops={[
+				[0, 'oklch(0.5 100% 120)'],
+				[100, 'oklch(1 100% 120)']
+			]}
+		/>
+		<AngularGradient
+			id="ag1"
+			line={[radialPoint(angles[0], radii[4]), radialPoint(angles[0], radii[3])]}
+			stops={[
+				[0, 'oklch(1 100% 90)'],
+				[100, 'oklch(0.5 100% 90)']
+			]}
+		/>
+		<AngularGradient
+			id="ag2"
+			line={[radialPoint(angles[0], radii[3] - radii[6]), radialPoint(angles[0], radii[2])]}
+			stops={[
+				[0, 'oklch(1 100% 210'],
+				[100, 'oklch(0 100% 210)']
+			]}
+		/>
+		<AngularGradient
+			id="ag3"
+			line={[radialPoint(angles[0], radii[3]), radialPoint(angles[0], radii[2] - radii[7])]}
+			stops={[
+				[0, 'oklch(1 100% 300'],
+				[100, 'oklch(0 100% 300)']
+			]}
+		/>
+		<AngularGradient
+			id="ag4"
+			line={[radialPoint(angles[0], radii[3]), radialPoint(angles[0], radii[1])]}
+			stops={[
+				[0, 'oklch(1 100% 90'],
+				[100, 'oklch(0 100% 90)']
+			]}
+		/>
+		<AngularGradient
+			id="ag5"
+			line={[radialPoint(angles[0], radii[2]), radialPoint(angles[0], radii[0])]}
+			stops={[
+				[0, 'oklch(1 100% 200'],
+				[100, 'oklch(0 100% 200)']
+			]}
+		/>
+		<AngularGradient
+			id="ag8"
+			line={[radialPoint(angles[3], radii[3]), radialPoint(angles[3], radii[1])]}
+			stops={[
+				[0, 'oklch(1 100% 120'],
+				[100, 'oklch(0 100% 120)']
+			]}
+		/>
 	</defs>
 	<Background {size} fill="oklch(0.2 10% 90)" />
-	{#each anglesArray(5 * radii.length * 6) as a}
-		<path
-			d={`M0 0 ${radialPointString(a, (size / 2) * Math.sqrt(2))}`}
-			style="stroke:oklch(0.25 100% 300)"
-		/>
-	{/each}
-	{#each [0, 72, 144, 216, 288] as a}
-		<g transform={`rotate(${a})`}>
-			{#each paths as d, i}
-				<path class="tile" {d} style={`fill:oklch(1 100% ${45 + i * 5})`} />
-			{/each}
-		</g>
-	{/each}
+	<g id="rays">
+		{#each anglesArray(5 * radii.length * 6) as a}
+			<path
+				d={`M0 0 ${radialPointString(a, (size / 2) * Math.sqrt(2))}`}
+				style="stroke:oklch(0.33 100% 300)"
+			/>
+		{/each}
+	</g>
+	<g id="tiles">
+		{#each anglesArray(5, 0).slice(0, 5) as a}
+			<g transform={`rotate(${a})`}>
+				{#each paths as d, i}
+					<!-- <path class={`tile t${i}`} {d} style={`fill:oklch(1 100% ${45 + i * 5})`} /> -->
+					<path class={`tile t${i}`} {d} />
+				{/each}
+			</g>
+		{/each}
+	</g>
 
 	<g id="guide">
 		{#each radii as r}
@@ -162,7 +245,7 @@
 			<path d={`M${radialPointString(a, radii[radii.length - 1])} ${radialPointString(a, ro)}`} />
 		{/each}
 	</g>
-	<g filter="url(#EEEE-dsFilter)">
+	<g id="lines" filter="url(#EEEE-dsFilter)">
 		<LineWithLegend name="" {lineArray} />
 	</g>
 </DopplerSvg>
