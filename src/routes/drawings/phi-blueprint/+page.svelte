@@ -25,7 +25,6 @@
 		...angles.map((a) => ({ r: r * 2, ...radialPoint(a, r) }))
 	];
 	const phiCircles: Circle[] = [r2, r2 * Phi, r2 * Phi ** 2].map((r) => ({ r, x: 0, y: 0 }));
-	console.log(phiCircles);
 </script>
 
 <DopplerSvg {id} {size}>
