@@ -2,7 +2,7 @@
 	export let metadata: DrawingMetadata = {
 		tags: [],
 		created_at: new Date(2023, 8, 21, 17),
-		updated_at: new Date(2023, 8, 21, 21)
+		updated_at: new Date(2023, 8, 22, 9)
 	};
 </script>
 
@@ -10,6 +10,7 @@
 	import Background from '$lib/components/Background.svelte';
 	import DopplerSvg from '$lib/components/DopplerSVG.svelte';
 	import HexPattern from '$lib/components/HexPattern.svelte';
+	import LineWithLegend from '$lib/components/LineWithLegend.svelte';
 	import AngularGradient from '$lib/components/angularGradient.svelte';
 	import {
 		anglesArray,
@@ -223,22 +224,29 @@
 
 		[midpoint(lineArray[33]), midpoint(lineArray[21])],
 		[intersection(lineArray[14], lineArray[34]), intersection(lineArray[22], lineArray[35])],
+		// [intersection(lineArray[22], lineArray[35]), intersection(lineArray[24], lineArray[35])],
+		[
+			intersection(lineArray[22], lineArray[35]),
+			midpoint([
+				intersection(lineArray[24], lineArray[35]),
+				intersection(lineArray[24], lineArray[22])
+			])
+		],
 		[intersection(lineArray[22], lineArray[35]), intersection(lineArray[24], lineArray[35])],
-		[intersection(lineArray[22], lineArray[35]), intersection(lineArray[24], lineArray[35])],
-		[intersection(lineArray[21], lineArray[24]), intersection(lineArray[30], lineArray[13])],
+		[intersection(lineArray[13], lineArray[24]), intersection(lineArray[30], lineArray[13])],
 		[intersection(lineArray[35], lineArray[22]), intersection(lineArray[22], lineArray[24])],
 		[intersection(lineArray[35], lineArray[24]), intersection(lineArray[9], lineArray[13])],
 		[intersection(lineArray[22], lineArray[2]), intersection(lineArray[9], lineArray[23])],
 		[intersection(lineArray[23], lineArray[9]), intersection(lineArray[23], lineArray[12])],
 		[intersection(lineArray[13], lineArray[9]), intersection(lineArray[13], lineArray[12])],
-		[intersection(lineArray[12], lineArray[1]), intersection(lineArray[12], lineArray[18])],
-		[intersection(lineArray[10], lineArray[23]), intersection(lineArray[10], lineArray[12])],
+		[intersection(lineArray[12], lineArray[1]), intersection(lineArray[1], lineArray[18])],
+		[intersection(lineArray[10], lineArray[23]), midpoint(lineArray[12])],
 		[intersection(lineArray[12], lineArray[23]), intersection(lineArray[11], lineArray[0])]
 	];
 
 	const gradientStops: [number, string][][] = paths.map((_, i) => [
-		[0, `oklch(1 15% ${30 + (270 / paths.length) * i})`],
-		[100, `oklch(0.33 100% ${30 + (270 / paths.length) * i})`]
+		[0, `oklch(1 15% ${45 + (390 / paths.length) * i})`],
+		[100, `oklch(0.33 100% ${45 + (390 / paths.length) * i})`]
 	]);
 </script>
 
@@ -250,24 +258,31 @@
 				fill: none;
 			}
 			svg#FFFF #FFFF-hexes {
+				/* display: none; */
 				stroke: oklch(1 50% 300);
 				filter: url(#FFFF-ds);
 			}
 			svg#FFFF path.tile {
-				stroke-width: 3;
-				stroke: oklch(0.5 50% 300);
 				filter: url(#DDDD-shrink);
 			}
 		</style>
 		<filter id="DDDD-shrink">
-			<feMorphology in="SourceGraphic" operator="erode" radius="3" />
+			<feMorphology in="SourceAlpha" operator="erode" radius="1" result="bordererode" />
+			<feFlood flood-color="oklch(1 75% 300)" result="floodcolor" />
+			<feComposite in="floodcolor" in2="bordererode" operator="in" result="border" />
+			<feMorphology in="SourceGraphic" operator="erode" radius="3" result="shrink" />
+
+			<feMerge>
+				<feMergeNode in="border" />
+				<feMergeNode in="shrink" />
+			</feMerge>
 		</filter>
 		<filter id="FFFF-ds">
-			<feMorphology in="SourceAlpha" operator="dilate" radius="1" result="dilate" />
+			<feMorphology in="SourceAlpha" operator="dilate" radius="2" result="dilate" />
 			<feFlood flood-color="oklch(0.33 100% 300)" result="color" />
 			<feComposite in="color" in2="dilate" operator="in" result="border" />
-			<feGaussianBlur in="dilate" stdDeviation="2" result="blur" />
-			<feOffset in="blur" dy="7" result="offsetblur" />
+			<feGaussianBlur in="dilate" stdDeviation="3" result="blur" />
+			<feOffset in="blur" dy="3" result="offsetblur" />
 			<feMerge>
 				<feMergeNode in="border" />
 				<feMergeNode in="offsetblur" />
@@ -286,15 +301,16 @@
 	</defs>
 	<Background {size} fill="oklch(0 100% 300)" />
 	<Background {size} fill="url(#FFFF-hp)" />
-	{#each angles as a}
-		<g transform={`rotate(${a - 30})`}>
-			{#each paths as d, i}
-				<!-- <path {d} class="tile" style={`fill:oklch(1 100% ${30 + (120 / paths.length) * i})`} /> -->
-				<path {d} class="tile" style={`fill:url(#FFFF-ag${i})`} />
-			{/each}
-		</g>
-	{/each}
-	<g id="FFFF-hexes" style="">
+	<g id="FFFF-tiles" transform="translate(0, -1)">
+		{#each angles as a}
+			<g transform={`rotate(${a - 30})`}>
+				{#each paths as d, i}
+					<path {d} class="tile" style={`fill:url(#FFFF-ag${i})`} />
+				{/each}
+			</g>
+		{/each}
+	</g>
+	<g id="FFFF-hexes">
 		{#each radii as r, i}
 			{#each angles as a}
 				<path
