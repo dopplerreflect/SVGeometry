@@ -10,7 +10,6 @@
 	import Background from '$lib/components/Background.svelte';
 	import DopplerSvg from '$lib/components/DopplerSVG.svelte';
 	import HexPattern from '$lib/components/HexPattern.svelte';
-	import LineWithLegend from '$lib/components/LineWithLegend.svelte';
 	import AngularGradient from '$lib/components/angularGradient.svelte';
 	import {
 		anglesArray,
@@ -241,8 +240,6 @@
 		[0, `oklch(1 15% ${30 + (270 / paths.length) * i})`],
 		[100, `oklch(0.33 100% ${30 + (270 / paths.length) * i})`]
 	]);
-
-	console.log(gradientStops);
 </script>
 
 <DopplerSvg {id} {size} zoom={0} yPan={0} logoProps={{ stroke: 'oklch(0.25 100% 200)' }}>
@@ -284,7 +281,7 @@
 			stroke="oklch(0.25 100% 200)"
 		/>
 		{#each gradientLines as p, i}
-			<AngularGradient id={`ag${i}`} line={gradientLines[i]} stops={gradientStops[i]} />
+			<AngularGradient id={`FFFF-ag${i}`} line={gradientLines[i]} stops={gradientStops[i]} />
 		{/each}
 	</defs>
 	<Background {size} fill="oklch(0 100% 300)" />
@@ -293,7 +290,7 @@
 		<g transform={`rotate(${a - 30})`}>
 			{#each paths as d, i}
 				<!-- <path {d} class="tile" style={`fill:oklch(1 100% ${30 + (120 / paths.length) * i})`} /> -->
-				<path {d} class="tile" style={`fill:url(#ag${i})`} />
+				<path {d} class="tile" style={`fill:url(#FFFF-ag${i})`} />
 			{/each}
 		</g>
 	{/each}
