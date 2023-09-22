@@ -1,6 +1,8 @@
 <script context="module" lang="ts">
 	export let metadata: DrawingMetadata = {
-		tags: []
+		tags: [],
+		created_at: new Date(),
+		updated_at: new Date()
 	};
 </script>
 
@@ -15,6 +17,12 @@
 <DopplerSvg {id} {size}>
 	<defs>
 		<style>
+			svg#TEMPLATE {
+				& circle {
+					stroke: white;
+					fill: none;
+				}
+			}
 		</style>
 	</defs>
 	<Background {size} fill="none" />
