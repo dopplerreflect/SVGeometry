@@ -10,7 +10,13 @@
 	import Background from '$lib/components/Background.svelte';
 	import DopplerSvg from '$lib/components/DopplerSVG.svelte';
 	import LineWithLegend from '$lib/components/LineWithLegend.svelte';
-	import { anglesArray, pathFromIntersectionsOfLines, phi, radialPoint } from '$lib/geometry';
+	import {
+		anglesArray,
+		pathFromIntersectionsOfLines,
+		phi,
+		radialPoint,
+		radialPointString
+	} from '$lib/geometry';
 
 	const id = 'STARMESH';
 	const size = 2 ** 10;
@@ -73,7 +79,8 @@
 					stroke: oklch(0.5 100% 300);
 					stroke-width: 1;
 				}
-				& #guide circle {
+				& #guide circle,
+				#guide path {
 					stroke: oklch(0.25 100% 300);
 				}
 				& #paths path,
@@ -115,6 +122,7 @@
 		<LineWithLegend name="" {lineArray} />
 		{#each angles as a}
 			<circle r={radii[2]} cx={radialPoint(a, radii[1]).x} cy={radialPoint(a, radii[1]).y} />
+			<path d={`M0 0 ${radialPointString(a, radii[0])}`} />
 		{/each}
 		<circle r={radii[0]} />
 		<circle r={radii[1]} />
