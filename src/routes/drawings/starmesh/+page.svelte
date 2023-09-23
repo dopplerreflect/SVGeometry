@@ -70,8 +70,11 @@
 				}
 				& #guide line {
 					/* display: none; */
-					stroke: oklch(1 100% 300);
+					stroke: oklch(0.5 100% 300);
 					stroke-width: 1;
+				}
+				& #guide circle {
+					stroke: oklch(0.25 100% 300);
 				}
 				& #paths path,
 				& #paths-unfilled path {
@@ -110,6 +113,12 @@
 
 	<g id="guide">
 		<LineWithLegend name="" {lineArray} />
+		{#each angles as a}
+			<circle r={radii[2]} cx={radialPoint(a, radii[1]).x} cy={radialPoint(a, radii[1]).y} />
+		{/each}
+		<circle r={radii[0]} />
+		<circle r={radii[1]} />
+		<circle r={radii[2]} />
 	</g>
 
 	<g id="paths">

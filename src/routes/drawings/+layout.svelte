@@ -43,6 +43,7 @@
 <style>
 	:global(body) {
 		margin: 0;
+		background-color: black;
 	}
 	:global(::-webkit-scrollbar) {
 		display: none;
