@@ -42,11 +42,12 @@
 
 <main>
 	<header>
-		<div class="item" />
 		<div class="item">
 			<h1>SVGeometry</h1>
 		</div>
-		<div class="item" />
+		<div class="item">
+			<h1>@dopplerreflect</h1>
+		</div>
 	</header>
 	<div id="container">
 		{#each drawings as drawing}
@@ -59,11 +60,11 @@
 	</div>
 	<svg width="0px" height="0px">
 		<filter id="textFilter">
-			<feMorphology in="SourceAlpha" operator="dilate" radius="1" result="morph" />
-			<feFlood flood-color="oklch(100% 100% 300)" result="flood" />
+			<feMorphology in="SourceAlpha" operator="dilate" radius="0" result="morph" />
+			<feFlood flood-color="oklch(100% 50% 300)" result="flood" />
 			<feComposite in="flood" in2="morph" operator="in" result="composite" />
-			<feOffset in="composite" dx="0" dy="1" result="offset" />
-			<feGaussianBlur in="offset" stdDeviation="1" result="blur" />
+			<feOffset in="composite" dx="1" dy="1" result="offset" />
+			<feGaussianBlur in="offset" stdDeviation="0" result="blur" />
 			<feMerge>
 				<feMergeNode in="blur" />
 				<feMergeNode in="SourceGraphic" />
@@ -102,13 +103,13 @@
 		display: flex;
 	}
 	header .item {
-		flex-basis: calc(100% / 3);
+		flex-basis: calc(100% / 2);
 	}
 	header h1 {
 		font-family: 'Russo One';
 		text-align: center;
 		line-height: 0.5em;
-		color: oklch(1 100% 150);
+		color: oklch(0.3 25% 300);
 		filter: url('#textFilter');
 	}
 	#container {
