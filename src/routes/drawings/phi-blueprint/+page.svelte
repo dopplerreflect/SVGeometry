@@ -10,7 +10,7 @@
 	import Background from '$lib/components/Background.svelte';
 	import DopplerSvg from '$lib/components/DopplerSVG.svelte';
 	import GridPattern from '$lib/components/GridPattern.svelte';
-	import { Phi, SQRT3, anglesArray, phi, radialPoint } from '$lib/geometry';
+	import { Phi, SQRT3, anglesArray, pentagram, phi, radialPoint } from '$lib/geometry';
 
 	const id = 'phi-blueprint';
 	const size = 2 ** 10;
@@ -44,7 +44,7 @@
 					fill: var(--stroke);
 				}
 				& circle.phi {
-					stroke-width: 2;
+					stroke-width: 1;
 				}
 			}
 		</style>
@@ -61,5 +61,7 @@
 			<line x1={c.r} x2={c.r} y2={-r2 * 3} />
 			<text x={c.r} y={-r2 * 3} text-anchor="start">{`${(c.r / 100).toFixed(3)}`}</text>
 		{/each}
+		<path d={pentagram(phiCircles[2].r, { rotate: -30 })} style="stroke-width:1;" />
+		<path d={pentagram(phiCircles[2].r, { rotate: -210 })} style="stroke-width:1;" />
 	</g>
 </DopplerSvg>
