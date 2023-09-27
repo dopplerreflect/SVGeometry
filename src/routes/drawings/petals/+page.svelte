@@ -54,8 +54,8 @@
 					radii[i + 3] || 0
 				)}A${r} ${r} 0 0 0 ${radialPointString(angles2[i], radii[i + 2])}`
 		);
-	const ppoints = phylotaxicPoints(2400, (size / 2) * Math.sqrt(2)).filter(
-		(p) => pythag(p.x, p.y) > r * SQRT3
+	const ppoints = phylotaxicPoints(7200, (size / 2) * Math.sqrt(2)).filter(
+		(p) => pythag(p.x, p.y) > r * 1.9
 	);
 </script>
 
@@ -111,12 +111,12 @@
 	{#each ppoints as p, i}
 		<circle
 			filter="url(#PETALS-glow"
-			r={7}
+			r={5}
 			cx={p.x}
 			cy={p.y}
-			style={`stroke:oklch(1 100% ${300 + 45 * (i % 8)});fill:oklch(0.25 100% ${
-				300 + 45 * (i % 8)
-			})`}
+			style={`stroke:oklch(1 100% ${30 + 45 * (i % 89)});fill:oklch(0.75 25% ${
+				30 + 45 * (i % 89)
+			}  / ${1 / (i % 8)})`}
 		/>
 	{/each}
 	<g filter="url(#PETALS-filter)">
