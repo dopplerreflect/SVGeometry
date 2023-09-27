@@ -9,23 +9,27 @@
 <script lang="ts">
 	import Background from '$lib/components/Background.svelte';
 	import DopplerSvg from '$lib/components/DopplerSVG.svelte';
-	import { anglesArray, pathFromIntersectionsOfLines, phi, radialPoint } from '$lib/geometry';
+	import LineWithLegend from '$lib/components/LineWithLegend.svelte';
+	import {
+		anglesArray,
+		chordLength,
+		pathFromIntersectionsOfLines,
+		phi,
+		pythag2,
+		radialPoint
+	} from '$lib/geometry';
 
 	const id = 'TENWEAVE';
 	const size = 2 ** 10;
 	const ro = size * 0.45;
-	const angleCount = 10;
-	const angles = anglesArray(angleCount, 9);
+	const angles = anglesArray(10, 9);
 	const lineArray: Line[] = [
 		...angles.map(
-			(_, i) => [radialPoint(angles[i], ro), radialPoint(angles[(i + 3) % angleCount], ro)] as Line
+			(_, i) => [radialPoint(angles[i], ro), radialPoint(angles[(i + 3) % 10], ro)] as Line
 		),
 		...angles.map(
 			(_, i) =>
-				[
-					radialPoint(angles[i], ro * phi ** 0.44),
-					radialPoint(angles[(i + 3) % angleCount], ro * phi ** 0.44)
-				] as Line
+				[radialPoint(angles[i], ro * 0.83), radialPoint(angles[(i + 3) % 10], ro * 0.83)] as Line
 		)
 	];
 	const paths: string[] = [
@@ -46,7 +50,7 @@
 					stroke: oklch(1 50% 60);
 				}
 				& path.weave-dark {
-					fill: oklch(0.125 100% 270 / 0.5);
+					fill: oklch(0 0 0);
 				}
 			}
 		</style>
@@ -91,9 +95,23 @@
 				<feMergeNode in="SourceGraphic" />
 			</feMerge>
 		</filter>
+		<filter id="TENWEAVE-glass">
+			<feTurbulence type="fractalNoise" baseFrequency="0.5" />
+			<feComposite in2="SourceAlpha" operator="in" />
+			<feColorMatrix
+				type="matrix"
+				values="0.25 0 0 0 0
+                0 0 0 0 0
+                0 0 1.5 0 0
+                0 0 0 1.25 0"
+			/>
+		</filter>
+		<filter id="shrink">
+			<feMorphology operator="erode" radius="30" />
+		</filter>
 	</defs>
 	<Background {size} filter="url(#TENWEAVE-space)" />
-	<g>
+	<g filter="url(#TENWEAVE-glass)">
 		{#each angles as a}
 			<g transform={`rotate(${a - 9})`}>
 				{#each paths as d}
