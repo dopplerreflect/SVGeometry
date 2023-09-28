@@ -2,7 +2,7 @@
 	import { midpoint } from '$lib/geometry';
 
 	export let lineArray: Line[];
-	export let name: string;
+	export let name: string = '';
 	export let strokeWidth: number = 1;
 	export let fill: string = 'yellow';
 	export let showLegend: Boolean = false;
