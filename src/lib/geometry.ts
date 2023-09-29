@@ -288,3 +288,17 @@ export function tan(y: number, x: number): number {
 export function pathFromPoints(points: Point[]): string {
 	return ['M', ...points.map((p) => `${p.x} ${p.y}`), 'Z'].join(' ');
 }
+
+/**
+ * Linear interpolation
+ */
+export const lerp = (start: number, end: number, t: number) => start + (end - start) * t;
+
+/**
+ * Divide 1 by <divs>
+ * @param divs number of divs to return
+ * @returns array of floats from 0...1
+ */
+export const interpolate = (divs: number): number[] => {
+	return [0, ...[...Array(divs).keys()].map((k) => (1 / divs) * (k + 1))];
+};
