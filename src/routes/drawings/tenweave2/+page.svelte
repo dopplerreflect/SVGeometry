@@ -181,6 +181,8 @@
 			<g transform={`rotate(${a})`}>
 				{#each paths as d}
 					<path {d} filter="url(#TENWEAVE2-bamboo-filter)" />
+					<path {d} style="stroke:oklch(0.15 15% 30);stroke-width:0.75;;fill: none;" />
+
 					<path
 						d={pathFromIntersectionsOfLines(['M', ...[6, 17, 15, 6].map((i) => lineArray[i]), 'Z'])}
 						style="fill:oklch(0.25 33% 30);stroke:none;"
