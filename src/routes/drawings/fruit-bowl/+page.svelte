@@ -9,7 +9,8 @@
 <script lang="ts">
 	import Background from '$lib/components/Background.svelte';
 	import DopplerSvg from '$lib/components/DopplerSVG.svelte';
-	import { anglesArray, radialPoint, viewBox } from '$lib/geometry';
+	import HexPattern from '$lib/components/HexPattern.svelte';
+	import { SQRT3, anglesArray, radialPoint, viewBox } from '$lib/geometry';
 
 	const id = 'FRUITBOWL';
 	const size = 2 ** 10;
@@ -38,17 +39,17 @@
 				& circle {
 					stroke: oklch(0.75 100% 180);
 					fill: oklch(0.75 100% 180 / 0.1);
-					stroke-width: 1.5;
+					stroke-width: 1;
 				}
 			}
 		</style>
 		<filter id="FRUITBOWL-space">
-			<feTurbulence type="fractalNoise" baseFrequency="0.001 0.005" numOctaves="3" />
+			<feTurbulence type="fractalNoise" baseFrequency="0.009" numOctaves="3" />
 			<feColorMatrix
 				type="matrix"
-				values="0.05 0 0 0 0
+				values="0.15 0 0 0 0
                 0 0 0 0 0
-                0 0 0.5 0 0
+                0 0 0.75 0 0
                 0 0 0 1 0"
 			/>
 		</filter>
@@ -60,8 +61,10 @@
 				<feMergeNode in="SourceGraphic" />
 			</feMerge>
 		</filter>
+		<HexPattern size={r / 3} id="FRUITBOWL-hexpattern" stroke="oklch(1 50% 150)" />
 	</defs>
 	<Background {size} fill="oklch(0.2 0 0)" />
+	<Background {size} fill="url(#FRUITBOWL-hexpattern)" />
 	<Background {size} filter="url(#FRUITBOWL-space" />
 	<g id="fruitbowl" filter="url(#FRUITBOWL-glow)">
 		{#each fruitCircles2 as c}
