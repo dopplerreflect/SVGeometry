@@ -12,8 +12,6 @@
 	import {
 		anglesArray,
 		phi,
-		phylotaxicPoints,
-		pythag,
 		pythag2,
 		radialPoint,
 		radialPointString,
@@ -26,12 +24,6 @@
 	const ix = (r - r * phi) / 2;
 	const cx = r - ix;
 	const iy = pythag2(r, cx);
-	const circles: Circle[] = [
-		{ r, x: -cx, y: 0 },
-		{ r: r * phi, x: -cx, y: 0 },
-		{ r, x: cx, y: 0 },
-		{ r: r * phi, x: cx, y: 0 }
-	];
 	const angles = anglesArray(10, 0);
 	const paths: string[] = [
 		`M${radialPointString(angles[4], r, {
