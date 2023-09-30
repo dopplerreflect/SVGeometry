@@ -76,26 +76,18 @@
 			.reverse()
 			.map((p) => ({ ...p, x: -p.x }))
 	);
-	const ellipsePoints2: Point[] = ellipsePoints.map((p) => ({ ...p, y: -p.y }));
-	const lineArray: Line[] = ellipsePoints.map((p, i) => [
-		p,
-		ellipsePoints2[(i + 5) % ellipsePoints.length]
-	]);
-	const ellipseLineArray: Line[] = ellipsePoints.map(
-		(p, i) => [p, ellipsePoints[(i + 1) % ellipsePoints.length]] as Line
-	);
-	const ellipseLineArray2: Line[] = ellipsePoints2.map(
-		(p, i) => [p, ellipsePoints2[(i + 1) % ellipsePoints2.length]] as Line
-	);
+	const ellipsePoints2: Point[] = ellipsePoints.map((p) => ({ x: -p.x, y: -p.y }));
 	const paths: string[] = ellipsePoints.map(
 		(p, i) =>
-			`M${pointToString(p)}L${pointToString(ellipsePoints2[(i + 5) % 20])}L${pointToString(
-				ellipsePoints2[(i + 6) % 20]
-			)}L${pointToString(ellipsePoints[(i + 1) % 20])}Z`
+			`M${pointToString(ellipsePoints[(i + 0) % 20])}L${pointToString(
+				ellipsePoints2[(i + 4) % 20]
+			)}L${pointToString(ellipsePoints2[(i + 5) % 20])}L${pointToString(
+				ellipsePoints[(i + 1) % 20]
+			)}Z`
 	);
 </script>
 
-<DopplerSvg {id} {size}>
+<DopplerSvg {id} {size} style={`stroke-width: ${size / 1024}`}>
 	<defs>
 		<style>
 			svg#ELLIPSETUBE {
@@ -121,21 +113,7 @@
 	{#each vpr as p}
 		<circle r={2} cx={p.x} cy={p.y} />
 	{/each}
-	{#each cpl as p}
-		<circle r={4} cx={p.x} cy={p.y} />
-	{/each} -->
-	<!-- <LineWithLegend lineArray={ellipseLines} /> -->
-	<!-- {#each ellipsePoints as p, i}
-		<circle r={4} cx={p.x} cy={p.y} />
-		<text x={p.x} y={p.y}>{i}</text>
-	{/each}
-	{#each ellipsePoints2 as p, i}
-		<circle r={4} cx={p.x} cy={p.y} />
-		<text x={p.x} y={p.y}>{i}</text>
-	{/each} -->
-	<!-- <LineWithLegend {lineArray} />
-	<LineWithLegend lineArray={ellipseLineArray} />
-	<LineWithLegend lineArray={ellipseLineArray2} /> -->
+	<LineWithLegend lineArray={ellipseLines} /> -->
 	{#each paths as d, i}
 		<path {d} style={`stroke:oklch(1 100% ${(360 / 20) * i} / 1);fill:oklch(0.0 0 0 / 0.2)`} />
 	{/each}
