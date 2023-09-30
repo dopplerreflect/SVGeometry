@@ -11,6 +11,7 @@
 	export let id: string;
 
 	export let size: number = 2 ** 10;
+	export let style: string = '';
 	export let zoom: number = 0;
 	export let xPan: number = 0;
 	export let yPan: number = 0;
@@ -44,7 +45,7 @@
 	});
 </script>
 
-<svg bind:this={svg} {id} viewBox={viewBox ? viewBox : vb(size)} width="100%" height="100%">
+<svg bind:this={svg} {id} viewBox={viewBox ? viewBox : vb(size)} width="100%" height="100%" {style}>
 	<slot />
 	<DrLogo {...mergedLogoProps} />
 </svg>
