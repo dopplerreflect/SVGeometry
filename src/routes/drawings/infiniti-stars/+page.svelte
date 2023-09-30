@@ -79,91 +79,112 @@
 				}
 			}
 		</style>
+		<mask id="INFINITISTARS-mask">
+			<Background {size} fill="black" />
+			<rect
+				x={(-size / 2) * 0.975}
+				y={(-size / 2) * 0.975}
+				width={size * 0.975}
+				height={size * 0.975}
+				rx={r * phi ** 3}
+				style="fill:white;"
+			/>
+		</mask>
 	</defs>
 	<Background {size} fill="oklch(0.1 100% 300)" />
 
-	{#each angles.slice(0, 8) as a, i}
-		<path
-			d={`M${radialPointString(angles20[(i + 13) % 20] + 4.5 * i, size)} ${radialPointString(
-				angles[(i + 5) % 10],
-				r,
-				{
+	<g mask="url(#INFINITISTARS-mask)">
+		{#each angles.slice(0, 8) as a, i}
+			<path
+				d={`M${radialPointString(angles20[(i + 13) % 20] + 4.5 * i, size)} ${radialPointString(
+					angles[(i + 5) % 10],
+					r,
+					{
+						center: radialPoint(-36, cx)
+					}
+				)}A${r} ${r} 0 0 1 ${radialPointString(angles[(i + 6) % 10], r, {
 					center: radialPoint(-36, cx)
-				}
-			)}A${r} ${r} 0 0 1 ${radialPointString(angles[(i + 6) % 10], r, {
-				center: radialPoint(-36, cx)
-			})}L${radialPointString(angles20[(i + 14) % 20] + 4.5 + 4.5 * i, size)}Z`}
-			style={`fill:oklch(0.66 75% ${342 - (360 / 20) * i});stroke-width:5;`}
-		/>
-	{/each}
+				})}L${radialPointString(angles20[(i + 14) % 20] + 4.5 + 4.5 * i, size)}Z`}
+				style={`fill:oklch(0.66 75% ${342 - (360 / 20) * i});stroke-width:5;`}
+			/>
+		{/each}
 
-	{#each angles.slice(0, 8) as a, i}
-		<path
-			d={`M${radialPointString(angles20[(i + 23) % 20] + 4.5 * i, size)} ${radialPointString(
-				angles[i % 10],
-				r,
-				{
+		{#each angles.slice(0, 8) as a, i}
+			<path
+				d={`M${radialPointString(angles20[(i + 23) % 20] + 4.5 * i, size)} ${radialPointString(
+					angles[i % 10],
+					r,
+					{
+						center: radialPoint(-36, -cx)
+					}
+				)}A${r} ${r} 0 0 1 ${radialPointString(angles[(i + 1) % 10], r, {
 					center: radialPoint(-36, -cx)
-				}
-			)}A${r} ${r} 0 0 1 ${radialPointString(angles[(i + 1) % 10], r, {
-				center: radialPoint(-36, -cx)
-			})}L${radialPointString(angles20[(i + 24) % 20] + 4.5 + 4.5 * i, size)}Z`}
-			style={`fill:oklch(0.66 75% ${36 + (360 / 20) * i} / 1);stroke-width:5;`}
-		/>
-	{/each}
+				})}L${radialPointString(angles20[(i + 24) % 20] + 4.5 + 4.5 * i, size)}Z`}
+				style={`fill:oklch(0.66 75% ${36 + (360 / 20) * i} / 1);stroke-width:5;`}
+			/>
+		{/each}
 
-	<g transform="rotate(-36)">
-		{#each angles as a, i}
+		<g transform="rotate(-36)">
+			{#each angles as a, i}
+				<path
+					d={`M${ix} 0L${radialPointString(a + 180, r * phi, { center: { x: cx, y: 0 } })}A${
+						r * phi
+					} ${r * phi} 0 0 1 ${radialPointString(a + 216, r * phi, { center: { x: cx, y: 0 } })}Z`}
+					style={`stroke-width:3;fill:oklch(0.66 75% ${18 + (360 / paths.length) * i})`}
+				/>
+			{/each}
+			{#each angles as a, i}
+				<path
+					d={`M${-ix} 0L${radialPointString(a, r * phi, { center: { x: -cx, y: 0 } })}A${r * phi} ${
+						r * phi
+					} 0 0 1 ${radialPointString(a + 36, r * phi, { center: { x: -cx, y: 0 } })}Z`}
+					style={`stroke-width:3;fill:oklch(0.66 75% ${360 - (360 / paths.length) * i})`}
+				/>
+			{/each}
+
+			{#each paths as d, i}
+				<path
+					{d}
+					class="segment"
+					style={`fill:oklch(0.75 75% ${180 + (360 / paths.length) * i} / 1)`}
+				/>
+			{/each}
+
+			{#each angles.slice(0, 9) as a, i}
+				<path
+					class="star"
+					d={starPath(r * phi ** 4, {
+						rotate: i % 2 === 1 ? 180 : 0,
+						center: radialPoint(a + 198, cx, { center: { x: cx, y: 0 } })
+					})}
+				/>
+			{/each}
+			{#each angles.slice(0, 9) as a, i}
+				<path
+					class="star"
+					d={starPath(r * phi ** 4, {
+						rotate: i % 2 === 0 ? 180 : 0,
+						center: radialPoint(a + 18, cx, { center: { x: -cx, y: 0 } })
+					})}
+				/>
+			{/each}
+
 			<path
-				d={`M${ix} 0L${radialPointString(a + 180, r * phi, { center: { x: cx, y: 0 } })}A${
+				d={`M0 ${-iy}A${r} ${r} 0 1 0 ${ix} 0A${r * phi} ${
 					r * phi
-				} ${r * phi} 0 0 1 ${radialPointString(a + 216, r * phi, { center: { x: cx, y: 0 } })}Z`}
-				style={`stroke:black;stroke-width:3;fill:oklch(0.66 75% ${18 + (360 / paths.length) * i})`}
-			/>
-		{/each}
-		{#each angles as a, i}
-			<path
-				d={`M${-ix} 0L${radialPointString(a, r * phi, { center: { x: -cx, y: 0 } })}A${r * phi} ${
+				} 0 1 1 ${ix} 0.1A${r} ${r} 0 0 1 0 ${iy}A${r} ${r} 0 1 0 ${-ix} 0A${r * phi} ${
 					r * phi
-				} 0 0 1 ${radialPointString(a + 36, r * phi, { center: { x: -cx, y: 0 } })}Z`}
-				style={`stroke:black;stroke-width:3;fill:oklch(0.66 75% ${360 - (360 / paths.length) * i})`}
+				} 0 1 0 ${-ix} 0.1A${r} ${r} 0 0 1 0 ${-iy}Z`}
+				class="infinity"
 			/>
-		{/each}
-
-		{#each paths as d, i}
-			<path
-				{d}
-				class="segment"
-				style={`fill:oklch(0.75 75% ${180 + (360 / paths.length) * i} / 1)`}
-			/>
-		{/each}
-
-		{#each angles.slice(0, 9) as a, i}
-			<path
-				class="star"
-				d={starPath(r * phi ** 4, {
-					rotate: i % 2 === 1 ? 180 : 0,
-					center: radialPoint(a + 198, cx, { center: { x: cx, y: 0 } })
-				})}
-			/>
-		{/each}
-		{#each angles.slice(0, 9) as a, i}
-			<path
-				class="star"
-				d={starPath(r * phi ** 4, {
-					rotate: i % 2 === 0 ? 180 : 0,
-					center: radialPoint(a + 18, cx, { center: { x: -cx, y: 0 } })
-				})}
-			/>
-		{/each}
-
-		<path
-			d={`M0 ${-iy}A${r} ${r} 0 1 0 ${ix} 0A${r * phi} ${
-				r * phi
-			} 0 1 1 ${ix} 0.1A${r} ${r} 0 0 1 0 ${iy}A${r} ${r} 0 1 0 ${-ix} 0A${r * phi} ${
-				r * phi
-			} 0 1 0 ${-ix} 0.1A${r} ${r} 0 0 1 0 ${-iy}Z`}
-			class="infinity"
-		/>
+		</g>
 	</g>
+	<rect
+		x={(-size / 2) * 0.975}
+		y={(-size / 2) * 0.975}
+		width={size * 0.975}
+		height={size * 0.975}
+		rx={r * phi ** 3}
+		style="fill:none;stroke:white;stroke-width:5;"
+	/>
 </DopplerSvg>
