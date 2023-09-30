@@ -10,6 +10,7 @@
 	import Background from '$lib/components/Background.svelte';
 	import DopplerSvg from '$lib/components/DopplerSVG.svelte';
 	import {
+		SQRT3,
 		anglesArray,
 		phi,
 		pythag2,
@@ -20,11 +21,12 @@
 
 	const id = 'INFINITISTAR';
 	const size = 2 ** 10;
-	const r = (size / 4) * 1.2;
+	const r = (size / 4) * 1.1;
 	const ix = (r - r * phi) / 2;
 	const cx = r - ix;
 	const iy = pythag2(r, cx);
 	const angles = anglesArray(10, 0);
+	const angles20 = anglesArray(20, 0);
 	const paths: string[] = [
 		`M${radialPointString(angles[4], r, {
 			center: { x: cx, y: 0 }
@@ -79,6 +81,36 @@
 		</style>
 	</defs>
 	<Background {size} fill="oklch(0.1 100% 300)" />
+
+	{#each angles.slice(0, 8) as a, i}
+		<path
+			d={`M${radialPointString(angles20[(i + 13) % 20] + 4.5 * i, size)} ${radialPointString(
+				angles[(i + 5) % 10],
+				r,
+				{
+					center: radialPoint(-36, cx)
+				}
+			)}A${r} ${r} 0 0 1 ${radialPointString(angles[(i + 6) % 10], r, {
+				center: radialPoint(-36, cx)
+			})}L${radialPointString(angles20[(i + 14) % 20] + 4.5 + 4.5 * i, size)}Z`}
+			style={`fill:oklch(0.66 75% ${342 - (360 / 20) * i});stroke-width:5;`}
+		/>
+	{/each}
+
+	{#each angles.slice(0, 8) as a, i}
+		<path
+			d={`M${radialPointString(angles20[(i + 23) % 20] + 4.5 * i, size)} ${radialPointString(
+				angles[i % 10],
+				r,
+				{
+					center: radialPoint(-36, -cx)
+				}
+			)}A${r} ${r} 0 0 1 ${radialPointString(angles[(i + 1) % 10], r, {
+				center: radialPoint(-36, -cx)
+			})}L${radialPointString(angles20[(i + 24) % 20] + 4.5 + 4.5 * i, size)}Z`}
+			style={`fill:oklch(0.66 75% ${36 + (360 / 20) * i} / 1);stroke-width:5;`}
+		/>
+	{/each}
 
 	<g transform="rotate(-36)">
 		{#each angles as a, i}
