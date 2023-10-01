@@ -11,11 +11,18 @@
 	import DopplerSvg from '$lib/components/DopplerSVG.svelte';
 	import GridPattern from '$lib/components/GridPattern.svelte';
 	import LineWithLegend from '$lib/components/LineWithLegend.svelte';
-	import { anglesArray, pathFromIntersectionsOfLines, phi, radialPoint } from '$lib/geometry';
+	import {
+		anglesArray,
+		pathFromIntersectionsOfLines,
+		phi,
+		radialPoint,
+		viewBox
+	} from '$lib/geometry';
 
 	const id = 'BP-DODECA';
-	const size = 2 ** 10;
-	const r = (size / 4) * 0.95;
+	const width = 1920;
+	const height = 1080;
+	const r = (width / 4) * 0.95;
 	const angles = anglesArray(10, 0);
 	const circles: Circle[] = [
 		...[-r, 0, r].map((x) => [...[r, r * phi].map((r) => ({ r, x, y: 0 }))])
@@ -48,7 +55,11 @@
 	];
 </script>
 
-<DopplerSvg {id} {size}>
+<DopplerSvg
+	{id}
+	viewBox={viewBox(width, height)}
+	logoProps={{ transform: `translate(${(width / 2) * 0.92}, ${(height / 2) * 0.92})` }}
+>
 	<defs>
 		<style>
 			svg#BP-DODECA {
@@ -70,8 +81,8 @@
 		</style>
 		<GridPattern id="bp-dodeca-grid" size={r} stroke="oklch(0.5 100% 300)" />
 	</defs>
-	<Background {size} fill="oklch(0 100% 300)" />
-	<Background {size} fill="url(#bp-dodeca-grid)" />
+	<Background {width} {height} fill="oklch(0 100% 300)" />
+	<Background {width} {height} fill="url(#bp-dodeca-grid)" />
 	{#each circles as c}
 		<circle r={c.r} cx={c.x} cy={c.y} />
 	{/each}
