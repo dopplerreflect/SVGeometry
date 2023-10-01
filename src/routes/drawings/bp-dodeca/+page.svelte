@@ -15,13 +15,15 @@
 		anglesArray,
 		pathFromIntersectionsOfLines,
 		phi,
+		pythag,
 		radialPoint,
 		viewBox
 	} from '$lib/geometry';
 
 	const id = 'BP-DODECA';
-	const width = 1920;
-	const height = 1080;
+	const square = true;
+	const width = square ? 2 ** 10 : 1920;
+	const height = square ? 2 ** 10 : 1080;
 	const r = (width / 4) * 0.95;
 	const angles = anglesArray(10, 0);
 	const circles: Circle[] = [
@@ -53,6 +55,7 @@
 		pathFromIntersectionsOfLines(['M', ...[3, 4, 10, 19, 14, 3].map((i) => lineArray[i]), 'Z']),
 		pathFromIntersectionsOfLines(['M', ...[1, 2, 14, 18, 13, 1].map((i) => lineArray[i]), 'Z'])
 	];
+	const r2 = pythag(r, r / 2);
 </script>
 
 <DopplerSvg
@@ -73,9 +76,12 @@
 				& line {
 					stroke: oklch(1 0% 150);
 				}
-				& line.bg {
-					stroke: oklch(1 0% 300);
-					stroke-dasharray: 3 5;
+				& .bg {
+					stroke: oklch(0.5 0% 300);
+				}
+				& .dashed {
+					stroke: oklch(0.75 0% 300);
+					stroke-dasharray: 3 8;
 				}
 			}
 		</style>
@@ -92,10 +98,12 @@
 			<path {d} style={`fill:oklch(${1 - (0.15 + 0.15 * i)} 50% 300 / 0.1)`} />
 		{/each}
 	</g>
-	{#each lineArray as l}
-		<LineWithLegend {lineArray} />
-	{/each}
+	<LineWithLegend {lineArray} />
 	{#each paths as d, i}
 		<path {d} style={`fill:oklch(${1 - (0.15 + 0.15 * i)} 100% 300 / 0.25)`} />
 	{/each}
+	<path d={`M${0} ${-r} ${-r / 2} 0`} class="dashed" />
+	<path d={`M${0} ${-r}A${r2} ${r2} 0 0 1 ${r * phi} 0`} class="dashed" />
+	<!-- <path d={`M${r} ${-r} ${r / 2} 0`} class="dashed" /> -->
+	<!-- <path d={`M${r} ${-r}A${r2} ${r2} 0 0 1 ${r + r * phi} 0`} class="dashed" /> -->
 </DopplerSvg>
