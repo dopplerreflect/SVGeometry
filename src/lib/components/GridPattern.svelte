@@ -1,14 +1,15 @@
 <script>
 	import { arrayMap } from '$lib/geometry';
 
-	export let size = 100,
+	export let id = 'gridPattern',
+		size = 100,
 		stroke = 'oklch(1 0 0)',
 		strokeWidth = 1;
 
 	const ticks = arrayMap(9, (n) => (size / 10) * (n + 1));
 </script>
 
-<pattern id="gridPattern" width={size} height={size} patternUnits="userSpaceOnUse">
+<pattern {id} width={size} height={size} patternUnits="userSpaceOnUse">
 	<path
 		d={`M0 0h${size}v${size}h${-size}Z`}
 		style={`stroke-width:${strokeWidth};stroke:${stroke}`}
