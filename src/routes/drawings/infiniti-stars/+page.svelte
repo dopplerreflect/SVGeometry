@@ -1,8 +1,8 @@
 <script context="module" lang="ts">
 	export let metadata: DrawingMetadata = {
 		tags: [],
-		created_at: new Date(),
-		updated_at: new Date()
+		created_at: new Date(2023, 8, 30, 9),
+		updated_at: new Date(2023, 8, 30, 17)
 	};
 </script>
 
@@ -10,7 +10,6 @@
 	import Background from '$lib/components/Background.svelte';
 	import DopplerSvg from '$lib/components/DopplerSVG.svelte';
 	import {
-		SQRT3,
 		anglesArray,
 		phi,
 		pythag2,
@@ -22,38 +21,41 @@
 	const id = 'INFINITISTAR';
 	const size = 2 ** 10;
 	const r = (size / 4) * 1.1;
-	const ix = (r - r * phi) / 2;
+	const r2 = r * phi;
+	const ix = (r - r2) / 2;
 	const cx = r - ix;
 	const iy = pythag2(r, cx);
+	const cr = { x: cx, y: 0 };
+	const cl = { x: -cx, y: 0 };
 	const angles = anglesArray(10, 0);
 	const angles20 = anglesArray(20, 0);
 	const paths: string[] = [
 		`M${radialPointString(angles[4], r, {
-			center: { x: cx, y: 0 }
+			center: cr
 		})}A${r} ${r} 0 0 1 ${radialPointString(angles[5], r, {
-			center: { x: cx, y: 0 }
-		})}L${radialPointString(angles[5], r * phi, { center: { x: cx, y: 0 } })}A${r * phi} ${
-			r * phi
-		} 0 0 0 ${radialPointString(angles[4], r * phi, { center: { x: cx, y: 0 } })}`,
+			center: cr
+		})}L${radialPointString(angles[5], r2, {
+			center: cr
+		})}A${r2} ${r2} 0 0 0 ${radialPointString(angles[4], r2, { center: cr })}`,
 		...angles.slice(0, 10).map(
 			(a, i) =>
 				`M${radialPointString(-a, r, {
-					center: { x: -cx, y: 0 }
+					center: cl
 				})}A${r} ${r} 0 0 0 ${radialPointString(-angles[(i + 1) % 10], r, {
-					center: { x: -cx, y: 0 }
-				})}L${radialPointString(-angles[(i + 1) % 10], r * phi, { center: { x: -cx, y: 0 } })}A${
-					r * phi
-				} ${r * phi} 0 0 1 ${radialPointString(-a, r * phi, { center: { x: -cx, y: 0 } })}Z`
+					center: cl
+				})}L${radialPointString(-angles[(i + 1) % 10], r2, {
+					center: cl
+				})}A${r2} ${r2} 0 0 1 ${radialPointString(-a, r2, { center: cl })}Z`
 		),
 		...angles.slice(0, 9).map(
 			(a, i) =>
 				`M${radialPointString(a - 180, r, {
-					center: { x: cx, y: 0 }
+					center: cr
 				})}A${r} ${r} 0 0 1 ${radialPointString(angles[(i + 6) % 10], r, {
-					center: { x: cx, y: 0 }
-				})}L${radialPointString(angles[(i + 6) % 10], r * phi, { center: { x: cx, y: 0 } })}A${
-					r * phi
-				} ${r * phi} 0 0 0 ${radialPointString(a + 180, r * phi, { center: { x: cx, y: 0 } })}Z`
+					center: cr
+				})}L${radialPointString(angles[(i + 6) % 10], r2, {
+					center: cr
+				})}A${r2} ${r2} 0 0 0 ${radialPointString(a + 180, r2, { center: cr })}Z`
 		)
 	];
 </script>
@@ -66,9 +68,6 @@
 				path:not(.Background) {
 					stroke: black;
 					fill: none;
-				}
-				& path.infinity {
-					stroke-width: 5;
 				}
 				& path.segment {
 					stroke-width: 5;
@@ -127,17 +126,17 @@
 		<g transform="rotate(-36)">
 			{#each angles as a, i}
 				<path
-					d={`M${ix} 0L${radialPointString(a + 180, r * phi, { center: { x: cx, y: 0 } })}A${
-						r * phi
-					} ${r * phi} 0 0 1 ${radialPointString(a + 216, r * phi, { center: { x: cx, y: 0 } })}Z`}
+					d={`M${ix} 0L${radialPointString(a + 180, r2, {
+						center: cr
+					})}A${r2} ${r2} 0 0 1 ${radialPointString(a + 216, r2, { center: cr })}Z`}
 					style={`stroke-width:3;fill:oklch(0.66 75% ${18 + (360 / paths.length) * i})`}
 				/>
 			{/each}
 			{#each angles as a, i}
 				<path
-					d={`M${-ix} 0L${radialPointString(a, r * phi, { center: { x: -cx, y: 0 } })}A${r * phi} ${
-						r * phi
-					} 0 0 1 ${radialPointString(a + 36, r * phi, { center: { x: -cx, y: 0 } })}Z`}
+					d={`M${-ix} 0L${radialPointString(a, r2, {
+						center: cl
+					})}A${r2} ${r2} 0 0 1 ${radialPointString(a + 36, r2, { center: cl })}Z`}
 					style={`stroke-width:3;fill:oklch(0.66 75% ${360 - (360 / paths.length) * i})`}
 				/>
 			{/each}
@@ -155,7 +154,7 @@
 					class="star"
 					d={starPath(r * phi ** 4, {
 						rotate: i % 2 === 1 ? 180 : 0,
-						center: radialPoint(a + 198, cx, { center: { x: cx, y: 0 } })
+						center: radialPoint(a + 198, cx, { center: cr })
 					})}
 				/>
 			{/each}
@@ -164,19 +163,10 @@
 					class="star"
 					d={starPath(r * phi ** 4, {
 						rotate: i % 2 === 0 ? 180 : 0,
-						center: radialPoint(a + 18, cx, { center: { x: -cx, y: 0 } })
+						center: radialPoint(a + 18, cx, { center: cl })
 					})}
 				/>
 			{/each}
-
-			<path
-				d={`M0 ${-iy}A${r} ${r} 0 1 0 ${ix} 0A${r * phi} ${
-					r * phi
-				} 0 1 1 ${ix} 0.1A${r} ${r} 0 0 1 0 ${iy}A${r} ${r} 0 1 0 ${-ix} 0A${r * phi} ${
-					r * phi
-				} 0 1 0 ${-ix} 0.1A${r} ${r} 0 0 1 0 ${-iy}Z`}
-				class="infinity"
-			/>
 		</g>
 	</g>
 	<rect
