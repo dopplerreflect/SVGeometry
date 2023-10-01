@@ -1,8 +1,8 @@
 <script context="module" lang="ts">
 	export let metadata: DrawingMetadata = {
 		tags: [],
-		created_at: new Date(),
-		updated_at: new Date()
+		created_at: new Date(2023, 9, 1, 14),
+		updated_at: new Date(2023, 9, 1, 14)
 	};
 </script>
 
@@ -16,10 +16,10 @@
 		phi,
 		radialPointString,
 		Phi,
-		SQRT3,
 		circleIntersections,
 		pythag,
-		pointToString
+		pointToString,
+		starPath
 	} from '$lib/geometry';
 
 	const id = 'THREERING';
