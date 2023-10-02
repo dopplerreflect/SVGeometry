@@ -18,8 +18,7 @@
 		Phi,
 		circleIntersections,
 		pythag,
-		pointToString,
-		starPath
+		pointToString
 	} from '$lib/geometry';
 
 	const id = 'THREERING';
@@ -43,7 +42,7 @@
 		radii[0]
 	} 0 0 0 ${radialPointString(angles[28], r5)}A${radii[1]} ${
 		radii[1]
-	} 0 0 0 0 0M${radialPointString(angles[53], r2)}A${radii[1]} ${
+	} 0 0 0 0 0ZM${radialPointString(angles[53], r2)}A${radii[1]} ${
 		radii[1]
 	} 0 1 1 ${radialPointString(angles[12], r5)}A${radii[0]} ${radii[0]} 0 0 1 ${pointToString(
 		circleIntersections(circles[0], circles[4])[0]
@@ -92,12 +91,30 @@
 	<g mask="url(#threering-mask)">
 		<LineWithLegend {lineArray} style={`stroke-width:${r * phi ** 8}`} />
 	</g>
-	{#each anglesArray(3, 0) as a, i}
-		<path
-			d={path}
-			class="c"
-			transform={`rotate(${a})`}
-			style={`fill:oklch(0.5 100% ${30 + 120 * i} / 0.5);stroke-width:${r * phi ** 8}`}
-		/>
-	{/each}
+	<g id="rings">
+		{#each anglesArray(3, 0) as a, i}
+			<path
+				d={path}
+				class="c"
+				transform={`rotate(${a})`}
+				style={`fill:oklch(0.5 100% ${30 + 120 * i} / 0.5);stroke-width:${
+					r * phi ** 8
+				};stroke-linejoin:bevel;`}
+			/>
+		{/each}
+	</g>
 </DopplerSvg>
+
+<style>
+	@keyframes fader {
+		from {
+			opacity: 0;
+		}
+		to {
+			opacity: 1;
+		}
+	}
+	#rings {
+		animation: fader 6s ease-in-out 0s infinite alternate both;
+	}
+</style>
