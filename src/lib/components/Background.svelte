@@ -5,6 +5,7 @@
 	export let fill: string = 'black';
 	export let transform: string | null = null;
 	export let filter: string | null = null;
+	export let mask = '';
 </script>
 
 <path
@@ -13,4 +14,5 @@
 	{fill}
 	{transform}
 	{filter}
+	{mask}
 />
