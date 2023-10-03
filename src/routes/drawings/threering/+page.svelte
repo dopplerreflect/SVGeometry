@@ -89,7 +89,9 @@
 	</defs>
 	<Background {size} fill="url(#threering-gradient)" />
 	<g mask="url(#threering-mask)">
-		<LineWithLegend {lineArray} style={`stroke-width:${r * phi ** 8}`} />
+		<g id="rotater">
+			<LineWithLegend {lineArray} style={`stroke-width:${r * phi ** 8};`} />
+		</g>
 	</g>
 	<g id="rings">
 		{#each anglesArray(3, 0) as a, i}
@@ -114,7 +116,18 @@
 			opacity: 1;
 		}
 	}
+	@keyframes rotater {
+		from {
+			transform: rotate(0deg);
+		}
+		to {
+			transform: rotate(6deg);
+		}
+	}
 	#rings {
 		animation: fader 6s ease-in-out 0s infinite alternate both;
+	}
+	#rotater {
+		animation: rotater 3s linear 0s infinite;
 	}
 </style>
