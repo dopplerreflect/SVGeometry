@@ -218,9 +218,11 @@ export const lineToPath = (line: Line): string =>
 export const pointToString = (p: Point): string => `${p.x} ${p.y}`;
 
 export const midpoint = (l: Line): Point => ({
-	x: (l[0].x + l[1].x) / 2,
-	y: (l[0].y + l[1].y) / 2
+	x: (l[0].x + l[1].x) * 0.5,
+	y: (l[0].y + l[1].y) * 0.5
 });
+
+export const quarterPoint = (l: Line): Point => midpoint([l[0], midpoint(l)]);
 
 export const slope = (l: Line): number => (l[1].y - l[0].y) / (l[1].x - l[0].x);
 
