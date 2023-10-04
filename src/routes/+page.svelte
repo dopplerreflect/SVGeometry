@@ -5,7 +5,7 @@
 
 	const allDrawings = get(drawingsStore);
 	const tags = ['', ...new Set([...allDrawings.map((d) => d.module.metadata.tags).flat()])].sort();
-	allDrawings.sort((b, a) => a.module.metadata.created_at - b.module.metadata.created_at);
+	allDrawings.sort((b, a) => a.module.metadata.updated_at - b.module.metadata.updated_at);
 
 	let nav: HTMLElement;
 	let drawings = allDrawings;
