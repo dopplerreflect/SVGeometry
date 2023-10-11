@@ -304,3 +304,14 @@ export const lerp = (start: number, end: number, t: number) => start + (end - st
 export const interpolate = (divs: number): number[] => {
 	return [0, ...[...Array(divs).keys()].map((k) => (1 / divs) * (k + 1))];
 };
+
+export const linePoints = (line: Line, segments: number, includeEnd = false): Point[] => {
+	let xDelta = (line[1].x - line[0].x) / segments;
+	let yDelta = (line[1].y - line[0].y) / segments;
+	const points = [];
+	const end = includeEnd ? segments + 1 : segments;
+	for (let i = 0; i < end; i++) {
+		points.push({ x: line[0].x + i * xDelta, y: line[0].y + i * yDelta });
+	}
+	return points;
+};
