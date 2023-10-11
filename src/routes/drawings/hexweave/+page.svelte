@@ -9,13 +9,14 @@
 <script lang="ts">
 	import Background from '$lib/components/Background.svelte';
 	import DopplerSvg from '$lib/components/DopplerSVG.svelte';
+	import HexPattern from '$lib/components/HexPattern.svelte';
 	import LineWithLegend from '$lib/components/LineWithLegend.svelte';
-	import { anglesArray, linePoints, pathFromPoints, radialPoint } from '$lib/geometry';
+	import { SQRT3, anglesArray, linePoints, pathFromPoints, phi, radialPoint } from '$lib/geometry';
 
 	const id = 'HEXWEAVE';
 	const size = 2 ** 10;
 	const angles = anglesArray(6, 0);
-	const r = (size / 2) * 0.95;
+	const r = size / 2;
 	const outerHex: Line[] = [
 		...angles.map((a, i) => [radialPoint(a, r), radialPoint(angles[(i + 1) % 6], r)] as Line)
 	];
@@ -51,7 +52,7 @@
 			svg#HEXWEAVE {
 				& circle,
 				line {
-					stroke: oklch(0.5 0 0);
+					stroke: oklch(1 100% 330);
 					fill: none;
 				}
 				& text {
@@ -62,7 +63,7 @@
 					stroke: oklch(1 100% 150);
 				}
 				& line.fill {
-					stroke: oklch(1 100% 150);
+					stroke: oklch(1 100% 210);
 				}
 				& path.outer {
 					fill: oklch(0.1 100% 210);
@@ -70,20 +71,33 @@
 				}
 			}
 		</style>
+		<HexPattern id="hexweave-hexpattern" size={r / 12} stroke="oklch(0.5 50% 300)" />
 	</defs>
 	<Background {size} fill="oklch(0.1 50% 300)" />
-	{#each outerHexPoints as p, i}
-		<circle r={10} cx={p.x} cy={p.y} />
+	<Background {size} fill="url(#hexweave-hexpattern" />
+	{#each p as p, i}
+		<!-- <text x={p.x} y={p.y} text-anchor="middle" alignment-baseline="middle">{i}</text> -->
+		<circle r={r / 48} cx={p.x} cy={p.y} />
 	{/each}
-	{#each [0, 60, 120] as a}
+	<!-- {#each outerHexPoints as p, i}
+		<circle r={10} cx={p.x} cy={p.y} />
+	{/each} -->
+	<!-- {#each [0, 60, 120] as a}
 		<g transform={`rotate(${a})`}>
 			<LineWithLegend lineArray={hexDivisionLines} />
+		</g>
+	{/each} -->
+	{#each angles as a}
+		<g transform={`rotate(${a})`}>
+			{#each paths.slice(0, 1) as d, i}
+				<path {d} class="outer" />
+			{/each}
 		</g>
 	{/each}
 	{#each angles as a}
 		<g transform={`rotate(${a})`}>
-			{#each paths as d, i}
-				<path {d} class={i > 0 ? 'outer' : 'inner'} />
+			{#each paths.slice(1, 4) as d, i}
+				<path {d} />
 			{/each}
 		</g>
 	{/each}
@@ -93,7 +107,4 @@
 			<line x1={p[86].x} y1={p[86].y} x2={p[85].x} y2={p[85].y} class="fill" />
 		</g>
 	{/each}
-	<!-- {#each p as p, i}
-		<text x={p.x} y={p.y} text-anchor="middle" alignment-baseline="middle">{i}</text>
-	{/each} -->
 </DopplerSvg>
