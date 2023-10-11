@@ -12,44 +12,43 @@
 	import LineWithLegend from '$lib/components/LineWithLegend.svelte';
 	import { anglesArray, linePoints, pathFromPoints, radialPoint } from '$lib/geometry';
 
-	const id = 'TEMPLATE';
+	const id = 'HEXWEAVE';
 	const size = 2 ** 10;
 	const angles = anglesArray(6, 0);
 	const r = (size / 2) * 0.95;
 	const outerHex: Line[] = [
 		...angles.map((a, i) => [radialPoint(a, r), radialPoint(angles[(i + 1) % 6], r)] as Line)
 	];
-	const outerHexPoints: Point[] = outerHex.map((l, i) => linePoints(l, 10)).flat();
+	const outerHexPoints: Point[] = outerHex.map((l, i) => linePoints(l, 12)).flat();
 
 	const hexDivisionLines = outerHexPoints
-		.slice(0, 21)
-		.map((p, i) => [p, outerHexPoints[50 - (i % 30)]] as Line);
-	const xl2 = outerHexPoints
-		.slice(10, 31)
-		.map((p, i) => [p, outerHexPoints[(60 - (i % 30)) % 60]] as Line);
+		.slice(0, 25)
+		.map((p, i) => [p, outerHexPoints[60 - (i % 40)]] as Line);
 
 	// p: intersection points inside the hexagon
 	const p: Point[] = [
 		...hexDivisionLines
-			.slice(0, 11)
-			.map((l, i) => linePoints(l, 10 + i, true))
+			.slice(0, 13)
+			.map((l, i) => linePoints(l, 12 + i, true))
 			.flat(),
 		...hexDivisionLines
-			.slice(11)
+			.slice(13)
 			.reverse()
-			.map((l, i) => linePoints(l, 10 + i, true))
+			.map((l, i) => linePoints(l, 12 + i, true))
 			.flat()
 	];
 	const paths = [
-		pathFromPoints([80, 74, 91, 95, 130, 150].map((i) => p[i])),
-		pathFromPoints([].map((i) => p[i]))
+		pathFromPoints([242, 465, 466, 244, 72, 63, 80, 89, 243].map((i) => p[i])),
+		pathFromPoints([111, 105, 125, 129, 170, 193].map((i) => p[i])),
+		pathFromPoints([104, 103, 185, 184, 208, 209, 123, 124].map((i) => p[i])),
+		pathFromPoints([183, 181, 450, 427, 205, 207].map((i) => p[i]))
 	];
 </script>
 
 <DopplerSvg {id} {size}>
 	<defs>
 		<style>
-			svg#TEMPLATE {
+			svg#HEXWEAVE {
 				& circle,
 				line {
 					stroke: oklch(0.5 0 0);
@@ -59,24 +58,42 @@
 					fill: oklch(1 100% 90);
 				}
 				& path:not(.Background) {
-					stroke: oklch(0.5 100% 150);
-					fill: oklch(0.25 0 0);
+					fill: oklch(0.1 100% 150);
+					stroke: oklch(1 100% 150);
+				}
+				& line.fill {
+					stroke: oklch(1 100% 150);
+				}
+				& path.outer {
+					fill: oklch(0.1 100% 210);
+					stroke: oklch(1 100% 210);
 				}
 			}
 		</style>
 	</defs>
-	<Background {size} fill="oklch(0.33 0 0)" />
+	<Background {size} fill="oklch(0.1 50% 300)" />
+	{#each outerHexPoints as p, i}
+		<circle r={10} cx={p.x} cy={p.y} />
+	{/each}
+	{#each [0, 60, 120] as a}
+		<g transform={`rotate(${a})`}>
+			<LineWithLegend lineArray={hexDivisionLines} />
+		</g>
+	{/each}
 	{#each angles as a}
 		<g transform={`rotate(${a})`}>
-			{#each paths as d}
-				<path {d} />
+			{#each paths as d, i}
+				<path {d} class={i > 0 ? 'outer' : 'inner'} />
 			{/each}
 		</g>
 	{/each}
-	<!-- <LineWithLegend {lineArray} /> -->
-	{#each p as p, i}
-		<text x={p.x} y={p.y} alignment-baseline="middle" text-anchor="middle">{i}</text>
+	{#each angles as a}
+		<g transform={`rotate(${a})`}>
+			<line x1={p[68].x} y1={p[68].y} x2={p[67].x} y2={p[67].y} class="fill" />
+			<line x1={p[86].x} y1={p[86].y} x2={p[85].x} y2={p[85].y} class="fill" />
+		</g>
 	{/each}
-	<!-- <LineWithLegend lineArray={hexDivisionLines} /> -->
-	<!-- <LineWithLegend lineArray={xl2} /> -->
+	<!-- {#each p as p, i}
+		<text x={p.x} y={p.y} text-anchor="middle" alignment-baseline="middle">{i}</text>
+	{/each} -->
 </DopplerSvg>
