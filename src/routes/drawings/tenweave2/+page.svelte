@@ -65,7 +65,7 @@
 				}
 			}
 		</style>
-		<filter id="TENWEAVE2-bamboo-filter" filterUnits="">
+		<filter id="TENWEAVE2-bamboo-filter">
 			<feFlood flood-color="oklch(0.75 20% 80)" result="c" />
 			<feTurbulence type="fractalNoise" baseFrequency="0.01 1" />
 			<feColorMatrix
@@ -80,7 +80,7 @@
 			<feComposite in2="SourceGraphic" operator="in" result="wood" />
 		</filter>
 
-		<filter id="TENWEAVE2-walnut-filter" filterUnits="">
+		<filter id="TENWEAVE2-walnut-filter">
 			<feFlood flood-color="oklch(0.4 50% 75)" result="c" />
 			<feTurbulence type="fractalNoise" baseFrequency="0.001 1" />
 			<feColorMatrix
@@ -103,7 +103,7 @@
 		</filter>
 
 		{#each angles as a, i}
-			<filter id={`TENWEAVE-angle-wood-${a}`} filterUnits="">
+			<filter id={`TENWEAVE-angle-wood-${a}`}>
 				<feFlood flood-color={`oklch(${0.3 / (i % 2)} ${50 + i}% 75)`} result="c" />
 				<feTurbulence seed={i * 3} type="fractalNoise" baseFrequency={`0.5 0.001`} />
 				<feColorMatrix
