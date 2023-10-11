@@ -14,7 +14,7 @@
 	const id = 'TWO-FOLD-DODECA';
 	const size = 2 ** 10;
 	const angles = anglesArray(6);
-	const r = (size / 3) * 0.85;
+	const r = (size / 2) * 0.85 * phi;
 	const radii = [r, r * phi, r * phi ** 2];
 	const circles: Circle[] = [
 		...radii.map((r) => ({ r, x: 0, y: 0 })),

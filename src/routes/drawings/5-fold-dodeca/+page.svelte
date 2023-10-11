@@ -22,7 +22,7 @@
 	const size = 2 ** 10;
 	const angles10 = anglesArray(10, 0);
 	const angles = anglesArray(5, 180);
-	const r = (size / 2) * 0.95;
+	const r = (size / 2) * 0.85;
 	const radii = [r, r * phi, r * phi ** 2];
 	const circles: Circle[] = [
 		...radii.map((r) => ({ r, x: 0, y: 0 })),
