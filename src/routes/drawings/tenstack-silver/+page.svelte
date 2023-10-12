@@ -1,8 +1,8 @@
 <script context="module" lang="ts">
 	export let metadata: DrawingMetadata = {
 		tags: [],
-		created_at: new Date(2023, 9, 11, 18),
-		updated_at: new Date(2023, 9, 11, 23)
+		created_at: new Date(2023, 9, 12, 9),
+		updated_at: new Date(2023, 9, 12, 10)
 	};
 </script>
 
@@ -19,10 +19,10 @@
 	} from '$lib/geometry';
 	import PolygonToRadial from '$lib/components/PolygonToRadial.svelte';
 
-	const id = 'TENSTACK-GOLDEN-MANDALA';
+	const id = 'TENSTACK-SILVER';
 	const size = 2 ** 10;
 	const r = (size / 4) * 0.95;
-	const angles = anglesArray(10);
+	const angles = anglesArray(10, 0);
 	const radii = [r, r * phi, r * phi ** 2];
 	const circles: Circle[] = angles
 		.map((a) => radii.map((r) => ({ r, ...radialPoint(a, radii[0]) })))
@@ -70,20 +70,25 @@
 		)
 	];
 	const polygons: string[] = [
-		polygonFromIntersectionOfLines([9, 70, 58, 79, 7, 9], lineArray),
-		polygonFromIntersectionOfLines([9, 20, 58, 50, 26, 9], lineArray),
-		polygonFromIntersectionOfLines([60, 59, 58, 66, 60], lineArray),
-		polygonFromIntersectionOfLines([59, 96, 99, 58, 59], lineArray),
-		polygonFromIntersectionOfLines([59, 90, 29, 27, 96, 59], lineArray),
-		polygonFromIntersectionOfLines([29, 107, 100, 27, 29], lineArray),
-		polygonFromIntersectionOfLines([100, 107, 109, 106, 100], lineArray)
+		polygonFromIntersectionOfLines([7, 64, 67, 5, 7], lineArray),
+		polygonFromIntersectionOfLines([17, 55, 57, 14, 17], lineArray),
+		polygonFromIntersectionOfLines([27, 46, 47, 23, 27], lineArray),
+		polygonFromIntersectionOfLines([68, 65, 67, 64, 68], lineArray),
+		polygonFromIntersectionOfLines([68, 94, 97, 64, 68], lineArray),
+		polygonFromIntersectionOfLines([27, 85, 87, 24, 27], lineArray),
+		polygonFromIntersectionOfLines([68, 24, 27, 64, 68], lineArray),
+		polygonFromIntersectionOfLines([68, 15, 17, 64, 68], lineArray),
+		polygonFromIntersectionOfLines([67, 78, 77, 64, 67], lineArray),
+		polygonFromIntersectionOfLines([26, 104, 107, 24, 26], lineArray),
+		polygonFromIntersectionOfLines([107, 105, 106, 104, 107], lineArray),
+		polygonFromIntersectionOfLines([66, 94, 96, 65, 66], lineArray)
 	];
 </script>
 
 <DopplerSvg {id} {size}>
 	<defs>
 		<style>
-			svg#TENSTACK-GOLDEN-MANDALA {
+			svg#TENSTACK-SILVER {
 				& circle,
 				path:not(.Background) {
 					stroke: oklch(1 50% 300);
@@ -97,11 +102,11 @@
 					fill: oklch(0.5 0 0);
 				}
 				& g.filtered {
-					filter: url(#TENSTACK-GOLDEN-MANDALA-dropshadow);
+					filter: url(#TENSTACK-SILVER-dropshadow);
 				}
 			}
 		</style>
-		<filter id="TENSTACK-GOLDEN-MANDALA-dropshadow">
+		<filter id="TENSTACK-SILVER-dropshadow">
 			<feMorphology in="SourceAlpha" operator="dilate" radius="5" />
 			<feGaussianBlur stdDeviation="5" />
 			<feOffset dy="8" />
@@ -110,7 +115,7 @@
 				<feMergeNode in="SourceGraphic" />
 			</feMerge>
 		</filter>
-		<filter id="TENSTACK-GOLDEN-MANDALA-glow">
+		<filter id="TENSTACK-SILVER-glow">
 			<feMorphology in="SourceGraphic" operator="dilate" radius="1" result="dilate" />
 			<feFlood flood-color="oklch(0.5 100% 270)" />
 			<feComposite in2="dilate" operator="in" />
@@ -122,55 +127,71 @@
 		</filter>
 	</defs>
 	<Background {size} fill="oklch(0 100% 210)" />
-
-	<PolygonToRadial
-		points={polygons[0]}
-		{angles}
-		rotate={-18}
-		style="stroke:oklch(1 0 0);fill:oklch(0.1 100% 300 / 1)"
-	/>
 	<LineWithLegend {lineArray} />
-
-	<PolygonToRadial
-		points={polygons[1]}
-		{angles}
-		rotate={-18}
-		style="stroke:oklch(1 100% 300);fill:oklch(0.68 50% 300 / 1)"
-	/>
-	<PolygonToRadial
-		points={polygons[2]}
-		{angles}
-		rotate={-18}
-		style="stroke:oklch(1 100% 330);fill:oklch(0.36 100% 330 / 0.5)"
-	/>
-
-	<PolygonToRadial
-		points={polygons[3]}
-		{angles}
-		rotate={-18}
-		style="stroke:oklch(0.5 100% 300);fill:oklch(0.52 100% 300 / 0.5)"
-	/>
-	<PolygonToRadial
-		points={polygons[4]}
-		{angles}
-		rotate={-18}
-		style="stroke:oklch(1 100% 300);fill:oklch(0.68 50% 300 / 1)"
-	/>
-	<PolygonToRadial
-		points={polygons[5]}
-		{angles}
-		rotate={-18}
-		style="stroke:oklch(0 0 0);fill:oklch(0.84 25% 270 / 1)"
-	/>
-	<PolygonToRadial
-		points={polygons[6]}
-		{angles}
-		rotate={-18}
-		style="stroke:oklch(0 0 0);fill:oklch(1 25% 240 / 1)"
-	/>
-	<g filter="url(#TENSTACK-GOLDEN-MANDALA-glow)">
+	<g filter="url(#TENSTACK-SILVER-glow)">
 		{#each circles as c, i}
 			<circle r={c.r} cx={c.x} cy={c.y} id={`c${i}`} />
 		{/each}
 	</g>
+
+	<PolygonToRadial
+		points={polygons[0]}
+		{angles}
+		style="stroke:oklch(1 0 0);fill:oklch(1 0 0 / 0.25)"
+	/>
+	<PolygonToRadial
+		points={polygons[1]}
+		{angles}
+		style="stroke:oklch(1 0 0);fill:oklch(1 0 0 / 0.25)"
+	/>
+	<PolygonToRadial
+		points={polygons[2]}
+		{angles}
+		style="stroke:oklch(1 0 0);fill:oklch(1 0 0 / 0.25)"
+	/>
+	<PolygonToRadial
+		points={polygons[3]}
+		{angles}
+		style="stroke:oklch(1 0 0);fill:oklch(1 0 0 / 0.25)"
+	/>
+	<PolygonToRadial
+		points={polygons[4]}
+		{angles}
+		style="stroke:oklch(1 0 0);fill:oklch(1 0 0 / 0.25)"
+	/>
+	<PolygonToRadial
+		points={polygons[5]}
+		{angles}
+		style="stroke:oklch(1 0 0);fill:oklch(1 0 0 / 0.25)"
+	/>
+	<PolygonToRadial
+		points={polygons[6]}
+		{angles}
+		style="stroke:oklch(1 0 0);fill:oklch(1 0 0 / 0.25)"
+	/>
+	<PolygonToRadial
+		points={polygons[7]}
+		{angles}
+		style="stroke:oklch(1 0 0);fill:oklch(1 0 0 / 0.25)"
+	/>
+	<PolygonToRadial
+		points={polygons[8]}
+		{angles}
+		style="stroke:oklch(1 0 0);fill:oklch(1 0 0 / 0.25)"
+	/>
+	<PolygonToRadial
+		points={polygons[9]}
+		{angles}
+		style="stroke:oklch(1 0 0);fill:oklch(1 0 0 / 0.25)"
+	/>
+	<PolygonToRadial
+		points={polygons[10]}
+		{angles}
+		style="stroke:oklch(1 0 0);fill:oklch(1 0 0 / 0.25)"
+	/>
+	<PolygonToRadial
+		points={polygons[11]}
+		{angles}
+		style="stroke:oklch(1 0 0);fill:oklch(1 0 0 / 0.25)"
+	/>
 </DopplerSvg>
