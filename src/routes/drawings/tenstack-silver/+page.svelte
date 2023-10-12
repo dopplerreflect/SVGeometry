@@ -15,7 +15,8 @@
 		radialPoint,
 		phi,
 		circleIntersections,
-		polygonFromIntersectionOfLines
+		polygonFromIntersectionOfLines,
+		arrayMap
 	} from '$lib/geometry';
 	import PolygonToRadial from '$lib/components/PolygonToRadial.svelte';
 
@@ -95,7 +96,7 @@
 					fill: none;
 				}
 				& line {
-					stroke: oklch(1 100% 100 / 1);
+					stroke: oklch(1 100% 90 / 1);
 				}
 				& path.fill {
 					stroke: none;
@@ -133,65 +134,14 @@
 			<circle r={c.r} cx={c.x} cy={c.y} id={`c${i}`} />
 		{/each}
 	</g>
-
-	<PolygonToRadial
-		points={polygons[0]}
-		{angles}
-		style="stroke:oklch(1 0 0);fill:oklch(1 0 0 / 0.25)"
-	/>
-	<PolygonToRadial
-		points={polygons[1]}
-		{angles}
-		style="stroke:oklch(1 0 0);fill:oklch(1 0 0 / 0.25)"
-	/>
-	<PolygonToRadial
-		points={polygons[2]}
-		{angles}
-		style="stroke:oklch(1 0 0);fill:oklch(1 0 0 / 0.25)"
-	/>
-	<PolygonToRadial
-		points={polygons[3]}
-		{angles}
-		style="stroke:oklch(1 0 0);fill:oklch(1 0 0 / 0.25)"
-	/>
-	<PolygonToRadial
-		points={polygons[4]}
-		{angles}
-		style="stroke:oklch(1 0 0);fill:oklch(1 0 0 / 0.25)"
-	/>
-	<PolygonToRadial
-		points={polygons[5]}
-		{angles}
-		style="stroke:oklch(1 0 0);fill:oklch(1 0 0 / 0.25)"
-	/>
-	<PolygonToRadial
-		points={polygons[6]}
-		{angles}
-		style="stroke:oklch(1 0 0);fill:oklch(1 0 0 / 0.25)"
-	/>
-	<PolygonToRadial
-		points={polygons[7]}
-		{angles}
-		style="stroke:oklch(1 0 0);fill:oklch(1 0 0 / 0.25)"
-	/>
-	<PolygonToRadial
-		points={polygons[8]}
-		{angles}
-		style="stroke:oklch(1 0 0);fill:oklch(1 0 0 / 0.25)"
-	/>
-	<PolygonToRadial
-		points={polygons[9]}
-		{angles}
-		style="stroke:oklch(1 0 0);fill:oklch(1 0 0 / 0.25)"
-	/>
-	<PolygonToRadial
-		points={polygons[10]}
-		{angles}
-		style="stroke:oklch(1 0 0);fill:oklch(1 0 0 / 0.25)"
-	/>
-	<PolygonToRadial
-		points={polygons[11]}
-		{angles}
-		style="stroke:oklch(1 0 0);fill:oklch(1 0 0 / 0.25)"
-	/>
+	{#each arrayMap(12, (n) => n) as i}
+		<PolygonToRadial
+			points={polygons[i]}
+			{angles}
+			style={`fill:oklch(${
+				0.5 + (1 / (polygons.length / 2)) * (i + 1)
+			} 75% 300 / 0.25);stroke:oklch(1 50% 300);`}
+			classname="filtered"
+		/>
+	{/each}
 </DopplerSvg>

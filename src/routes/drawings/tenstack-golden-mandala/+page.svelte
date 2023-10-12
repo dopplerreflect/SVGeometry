@@ -128,6 +128,7 @@
 		{angles}
 		rotate={-18}
 		style="stroke:oklch(1 0 0);fill:oklch(0.1 100% 300 / 1)"
+		classname="filtered"
 	/>
 	<LineWithLegend {lineArray} />
 
@@ -136,12 +137,14 @@
 		{angles}
 		rotate={-18}
 		style="stroke:oklch(1 100% 300);fill:oklch(0.68 50% 300 / 1)"
+		classname="filtered"
 	/>
 	<PolygonToRadial
 		points={polygons[2]}
 		{angles}
 		rotate={-18}
 		style="stroke:oklch(1 100% 330);fill:oklch(0.36 100% 330 / 0.5)"
+		classname="filtered"
 	/>
 
 	<PolygonToRadial
@@ -149,24 +152,28 @@
 		{angles}
 		rotate={-18}
 		style="stroke:oklch(0.5 100% 300);fill:oklch(0.52 100% 300 / 0.5)"
+		classname="filtered"
 	/>
 	<PolygonToRadial
 		points={polygons[4]}
 		{angles}
 		rotate={-18}
 		style="stroke:oklch(1 100% 300);fill:oklch(0.68 50% 300 / 1)"
+		classname="filtered"
 	/>
 	<PolygonToRadial
 		points={polygons[5]}
 		{angles}
 		rotate={-18}
 		style="stroke:oklch(0 0 0);fill:oklch(0.84 25% 270 / 1)"
+		classname="filtered"
 	/>
 	<PolygonToRadial
 		points={polygons[6]}
 		{angles}
 		rotate={-18}
 		style="stroke:oklch(0 0 0);fill:oklch(1 25% 240 / 1)"
+		classname="filtered"
 	/>
 	<g filter="url(#TENSTACK-GOLDEN-MANDALA-glow)">
 		{#each circles as c, i}
