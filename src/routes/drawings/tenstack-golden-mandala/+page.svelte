@@ -15,9 +15,10 @@
 		radialPoint,
 		phi,
 		circleIntersections,
-		pathFromIntersectionsOfLines
+		pathFromIntersectionsOfLines,
+		polygonFromIntersectionOfLines
 	} from '$lib/geometry';
-	import PathToRadial from './PathToRadial.svelte';
+	import PolygonToRadial from './PolygonToRadial.svelte';
 
 	const id = 'TENSTACK-GOLDEN-MANDALA';
 	const size = 2 ** 10;
@@ -69,15 +70,14 @@
 			(a, i) => [radialPoint(a, radii2[3]), radialPoint(angles[(i + 4) % 10], radii2[3])] as Line
 		)
 	];
-	const paths: string[] = [
-		pathFromIntersectionsOfLines(['M', ...[9, 70, 58, 79, 7, 9].map((i) => lineArray[i]), 'Z']),
-		pathFromIntersectionsOfLines(['M', ...[9, 20, 58, 50, 26, 9].map((i) => lineArray[i]), 'Z']),
-		pathFromIntersectionsOfLines(['M', ...[60, 59, 58, 66, 60].map((i) => lineArray[i]), 'Z']),
-		pathFromIntersectionsOfLines(['M', ...[59, 96, 99, 58, 59].map((i) => lineArray[i]), 'Z']),
-		pathFromIntersectionsOfLines(['M', ...[59, 90, 29, 27, 96, 59].map((i) => lineArray[i]), 'Z']),
-		pathFromIntersectionsOfLines(['M', ...[29, 107, 100, 27, 29].map((i) => lineArray[i]), 'Z']),
-
-		pathFromIntersectionsOfLines(['M', ...[100, 107, 109, 106, 100].map((i) => lineArray[i]), 'Z'])
+	const polygons: string[] = [
+		polygonFromIntersectionOfLines([9, 70, 58, 79, 7, 9], lineArray),
+		polygonFromIntersectionOfLines([9, 20, 58, 50, 26, 9], lineArray),
+		polygonFromIntersectionOfLines([60, 59, 58, 66, 60], lineArray),
+		polygonFromIntersectionOfLines([59, 96, 99, 58, 59], lineArray),
+		polygonFromIntersectionOfLines([59, 90, 29, 27, 96, 59], lineArray),
+		polygonFromIntersectionOfLines([29, 107, 100, 27, 29], lineArray),
+		polygonFromIntersectionOfLines([100, 107, 109, 106, 100], lineArray)
 	];
 </script>
 
@@ -124,49 +124,50 @@
 	</defs>
 	<Background {size} fill="oklch(0 100% 210)" />
 
-	<PathToRadial
-		path={paths[0]}
+	<PolygonToRadial
+		points={polygons[0]}
 		{angles}
 		rotate={-18}
-		style="stroke:oklch(1 0 0);fill:oklch(0.1 100% 300)"
+		style="stroke:oklch(1 0 0);fill:oklch(0.1 100% 300 / 1)"
 	/>
 	<LineWithLegend {lineArray} />
-	<PathToRadial
-		path={paths[1]}
+
+	<PolygonToRadial
+		points={polygons[1]}
 		{angles}
 		rotate={-18}
-		style="stroke:oklch(1 0 0);fill:oklch(0.68 50% 300 )"
+		style="stroke:oklch(1 100% 300);fill:oklch(0.68 50% 300 / 1)"
 	/>
-	<PathToRadial
-		path={paths[2]}
+	<PolygonToRadial
+		points={polygons[2]}
 		{angles}
 		rotate={-18}
-		style="stroke:oklch(1 0 0);fill:oklch(0.36 100% 330 / 0.5)"
+		style="stroke:oklch(1 100% 330);fill:oklch(0.36 100% 330 / 0.5)"
 	/>
 
-	<PathToRadial
-		path={paths[3]}
+	<PolygonToRadial
+		points={polygons[3]}
 		{angles}
 		rotate={-18}
-		style="stroke:oklch(1 0 0);fill:oklch(0.52 100% 300)"
+		style="stroke:oklch(0.5 100% 300);fill:oklch(0.52 100% 300 / 0.5)"
 	/>
-	<PathToRadial
-		path={paths[4]}
+	<PolygonToRadial
+		points={polygons[4]}
 		{angles}
 		rotate={-18}
-		style="stroke:oklch(1 0 0);fill:oklch(0.68 50% 300)"
+		style="stroke:oklch(1 100% 300);fill:oklch(0.68 50% 300 / 1)"
 	/>
-	<PathToRadial
-		path={paths[5]}
+	<PolygonToRadial
+		points={polygons[5]}
 		{angles}
 		rotate={-18}
-		style="stroke:oklch(1 0 0);fill:oklch(0.84 25% 270)"
+		style="stroke:oklch(0 0 0);fill:oklch(0.84 25% 270 / 1)"
 	/>
-	<PathToRadial
-		path={paths[6]}
+	<PolygonToRadial
+		points={polygons[6]}
 		{angles}
 		rotate={-18}
-		style="stroke:oklch(1 0 0);fill:oklch(1 25% 240)"
+		style="stroke:oklch(0 0 0);fill:oklch(1 25% 240 / 1)"
 	/>
 	<g filter="url(#TENSTACK-GOLDEN-MANDALA-glow)">
 		{#each circles as c, i}

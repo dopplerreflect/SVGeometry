@@ -252,6 +252,16 @@ export function pathFromIntersectionsOfLines(array: Array<Line | 'M' | 'Z'>): st
 	return intermediateArray.join(' ');
 }
 
+export function polygonFromIntersectionOfLines(lineIndices: number[], lineArray: Line[]): string {
+	const result = [];
+	for (let i = 0; i < lineIndices.length - 1; i++) {
+		let input = [lineArray[lineIndices[i]], lineArray[lineIndices[i + 1]]];
+		console.log(input);
+		result.push(pointToString(intersection(input[0], input[1])));
+	}
+	return result.join(' ');
+}
+
 /**
  * Pythagorean hypotenuse
  * @param b Length of a short side
