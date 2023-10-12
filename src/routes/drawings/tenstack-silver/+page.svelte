@@ -138,9 +138,9 @@
 		<PolygonToRadial
 			points={polygons[i]}
 			{angles}
-			style={`fill:oklch(${
-				0.5 + (1 / (polygons.length / 2)) * (i + 1)
-			} 75% 300 / 0.25);stroke:oklch(1 50% 300);`}
+			style={`fill:oklch(${0.3 + (1 / (polygons.length / 1)) * (i + 0)} ${
+				(100 / (polygons.length - 1)) * (i + 1)
+			}% 270 / 0.33);stroke:oklch(1 0 0);`}
 			classname="filtered"
 		/>
 	{/each}
