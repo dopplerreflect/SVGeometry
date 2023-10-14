@@ -14,23 +14,17 @@
 	const id = 'RAINBOW-TUBE';
 	const size = 2 ** 10;
 	const r = (size / 4) * 0.95;
-	const radii = [r, r * phi, r * phi ** 2];
-	const angles = anglesArray(15, -18);
-	const paths: string[] = angles.map(
-		(a, i) =>
-			`M${radialPointString(a, radii[2], {
-				center: radialPoint(270, radii[0])
-			})}A${radii[2]} ${radii[2]} 0 0 1 ${radialPointString(
-				angles[(i + 1) % angles.length],
-				radii[2],
-				{
-					center: radialPoint(270, radii[0])
-				}
-			)}L${radialPointString(angles[(i + 1) % angles.length], radii[0], {
-				center: radialPoint(90, radii[2])
-			})}A${radii[0]} ${radii[0]} 0 0 0 ${radialPointString(a, radii[0], {
-				center: radialPoint(90, radii[2])
-			})}Z`
+	const radii = [r, r * phi, r * phi ** 2, r * phi ** 3];
+	const angles = anglesArray(36, 125);
+	const paths: string[] = angles.map((a) =>
+		[
+			'M',
+			radialPointString(a, radii[2], { center: radialPoint(300, radii[3]) }),
+			radialPointString(a, radii[3], { center: radialPoint(300, radii[3]) }),
+			radialPointString(a, radii[1], { center: radialPoint(120, radii[3]) }),
+			radialPointString(a, radii[0], { center: radialPoint(120, radii[3]) }),
+			'Z'
+		].join(' ')
 	);
 </script>
 
@@ -55,7 +49,7 @@
 			{d}
 			style={`fill:oklch(1 100% ${
 				0 + (360 / angles.length) * i
-			} / 0.66);stroke:oklch(0 0 0);stroke-width:5;`}
+			} / 0.33);stroke:oklch(1 0 0 / 1);stroke-width:2;`}
 		/>
 	{/each}
 </DopplerSvg>

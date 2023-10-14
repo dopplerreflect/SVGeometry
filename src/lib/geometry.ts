@@ -256,7 +256,7 @@ export function polygonFromIntersectionOfLines(lineIndices: number[], lineArray:
 	const result = [];
 	for (let i = 0; i < lineIndices.length - 1; i++) {
 		let input = [lineArray[lineIndices[i]], lineArray[lineIndices[i + 1]]];
-		console.log(input);
+		// console.log(input);
 		result.push(pointToString(intersection(input[0], input[1])));
 	}
 	return result.join(' ');
