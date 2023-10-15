@@ -120,45 +120,66 @@
 			polygonFromIntersectionOfLines([2, 22, 3, 2], lineArray)
 		],
 		[
-			polygonFromIntersectionOfLines([19, 39, 20, 19], lineArray),
-			polygonFromIntersectionOfLines([1, 21, 20, 1], lineArray)
+			polygonFromIntersectionOfLines([19, 39, 18, 19], lineArray),
+			polygonFromIntersectionOfLines([18, 39, 17, 18], lineArray),
+			polygonFromIntersectionOfLines([17, 39, 16, 17], lineArray),
+			polygonFromIntersectionOfLines([16, 39, 15, 16], lineArray),
+			polygonFromIntersectionOfLines([15, 39, 14, 15], lineArray),
+			polygonFromIntersectionOfLines([14, 39, 13, 14], lineArray),
+			polygonFromIntersectionOfLines([13, 39, 12, 13], lineArray),
+			polygonFromIntersectionOfLines([12, 39, 11, 12], lineArray),
+			polygonFromIntersectionOfLines([11, 39, 10, 11], lineArray),
+			polygonFromIntersectionOfLines([9, 21, 10, 9], lineArray),
+			polygonFromIntersectionOfLines([8, 21, 9, 8], lineArray),
+			polygonFromIntersectionOfLines([7, 21, 8, 7], lineArray),
+			polygonFromIntersectionOfLines([6, 21, 7, 6], lineArray),
+			polygonFromIntersectionOfLines([5, 21, 6, 5], lineArray),
+			polygonFromIntersectionOfLines([4, 21, 5, 4], lineArray),
+			polygonFromIntersectionOfLines([3, 21, 4, 3], lineArray),
+			polygonFromIntersectionOfLines([2, 21, 3, 2], lineArray),
+			polygonFromIntersectionOfLines([1, 21, 2, 1], lineArray)
 		]
 	];
 </script>
 
 <DopplerSvg {id} {size}>
 	<defs>
-		<style>
-			svg#TEMPLATE {
-				& circle {
-					stroke: oklch(0.5 0 0);
-					fill: oklch(0.2 100% 300);
-				}
-				& line {
-					stroke: oklch(0.5 50% 90);
-				}
-			}
-		</style>
 		<linearGradient id="TEMPLATE-lg" gradientTransform="rotate(90)">
-			<stop offset="0%" stop-color="oklch(0.75 10% 60)" />
-			<stop offset="100%" stop-color="oklch(0.25 10% 60)" />
+			<stop offset="0%" stop-color="oklch(0.66 33% 60)" />
+			<stop offset="100%" stop-color="oklch(0.33 33% 60)" />
 		</linearGradient>
 		<filter id="TEMPLATE-filter" width={size / 2} height={size / 2}>
-			<feMorphology operator="dilate" radius="10" />
-			<feFlood flood-color="oklch(0 0 0)" />
+			<feFlood flood-color="oklch(0.25 50% 90)" />
 			<feComposite in2="SourceGraphic" operator="in" />
-			<feGaussianBlur stdDeviation="10" />
-			<feOffset dy="20" />
+			<feGaussianBlur stdDeviation="5" />
+			<feOffset dy="10" />
 			<feMerge>
 				<feMergeNode />
 				<feMergeNode in="SourceGraphic" />
 			</feMerge>
 		</filter>
 		<filter id="TEMPLATE-shrink">
-			<feMorphology operator="erode" radius="5" />
+			<feMorphology in="SourceAlpha" operator="erode" radius="3" result="smallErode" />
+			<feFlood flood-color="oklch(1 33% 60)" result="color" />
+			<feComposite operator="in" in2="smallErode" result="border" />
+			<feMorphology in="SourceGraphic" operator="erode" radius="4" result="bigErode" />
+			<feMerge>
+				<feMergeNode in="border" />
+				<feMergeNode in="bigErode" />
+			</feMerge>
+		</filter>
+		<filter id="TEMPLATE-noise">
+			<feTurbulence type="fractalNoise" baseFrequency="0.66" />
+			<feColorMatrix type="saturate" values="0" />
 		</filter>
 	</defs>
 	<Background {size} fill="url(#TEMPLATE-lg)" />
+	<Background {size} filter="url(#TEMPLATE-noise)" />
+	<circle
+		{r}
+		filter="url(#TEMPLATE-filter)"
+		style="fill:oklch(50% 66% 90 / 0.25);stroke:oklch(0.25 33% 60);stroke-width:2;"
+	/>
 	{#each polygonGroups as group, gi}
 		<g
 			style={`fill:oklch(${1 - (1 / (polygonGroups.length + 2)) * gi} 33% 60 / 1);`}
@@ -169,5 +190,4 @@
 			{/each}
 		</g>
 	{/each}
-	<!-- <LineWithLegend {lineArray} /> -->
 </DopplerSvg>
