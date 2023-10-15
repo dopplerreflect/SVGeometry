@@ -69,15 +69,32 @@
 				}
 			}
 		</style>
+		<filter id="RAINBOW-TUBE-glow">
+			<feGaussianBlur stdDeviation="5" />
+			<feMerge>
+				<feMergeNode />
+				<feMergeNode in="SourceGraphic" />
+			</feMerge>
+		</filter>
 	</defs>
 	<Background {size} fill="oklch(0.2 0 0)" />
-	<LineWithLegend {lineArray} />
+	<g filter="url(#RAINBOW-TUBE-glow)">
+		{#each lineArray as l, i}
+			<line
+				x1={l[0].x}
+				y1={l[0].y}
+				x2={l[1].x}
+				y2={l[1].y}
+				style={`stroke:oklch(0.75 100% ${0 + (720 / lineArray.length) * i} )`}
+			/>
+		{/each}
+	</g>
 	{#each paths as d, i}
 		<path
 			{d}
 			style={`fill:oklch(1 100% ${
 				0 + (360 / angles.length) * i
-			} / 0.33);stroke:oklch(1 0 0 / 1);stroke-width:2;`}
+			} / 0.25);stroke:oklch(1 0 0 / 1);stroke-width:2;`}
 		/>
 	{/each}
 	{#each paths2 as d, i}
@@ -85,7 +102,7 @@
 			{d}
 			style={`fill:oklch(1 100% ${
 				180 + (360 / angles.length) * i
-			} / 0.33);stroke:oklch(1 0 0 / 1);stroke-width:2;`}
+			} / 0.25);stroke:oklch(1 0 0 / 1);stroke-width:2;`}
 		/>
 	{/each}
 </DopplerSvg>
