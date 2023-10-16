@@ -28,10 +28,6 @@
 		.map((a) => radii.map((r) => ({ r, ...radialPoint(a, radii[0]) })))
 		.flat();
 	circles.push(...radii.map((r) => ({ r, x: 0, y: 0 })));
-	const i0 = circleIntersections(circles[0], circles[3])[0];
-	const c0 = Math.hypot(i0.x, i0.y);
-	const i1 = circleIntersections(circles[1], circles[4])[0];
-	const c1 = Math.hypot(i1.x, i1.y);
 
 	const vesicaRadii = [0, 1, 2].map((i) => {
 		let ci = circleIntersections(circles[i], circles[i + 3])[0];
@@ -69,12 +65,13 @@
 		)
 	];
 	const polygons: string[] = [
-		polygonFromIntersectionOfLines([4, 7, 5, 6, 4], lineArray),
 		polygonFromIntersectionOfLines([25, 26, 35, 36, 25], lineArray),
+		polygonFromIntersectionOfLines([4, 7, 5, 6, 4], lineArray),
 
 		polygonFromIntersectionOfLines([14, 18, 15, 17, 14], lineArray),
 		polygonFromIntersectionOfLines([24, 28, 25, 27, 24], lineArray),
 		polygonFromIntersectionOfLines([34, 38, 35, 37, 34], lineArray),
+
 		polygonFromIntersectionOfLines([34, 37, 25, 26, 34], lineArray),
 		polygonFromIntersectionOfLines([24, 27, 34, 37, 24], lineArray),
 		polygonFromIntersectionOfLines([14, 17, 24, 27, 14], lineArray)
@@ -86,7 +83,7 @@
 		<style>
 			svg#TENSTACK-GREEN {
 				& circle {
-					stroke: oklch(1 100% 330);
+					stroke: oklch(1 100% 240);
 					fill: none;
 				}
 				& line {
@@ -108,7 +105,7 @@
 		</filter>
 		<filter id="TENSTACK-GREEN-glow">
 			<feMorphology in="SourceGraphic" operator="dilate" radius="1" result="dilate" />
-			<feFlood flood-color="oklch(1 100% 270)" />
+			<feFlood flood-color="oklch(1 100% 300)" />
 			<feComposite in2="dilate" operator="in" />
 			<feGaussianBlur stdDeviation="5" />
 			<feMerge>
@@ -116,18 +113,29 @@
 				<feMergeNode in="SourceGraphic" />
 			</feMerge>
 		</filter>
+		<filter id="TENSTACK-GREEN-bg">
+			<feTurbulence type="fractalNoise" baseFrequency="0.6" />
+			<feColorMatrix
+				type="matrix"
+				values="0.1 0.0 0.0 0 0
+                0.0 0.2 0.0 0 0
+                0.0 0.0 0.5 0 0
+                0.0 0.0 0.0 1 0"
+			/>
+		</filter>
 	</defs>
 	<Background {size} fill="oklch(0 0 0)" />
+	<Background {size} filter="url(#TENSTACK-GREEN-bg" />
 	{#each arrayMap(polygons.length, (n) => n) as i}
 		<PolygonToRadial
 			points={polygons[i]}
 			{angles}
-			style={`fill:oklch(${1 / (polygons.length + 1) + (1 / (polygons.length + 1)) * (i + 1)} ${
+			style={`fill:oklch(${1 / polygons.length + (1 / polygons.length) * (i + 1)} ${
 				(100 / (polygons.length - 1)) * (i + 1)
-			}% 150 / 0.33);stroke:oklch(1 25% 90);`}
+			}% ${i > 4 ? '150' : '210'} / 0.33);stroke:oklch(1 25% 90);`}
 			classname="filtered"
 		/>
-		{#if i === 0}
+		{#if i === 1}
 			<g filter="url(#TENSTACK-GREEN-glow)">
 				{#each circles as c}
 					<circle r={c.r} cx={c.x} cy={c.y} />
@@ -135,6 +143,4 @@
 			</g>
 		{/if}
 	{/each}
-	<!-- <LineWithLegend {lineArray} showLegend /> -->
-	<!-- <circle r={radii[2]} style={`fill:black`} /> -->
 </DopplerSvg>
