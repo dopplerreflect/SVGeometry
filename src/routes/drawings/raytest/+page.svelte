@@ -1,18 +1,17 @@
 <script context="module" lang="ts">
 	export let metadata: DrawingMetadata = {
 		tags: [],
-		created_at: new Date(),
-		updated_at: new Date()
+		created_at: new Date(2023, 9, 15),
+		updated_at: new Date(2023, 9, 15)
 	};
 </script>
 
 <script lang="ts">
 	import Background from '$lib/components/Background.svelte';
 	import DopplerSvg from '$lib/components/DopplerSVG.svelte';
-	import LineWithLegend from '$lib/components/LineWithLegend.svelte';
 	import {
 		anglesArray,
-		pentagram,
+		arrayMap,
 		phi,
 		polygonFromIntersectionOfLines,
 		radialPoint
@@ -60,84 +59,50 @@
 			polygonFromIntersectionOfLines([6, 26, 7, 24, 6], lineArray)
 		],
 		[
-			polygonFromIntersectionOfLines([15, 35, 14, 37, 15], lineArray),
-			polygonFromIntersectionOfLines([14, 35, 13, 37, 14], lineArray),
-			polygonFromIntersectionOfLines([13, 35, 12, 37, 13], lineArray),
-			polygonFromIntersectionOfLines([12, 35, 11, 37, 12], lineArray),
+			...arrayMap(4, (n) => n).map((i) =>
+				polygonFromIntersectionOfLines([15 - i, 35, 14 - i, 15 - i], lineArray)
+			),
 			polygonFromIntersectionOfLines([11, 35, 37, 11], lineArray),
 			polygonFromIntersectionOfLines([9, 25, 23, 9], lineArray),
-			polygonFromIntersectionOfLines([8, 25, 9, 23, 8], lineArray),
-			polygonFromIntersectionOfLines([7, 25, 8, 23, 7], lineArray),
-			polygonFromIntersectionOfLines([6, 25, 7, 23, 6], lineArray),
-			polygonFromIntersectionOfLines([5, 25, 6, 23, 5], lineArray)
+			...arrayMap(4, (n) => n).map((i) =>
+				polygonFromIntersectionOfLines([8 - i, 25, 9 - i, 8 - i], lineArray)
+			)
 		],
 		[
-			polygonFromIntersectionOfLines([16, 36, 15, 38, 16], lineArray),
-			polygonFromIntersectionOfLines([15, 36, 14, 38, 15], lineArray),
-			polygonFromIntersectionOfLines([14, 36, 13, 38, 14], lineArray),
-			polygonFromIntersectionOfLines([13, 36, 12, 38, 13], lineArray),
-			polygonFromIntersectionOfLines([12, 36, 11, 38, 12], lineArray),
+			...arrayMap(5, (n) => n).map((i) =>
+				polygonFromIntersectionOfLines([16 - i, 36, 15 - i, 16 - i], lineArray)
+			),
 			polygonFromIntersectionOfLines([11, 36, 38, 11], lineArray),
 			polygonFromIntersectionOfLines([9, 24, 22, 9], lineArray),
-			polygonFromIntersectionOfLines([8, 24, 9, 22, 8], lineArray),
-			polygonFromIntersectionOfLines([7, 24, 8, 22, 7], lineArray),
-			polygonFromIntersectionOfLines([6, 24, 7, 22, 6], lineArray),
-			polygonFromIntersectionOfLines([5, 24, 6, 22, 5], lineArray),
-			polygonFromIntersectionOfLines([4, 24, 5, 22, 4], lineArray)
+			...arrayMap(5, (n) => n).map((i) =>
+				polygonFromIntersectionOfLines([8 - i, 24, 9 - i, 8 - i], lineArray)
+			)
 		],
 		[
-			polygonFromIntersectionOfLines([17, 37, 16, 39, 17], lineArray),
-			polygonFromIntersectionOfLines([16, 37, 15, 39, 16], lineArray),
-			polygonFromIntersectionOfLines([15, 37, 14, 39, 15], lineArray),
-			polygonFromIntersectionOfLines([14, 37, 13, 39, 14], lineArray),
-			polygonFromIntersectionOfLines([13, 37, 12, 39, 13], lineArray),
-			polygonFromIntersectionOfLines([12, 37, 11, 39, 12], lineArray),
+			...arrayMap(6, (n) => n).map((i) =>
+				polygonFromIntersectionOfLines([17 - i, 37, 16 - i, 17 - i], lineArray)
+			),
 			polygonFromIntersectionOfLines([11, 37, 39, 11], lineArray),
 			polygonFromIntersectionOfLines([9, 23, 21, 9], lineArray),
-			polygonFromIntersectionOfLines([8, 23, 9, 21, 8], lineArray),
-			polygonFromIntersectionOfLines([7, 23, 8, 21, 7], lineArray),
-			polygonFromIntersectionOfLines([6, 23, 7, 21, 6], lineArray),
-			polygonFromIntersectionOfLines([5, 23, 6, 21, 5], lineArray),
-			polygonFromIntersectionOfLines([4, 23, 5, 21, 4], lineArray),
-			polygonFromIntersectionOfLines([3, 23, 4, 21, 3], lineArray)
+			...arrayMap(6, (n) => n).map((i) =>
+				polygonFromIntersectionOfLines([8 - i, 23, 9 - i, 8 - i], lineArray)
+			)
 		],
 		[
-			polygonFromIntersectionOfLines([18, 38, 17, 18], lineArray),
-			polygonFromIntersectionOfLines([17, 38, 16, 17], lineArray),
-			polygonFromIntersectionOfLines([16, 38, 15, 16], lineArray),
-			polygonFromIntersectionOfLines([15, 38, 14, 15], lineArray),
-			polygonFromIntersectionOfLines([14, 38, 13, 14], lineArray),
-			polygonFromIntersectionOfLines([13, 38, 12, 14], lineArray),
-			polygonFromIntersectionOfLines([12, 38, 11, 13], lineArray),
-			polygonFromIntersectionOfLines([11, 38, 10, 11], lineArray),
-			polygonFromIntersectionOfLines([9, 22, 10, 9], lineArray),
-			polygonFromIntersectionOfLines([8, 22, 9, 8], lineArray),
-			polygonFromIntersectionOfLines([7, 22, 8, 7], lineArray),
-			polygonFromIntersectionOfLines([6, 22, 7, 6], lineArray),
-			polygonFromIntersectionOfLines([5, 22, 6, 5], lineArray),
-			polygonFromIntersectionOfLines([4, 22, 5, 4], lineArray),
-			polygonFromIntersectionOfLines([3, 22, 4, 3], lineArray),
-			polygonFromIntersectionOfLines([2, 22, 3, 2], lineArray)
+			...arrayMap(8, (n) => n).map((i) =>
+				polygonFromIntersectionOfLines([18 - i, 38, 17 - i, 18 - i], lineArray)
+			),
+			...arrayMap(8, (n) => n).map((i) =>
+				polygonFromIntersectionOfLines([9 - i, 22, 10 - i, 18 - i], lineArray)
+			)
 		],
 		[
-			polygonFromIntersectionOfLines([19, 39, 18, 19], lineArray),
-			polygonFromIntersectionOfLines([18, 39, 17, 18], lineArray),
-			polygonFromIntersectionOfLines([17, 39, 16, 17], lineArray),
-			polygonFromIntersectionOfLines([16, 39, 15, 16], lineArray),
-			polygonFromIntersectionOfLines([15, 39, 14, 15], lineArray),
-			polygonFromIntersectionOfLines([14, 39, 13, 14], lineArray),
-			polygonFromIntersectionOfLines([13, 39, 12, 13], lineArray),
-			polygonFromIntersectionOfLines([12, 39, 11, 12], lineArray),
-			polygonFromIntersectionOfLines([11, 39, 10, 11], lineArray),
-			polygonFromIntersectionOfLines([9, 21, 10, 9], lineArray),
-			polygonFromIntersectionOfLines([8, 21, 9, 8], lineArray),
-			polygonFromIntersectionOfLines([7, 21, 8, 7], lineArray),
-			polygonFromIntersectionOfLines([6, 21, 7, 6], lineArray),
-			polygonFromIntersectionOfLines([5, 21, 6, 5], lineArray),
-			polygonFromIntersectionOfLines([4, 21, 5, 4], lineArray),
-			polygonFromIntersectionOfLines([3, 21, 4, 3], lineArray),
-			polygonFromIntersectionOfLines([2, 21, 3, 2], lineArray),
-			polygonFromIntersectionOfLines([1, 21, 2, 1], lineArray)
+			...arrayMap(9, (n) => n).map((i) =>
+				polygonFromIntersectionOfLines([19 - i, 39, 18 - i, 19 - i], lineArray)
+			),
+			...arrayMap(9, (n) => n).map((i) =>
+				polygonFromIntersectionOfLines([9 - i, 21, 10 - i, 19 - i], lineArray)
+			)
 		]
 	];
 </script>

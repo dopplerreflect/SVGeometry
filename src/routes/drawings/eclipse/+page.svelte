@@ -1,15 +1,15 @@
 <script context="module" lang="ts">
 	export let metadata: DrawingMetadata = {
 		tags: [],
-		created_at: new Date(),
-		updated_at: new Date()
+		created_at: new Date(2023, 9, 16),
+		updated_at: new Date(2023, 9, 16)
 	};
 </script>
 
 <script lang="ts">
 	import Background from '$lib/components/Background.svelte';
 	import DopplerSvg from '$lib/components/DopplerSVG.svelte';
-	import { anglesArray, phi, radialPoint, radialPointString } from '$lib/geometry';
+	import { anglesArray, radialPoint, radialPointString } from '$lib/geometry';
 
 	const id = 'ECLIPSE';
 	const size = 2 ** 10;
