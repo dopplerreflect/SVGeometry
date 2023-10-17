@@ -14,7 +14,7 @@
 	const id = 'SIN-GRID';
 	const size = 2 ** 10;
 	const r = (size / 2) * 0.95;
-	const angles = anglesArray(48);
+	const angles = anglesArray(96);
 	const axes: number[] = angles
 		.slice(1, angles.length / 2)
 		.map((a) => Math.sin(a * (Math.PI / 180)) * r);
@@ -25,9 +25,9 @@
 				d: `M${x} ${y}L${axes[xi + 1] - gap} ${axes[yi]}L${axes[xi + 1] - gap} ${
 					axes[yi + 1] - gap
 				}L${x} ${axes[yi + 1] - gap}Z`,
-				style: `stroke:oklch(1 0 0);fill:oklch(0.75 66% ${
-					210 + (360 / (r * Math.sqrt(2))) * Math.hypot(x, y)
-				})`
+				style: `fill:oklch(${
+					1 - (1 / (r * Math.sqrt(2)) / 2) * Math.hypot(size / 2 + x, size / 2 + y)
+				} 100%  ${300 + (90 / (r * Math.sqrt(2)) / 2) * Math.hypot(size / 2 + x, size / 2 + y)})`
 			}))
 		)
 		.flat()
@@ -35,7 +35,7 @@
 </script>
 
 <DopplerSvg {id} {size}>
-	<Background {size} fill="oklch(0 100% 300)" />
+	<Background {size} fill="oklch(0 0 0)" />
 	{#each paths as path, i}
 		<path d={path.d} style={path.style} />
 	{/each}
