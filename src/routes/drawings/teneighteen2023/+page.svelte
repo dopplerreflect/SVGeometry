@@ -157,28 +157,20 @@
 		)
 	];
 	const polygons: string[] = [
-		// polygonFromIntersectionOfLines([29, 15, 68, 29], lineArray),
-		// polygonFromIntersectionOfLines([68, 15, 43, 68], lineArray),
-		// polygonFromIntersectionOfLines([43, 15, 70, 43], lineArray),
-		// polygonFromIntersectionOfLines([70, 15, 3, 40, 70], lineArray),
 		polygonFromIntersectionOfLines([20, 40, 3, 20], lineArray),
 		polygonFromIntersectionOfLines([20, 25, 3, 20], lineArray),
 		polygonFromIntersectionOfLines([25, 35, 3, 25], lineArray),
 
-		// polygonFromIntersectionOfLines([65, 15, 31, 65], lineArray),
-		// polygonFromIntersectionOfLines([45, 15, 65, 45], lineArray),
-		// polygonFromIntersectionOfLines([75, 15, 45, 75], lineArray),
-		// polygonFromIntersectionOfLines([75, 48, 0, 15, 75], lineArray),
 		polygonFromIntersectionOfLines([24, 48, 0, 24], lineArray),
 		polygonFromIntersectionOfLines([24, 30, 0, 24], lineArray),
 		polygonFromIntersectionOfLines([30, 35, 0, 30], lineArray),
 
+		polygonFromIntersectionOfLines([61, 65, 20, 69, 61], lineArray),
+		polygonFromIntersectionOfLines([0, 45, 5, 75, 0], lineArray),
+		polygonFromIntersectionOfLines([0, 40, 5, 72, 0], lineArray),
 		polygonFromIntersectionOfLines([15, 40, 69, 68, 15], lineArray),
 		polygonFromIntersectionOfLines([15, 48, 69, 65, 15], lineArray),
 		polygonFromIntersectionOfLines([15, 16, 69, 65, 15], lineArray),
-		polygonFromIntersectionOfLines([0, 45, 5, 75, 0], lineArray),
-		polygonFromIntersectionOfLines([0, 40, 5, 72, 0], lineArray),
-		polygonFromIntersectionOfLines([61, 41, 20, 48, 61], lineArray),
 		polygonFromIntersectionOfLines([55, 75, 14, 10, 70, 59, 40, 48, 55], lineArray),
 		polygonFromIntersectionOfLines([0, 48, 40, 3, 0], lineArray),
 		polygonFromIntersectionOfLines([5, 24, 20, 8, 5], lineArray),
@@ -196,8 +188,9 @@
 		<style>
 			svg#TENEIGHTEEN2023 {
 				& .pgg {
-					/* fill: oklch(0.5 100% 300 / 0.33); */
+					fill: oklch(0.5 100% 255 / 0.33);
 					stroke: oklch(1 100% 90);
+					fill-opacity: 0.33;
 				}
 				& .filtered {
 					filter: url(#TENEIGHTEEN2023-filter);
@@ -224,9 +217,6 @@
 				.pgg17 {
 					fill: oklch(1 0 0);
 				}
-				& .pgg {
-					fill-opacity: 0.33;
-				}
 			}
 		</style>
 		<filter id="TENEIGHTEEN2023-filter">
@@ -238,12 +228,21 @@
 				<feMergeNode in="SourceGraphic" />
 			</feMerge>
 		</filter>
+		<filter id="TENEIGHTEEN2023-glow">
+			<feGaussianBlur stdDeviation="1" />
+			<feMerge>
+				<feMergeNode />
+				<feMergeNode in="SourceGraphic" />
+			</feMerge>
+		</filter>
 	</defs>
-	<Background {size} fill="oklch(0.2 0 0)" />
-	{#each circles as c, i}
-		<circle r={c.r} cx={c.x} cy={c.y} style={`stroke:oklch(0.5 100% 300);fill:none;`} />
-	{/each}
-	<LineWithLegend lineArray={lineArray.slice()} style={`stroke: oklch(0.5 100% 210)`} />
+	<Background {size} fill="oklch(0.0 50% 300)" />
+	<g filter="url(#TENEIGHTEEN2023-glow)">
+		{#each circles as c, i}
+			<circle r={c.r} cx={c.x} cy={c.y} style={`stroke:oklch(0.5 100% 300);fill:none;`} />
+		{/each}
+		<LineWithLegend lineArray={lineArray.slice()} style={`stroke: oklch(0.5 100% 210)`} />
+	</g>
 	<g transform="rotate(18)">
 		{#each polygons as points, i}
 			<PolygonToRadial {points} {angles} classname={`filtered pgg pgg${i}`} />
@@ -251,7 +250,7 @@
 	</g>
 	<polygon
 		points={polygonFromIntersectionOfLines([50, 51, 52, 53, 54, 50], lineArray)}
-		style={`fill:oklch(0.5 100% 210 / 0.33);stroke:oklch(1 100% 90)`}
+		style={`fill:oklch(0.5 100% 255 / 0.33);stroke:oklch(1 100% 90)`}
 		class="filtered"
 	/>
 	<!-- <LineWithLegend showLegend {lineArray} style={`stroke: oklch(0.75 0% 150)`} /> -->
