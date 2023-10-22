@@ -33,10 +33,10 @@
 		{ r: radii[0], x: 0, y: 0 },
 		...angles.map((a) => ({ r: radii[0], ...radialPoint(a, radii[0]) })),
 		...angles.map((a) => ({ r: radii[2], ...radialPoint(a, radii[0]) })),
-		...angles.map((a, i) => ({ r: radii[1], ...radialPoint(a, radii[0] + radii[1]) })),
-		{ r: r1, x: 0, y: 0 },
-		{ r: r2, x: 0, y: 0 },
-		{ r: r3, x: 0, y: 0 }
+		...angles.map((a, i) => ({ r: radii[1], ...radialPoint(a, radii[0] + radii[1]) }))
+		// { r: r1, x: 0, y: 0 },
+		// { r: r2, x: 0, y: 0 },
+		// { r: r3, x: 0, y: 0 }
 	];
 	const lineArray: Line[] = [
 		...angles.map((a, i) => [radialPoint(a, r3), radialPoint(angles[(i + 2) % 5], r3)] as Line),
@@ -217,6 +217,10 @@
 				.pgg17 {
 					fill: oklch(1 0 0);
 				}
+				& .black {
+					stroke: oklch(1 0 0);
+					fill: oklch(1 0 0);
+				}
 			}
 		</style>
 		<filter id="TENEIGHTEEN2023-filter">
@@ -235,13 +239,21 @@
 				<feMergeNode in="SourceGraphic" />
 			</feMerge>
 		</filter>
+		<mask id="TENEIGHTEEN2023-mask">
+			<Background {size} fill="oklch(1 0 0 / 0.25)" />
+			<g transform="rotate(18)">
+				{#each polygons as points, i}
+					<PolygonToRadial {points} {angles} classname={`black`} />
+				{/each}
+			</g>
+		</mask>
 	</defs>
 	<Background {size} fill="oklch(0.0 50% 300)" />
-	<g filter="url(#TENEIGHTEEN2023-glow)">
+	<g filter="url(#TENEIGHTEEN2023-glow)" mask="url(#TENEIGHTEEN2023-mask)">
 		{#each circles as c, i}
-			<circle r={c.r} cx={c.x} cy={c.y} style={`stroke:oklch(0.5 100% 300);fill:none;`} />
+			<circle r={c.r} cx={c.x} cy={c.y} style={`stroke:oklch(1 100% 90);fill:none;`} />
 		{/each}
-		<LineWithLegend lineArray={lineArray.slice()} style={`stroke: oklch(0.5 100% 210)`} />
+		<LineWithLegend lineArray={lineArray.slice()} style={`stroke: oklch(1 100% 210)`} />
 	</g>
 	<g transform="rotate(18)">
 		{#each polygons as points, i}
