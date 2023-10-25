@@ -16,9 +16,9 @@
 	const size = 2 ** 10;
 	const startBaseRadius = size / 1.75;
 	const radii = arrayMap(10, (n) => startBaseRadius * phi ** n);
-	const pentagramPaths = anglesArray(10, 0)
+	const pentagramPaths = anglesArray(10)
 		.map((a) =>
-			[...Array(10).keys()].map((i) =>
+			[...Array(8).keys()].map((i) =>
 				pentagram(radii[i + 2], { center: radialPoint(a, radii[i]), rotate: a + 18 })
 			)
 		)
@@ -32,10 +32,10 @@
 				& g#static {
 					fill: none;
 					stroke: oklch(1 100% 90);
-					stroke-width: 3;
+					stroke-width: 1;
 				}
 				& g#animated {
-					fill: oklch(1 0 0 / 0.75);
+					fill: oklch(1 0 0 / 0.25);
 				}
 			}
 		</style>
@@ -74,6 +74,6 @@
 	}
 
 	#animated {
-		animation: grow 10s linear infinite;
+		animation: grow 1s linear infinite;
 	}
 </style>
