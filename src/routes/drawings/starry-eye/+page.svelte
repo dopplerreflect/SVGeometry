@@ -2,7 +2,7 @@
 	export let metadata: DrawingMetadata = {
 		tags: [],
 		created_at: new Date(2023, 9, 23),
-		updated_at: new Date(2023, 9, 24)
+		updated_at: new Date(2023, 9, 25)
 	};
 </script>
 
@@ -65,47 +65,50 @@
 			});
 		}
 	});
-	const polygonGroups: string[][] = [
-		[
-			polygonFromIntersectionOfLines([42, 33, 40, 43, 45, 36, 42], lineArray),
-			polygonFromIntersectionOfLines([45, 36, 43, 48, 36, 46, 48, 39, 45], lineArray),
-			polygonFromIntersectionOfLines([39, 30, 37, 42, 30, 40, 42, 33, 39], lineArray)
-		],
-		[
-			polygonFromIntersectionOfLines([42, 48, 39, 46, 51, 39, 49, 51, 42], lineArray),
-			polygonFromIntersectionOfLines([36, 57, 34, 39, 57, 37, 39, 30, 36], lineArray),
-			polygonFromIntersectionOfLines([45, 51, 42, 49, 54, 42, 52, 54, 45], lineArray),
-			polygonFromIntersectionOfLines([33, 57, 36, 34, 54, 36, 31, 54, 33], lineArray),
-			polygonFromIntersectionOfLines([48, 54, 45, 52, 57, 45, 55, 57, 48], lineArray),
-			polygonFromIntersectionOfLines([30, 54, 33, 31, 51, 33, 58, 51, 30], lineArray)
-		],
-		[
-			polygonFromIntersectionOfLines([19, 0, 7, 9, 6, 18, 19], lineArray),
-			polygonFromIntersectionOfLines([19, 1, 7, 10, 1, 8, 0, 7, 19], lineArray)
-		],
-		[
-			polygonFromIntersectionOfLines([30, 36, 42, 48, 30], lineArray),
-			polygonFromIntersectionOfLines([30, 51, 57, 48, 30], lineArray),
-			polygonFromIntersectionOfLines([30, 55, 58, 48, 30], lineArray),
-			[
-				pointToString(intersection(lineArray[48], lineArray[54])),
-				radialPointString(-90, radii[2] ** phi, { center: radialPoint(-90, radii[0]) }),
-				pointToString(intersection(lineArray[54], lineArray[30])),
-				pointToString(intersection(lineArray[36], lineArray[42]))
-			].join(' ')
-		],
-		[
-			polygonFromIntersectionOfLines([43, 18, 19, 40, 43], lineArray),
-			polygonFromIntersectionOfLines([20, 41, 47, 28, 20], lineArray),
-			polygonFromIntersectionOfLines([10, 37, 46, 17, 10], lineArray),
-			polygonFromIntersectionOfLines([0, 33, 45, 6, 0], lineArray)
-		],
-		[
-			polygonFromIntersectionOfLines([39, 75, 84, 30, 39], lineArray),
-			polygonFromIntersectionOfLines([40, 79, 85, 34, 40], lineArray),
-			polygonFromIntersectionOfLines([41, 83, 86, 38, 41], lineArray)
-		]
-	];
+
+	import polygonGroups from './polygonGroups.json';
+	// const polygonGroups: string[][] = [
+	// 	[
+	// 		polygonFromIntersectionOfLines([42, 33, 40, 43, 45, 36, 42], lineArray),
+	// 		polygonFromIntersectionOfLines([45, 36, 43, 48, 36, 46, 48, 39, 45], lineArray),
+	// 		polygonFromIntersectionOfLines([39, 30, 37, 42, 30, 40, 42, 33, 39], lineArray)
+	// 	],
+	// 	[
+	// 		polygonFromIntersectionOfLines([42, 48, 39, 46, 51, 39, 49, 51, 42], lineArray),
+	// 		polygonFromIntersectionOfLines([36, 57, 34, 39, 57, 37, 39, 30, 36], lineArray),
+	// 		polygonFromIntersectionOfLines([45, 51, 42, 49, 54, 42, 52, 54, 45], lineArray),
+	// 		polygonFromIntersectionOfLines([33, 57, 36, 34, 54, 36, 31, 54, 33], lineArray),
+	// 		polygonFromIntersectionOfLines([48, 54, 45, 52, 57, 45, 55, 57, 48], lineArray),
+	// 		polygonFromIntersectionOfLines([30, 54, 33, 31, 51, 33, 58, 51, 30], lineArray)
+	// 	],
+	// 	[
+	// 		polygonFromIntersectionOfLines([19, 0, 7, 9, 6, 18, 19], lineArray),
+	// 		polygonFromIntersectionOfLines([19, 1, 7, 10, 1, 8, 0, 7, 19], lineArray)
+	// 	],
+	// 	[
+	// 		polygonFromIntersectionOfLines([30, 36, 42, 48, 30], lineArray),
+	// 		polygonFromIntersectionOfLines([30, 51, 57, 48, 30], lineArray),
+	// 		polygonFromIntersectionOfLines([30, 55, 58, 48, 30], lineArray),
+	// 		[
+	// 			pointToString(intersection(lineArray[48], lineArray[54])),
+	// 			radialPointString(-90, radii[2] ** phi, { center: radialPoint(-90, radii[0]) }),
+	// 			pointToString(intersection(lineArray[54], lineArray[30])),
+	// 			pointToString(intersection(lineArray[36], lineArray[42]))
+	// 		].join(' ')
+	// 	],
+	// 	[
+	// 		polygonFromIntersectionOfLines([43, 18, 19, 40, 43], lineArray),
+	// 		polygonFromIntersectionOfLines([20, 41, 47, 28, 20], lineArray),
+	// 		polygonFromIntersectionOfLines([10, 37, 46, 17, 10], lineArray),
+	// 		polygonFromIntersectionOfLines([0, 33, 45, 6, 0], lineArray)
+	// 	],
+	// 	[
+	// 		polygonFromIntersectionOfLines([39, 75, 84, 30, 39], lineArray),
+	// 		polygonFromIntersectionOfLines([40, 79, 85, 34, 40], lineArray),
+	// 		polygonFromIntersectionOfLines([41, 83, 86, 38, 41], lineArray)
+	// 	]
+	// ];
+	// console.log(JSON.stringify(polygonGroups));
 </script>
 
 <DopplerSvg {id} {size}>
@@ -114,9 +117,8 @@
 			<feTurbulence baseFrequency="0.2" />
 			<feBlend in2="SourceGraphic" mode="luminosity" result="turb" />
 			<feComposite in2="SourceGraphic" operator="in" result="fuzz" />
-			<feMorphology in="SourceAlpha" operator="dilate" radius="5" />
+			<feMorphology in="SourceAlpha" operator="dilate" radius="3" />
 			<feGaussianBlur stdDeviation="5" />
-			<feOffset dy="0" dx="0" />
 			<feMerge>
 				<feMergeNode />
 				<feMergeNode in="fuzz" />
@@ -134,8 +136,15 @@
 				}
 				& circle {
 					fill: none;
-					stroke: oklch(1 100% 210);
+					stroke: oklch(1 100% 150);
 					stroke-width: 1;
+				}
+				& g#circles {
+					filter: url(#STARRY-EYE-circle-glow);
+				}
+				& g#top-circles circle {
+					/* display: none; */
+					stroke: oklch(1 100% 90);
 				}
 				& line {
 					stroke: oklch(1 25% 300);
@@ -177,7 +186,7 @@
 	</defs>
 	<Background {size} fill="oklch(0 50% 300)" />
 	<LineWithLegend {lineArray} />
-	<g id="circles" filter="url(#STARRY-EYE-circle-glow)">
+	<g id="circles">
 		{#each circles as c}
 			<circle r={c.r} cx={c.x} cy={c.y} />
 		{/each}
@@ -191,4 +200,9 @@
 			/>
 		{/each}
 	{/each}
+	<g id="top-circles">
+		{#each circles as c}
+			<circle r={c.r} cx={c.x} cy={c.y} />
+		{/each}
+	</g>
 </DopplerSvg>
