@@ -55,7 +55,6 @@
 		const c = JSON.parse(e[0]);
 		return { x: c.x, y: c.y, r: e[1] };
 	});
-	console.log(circles.length);
 </script>
 
 <DopplerSvg {id} {size}>
