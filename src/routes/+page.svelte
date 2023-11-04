@@ -54,6 +54,7 @@
 			<div class="item">
 				<a href={`/drawings/${drawing.name}`}>
 					<svelte:component this={drawing.module.default} />
+					{drawing.name}
 				</a>
 			</div>
 		{/each}
@@ -147,5 +148,8 @@
 	}
 	#container .item:hover {
 		border: 1px solid oklch(0.75 50% 200);
+	}
+	a {
+		color: white;
 	}
 </style>
