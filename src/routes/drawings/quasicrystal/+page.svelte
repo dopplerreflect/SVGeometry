@@ -15,7 +15,7 @@
 	const id = 'QUASICRYSTAL';
 	const size = 2 ** 10;
 	const angles = anglesArray(10);
-	const r = (size / 2) * 0.95;
+	const r = size / 3;
 	const lineArray: Line[] = [
 		...angles.map((a, i) => [radialPoint(a, r), radialPoint(angles[(i + 2) % 10], r)] as Line),
 		...angles.map((a, i) => [radialPoint(a, r), radialPoint(angles[(i + 4) % 10], r)] as Line)
@@ -33,7 +33,7 @@
 	lineArray.forEach((l, i) => {
 		for (let n = i + 1; n < lineArray.length; n++) {
 			let int = intersection(lineArray[i], lineArray[n]);
-			if (int.x > -size / 2 && int.x < size / 2) {
+			if (int.x > -size / 2 && int.x < size / 2 && int.y > -size / 2 && int.y < size / 2) {
 				rawIntersections.push(int);
 			}
 		}
@@ -55,6 +55,7 @@
 		const c = JSON.parse(e[0]);
 		return { x: c.x, y: c.y, r: e[1] };
 	});
+	console.log(circles.length);
 </script>
 
 <DopplerSvg {id} {size}>
@@ -71,10 +72,12 @@
 		</filter>
 	</defs>
 	<Background {size} fill="oklch(0.2 0 0)" />
-	<LineWithLegend {lineArray} style={`stroke:oklch(0.1 100% 300)`} />
-	<g filter="url(#QUASICRYSTAL-glow)">
-		{#each circles as c}
-			<circle r={c.r} cx={c.x} cy={c.y} style={`fill:white;`} />
-		{/each}
+	<g transform="rotate(0)">
+		<g filter="url(#QUASICRYSTAL-glow)">
+			<LineWithLegend {lineArray} style={`stroke:oklch(0.5 25% 240)`} />
+			{#each circles as c}
+				<circle r={c.r} cx={c.x} cy={c.y} style={`fill:white;`} />
+			{/each}
+		</g>
 	</g>
 </DopplerSvg>
