@@ -67,6 +67,7 @@
 		// { r: radii[2], x: 0, y: 0 },
 		{ r: radii[3], x: 0, y: 0 },
 		{ r: radii[4], x: 0, y: 0 },
+		{ r: radii[5], x: 0, y: 0 },
 		...angles.map((a, i) => ({ r: radii[3], ...radialPoint(a, radii[0]) })),
 		...angles
 			.filter((a, i) => i % 2 === 1)
@@ -82,7 +83,7 @@
 	colorMap.set(radii[2], 'oklch(0.75 100% 150 / 0.5)');
 	colorMap.set(radii[3], 'oklch(1 100% 60 / 1)');
 	colorMap.set(radii[4], 'oklch(1 100% 45 / 1)');
-	colorMap.set(radii[5], 'oklch(0.5 100% 270 / 1)');
+	colorMap.set(radii[5], 'oklch(0.5 100% 30 / 1)');
 	colorMap.set(radii[6], 'oklch(1 100% 90 / 1)');
 	colorMap.set(radii[2] + radii[0], 'oklch(0.5 100% 30 / 0.5)');
 </script>
