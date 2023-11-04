@@ -73,7 +73,7 @@
 	<Background {size} fill="oklch(0.2 0 0)" />
 	<g transform="rotate(0)">
 		<g filter="url(#QUASICRYSTAL-glow)">
-			<LineWithLegend {lineArray} style={`stroke:oklch(0.5 25% 240)`} />
+			<LineWithLegend {lineArray} style={`stroke:oklch(0.2 25% 240)`} />
 			{#each circles as c}
 				<circle r={c.r} cx={c.x} cy={c.y} style={`fill:white;`} />
 			{/each}
