@@ -15,7 +15,7 @@
 	const id = 'QUASICRYSTAL';
 	const size = 2 ** 10;
 	const angles = anglesArray(10);
-	const r = size / 3;
+	const r = size / 5.5;
 	const lineArray: Line[] = [
 		...angles.map((a, i) => [radialPoint(a, r), radialPoint(angles[(i + 2) % 10], r)] as Line),
 		...angles.map((a, i) => [radialPoint(a, r), radialPoint(angles[(i + 4) % 10], r)] as Line)
@@ -25,10 +25,17 @@
 	const r2i = intersection(lineArray[10], lineArray[11]);
 	const r2 = Math.hypot(r2i.x, r2i.y);
 	angles.forEach((a, i) => {
-		lineArray.push([radialPoint(a + 18, r1), radialPoint(angles[(i + 3) % 10] + 18, r1)]);
 		lineArray.push([radialPoint(a + 18, r1), { x: 0, y: 0 }]);
+		lineArray.push([radialPoint(a + 18, r1), radialPoint(angles[(i + 3) % 10] + 18, r1)]);
 		lineArray.push([radialPoint(a + 18, r2), radialPoint(angles[(i + 3) % 10] + 18, r2)]);
 	});
+
+	// angles.forEach((a, i) => {
+	// 	lineArray.push([radialPoint(a, r), radialPoint(angles[(i + 3) % 10], r)]);
+	// 	lineArray.push([radialPoint(a + 18, r1), radialPoint(angles[(i + 4) % 10] + 18, r1)]);
+	// 	lineArray.push([radialPoint(a + 18, r2), radialPoint(angles[(i + 4) % 10] + 18, r2)]);
+	// });
+
 	const rawIntersections: Point[] = [];
 	lineArray.forEach((l, i) => {
 		for (let n = i + 1; n < lineArray.length; n++) {
@@ -46,9 +53,9 @@
 	roundedIntersections.forEach((intersection) => {
 		const i = JSON.stringify(intersection);
 		if (!intersectionsWithMagnitudeMap.get(i)) {
-			intersectionsWithMagnitudeMap.set(i, 1);
+			intersectionsWithMagnitudeMap.set(i, 2);
 		} else {
-			intersectionsWithMagnitudeMap.set(i, intersectionsWithMagnitudeMap.get(i) + 1);
+			intersectionsWithMagnitudeMap.set(i, intersectionsWithMagnitudeMap.get(i) + 0.25);
 		}
 	});
 	const circles: Circle[] = [...intersectionsWithMagnitudeMap].map((e) => {
@@ -61,8 +68,8 @@
 	<defs>
 		<filter id="QUASICRYSTAL-glow">
 			<feGaussianBlur in="SourceGraphic" stdDeviation="2" result="n" />
-			<feMorphology in="SourceGraphic" operator="dilate" radius="2" />
-			<feGaussianBlur stdDeviation="10" />
+			<feMorphology in="SourceGraphic" operator="dilate" radius="1" />
+			<feGaussianBlur stdDeviation="8" />
 			<feMerge>
 				<feMergeNode />
 				<feMergeNode in="n" />
@@ -72,8 +79,8 @@
 	</defs>
 	<Background {size} fill="oklch(0.2 0 0)" />
 	<g transform="rotate(0)">
+		<LineWithLegend {lineArray} style={`stroke:oklch(0.5 25% 240)`} />
 		<g filter="url(#QUASICRYSTAL-glow)">
-			<LineWithLegend {lineArray} style={`stroke:oklch(0.2 25% 240)`} />
 			{#each circles as c}
 				<circle r={c.r} cx={c.x} cy={c.y} style={`fill:white;`} />
 			{/each}
