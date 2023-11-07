@@ -129,7 +129,6 @@
 			]);
 		});
 	});
-	console.log(lineArray.length);
 </script>
 
 <DopplerSvg {id} {size} logoProps={{ stroke: 'oklch(0.25 100% 300)' }}>
