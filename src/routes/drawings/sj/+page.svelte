@@ -16,7 +16,7 @@
 	const size = 2 ** 11 + 1;
 	const r = size / 4;
 	const radii = [r, r * phi, r * phi ** 2, r * phi ** 3];
-	const angles = anglesArray(10);
+	const angles = anglesArray(10, 0);
 	const ocircles: Circle[] = [
 		...radii.map((r) => ({ r, x: 0, y: 0 })),
 		...angles.map((a) => radii.map((r) => ({ r, ...radialPoint(a, radii[0]) }))).flat(),
@@ -150,7 +150,6 @@
 		.filter((c) => c.r !== 8);
 	const circleRadii = new Set([...circles.map((c) => c.r).sort((a, b) => a - b)]);
 	const colors = new Map([...circleRadii].map((r, i) => [r, (360 / circleRadii.size) * i + 300]));
-	console.log(colors);
 </script>
 
 <DopplerSvg {id} {size} zoom={0}>
@@ -165,7 +164,11 @@
 					stroke: oklch(1 100% 330 / 1);
 				}
 				& line.i {
+					/* display: none; */
 					stroke: oklch(1 100% 210 / 1);
+				}
+				& line.o {
+					/* display: none; */
 				}
 			}
 		</style>
