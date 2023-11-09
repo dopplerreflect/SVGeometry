@@ -2,7 +2,7 @@
 	export let metadata: DrawingMetadata = {
 		tags: [],
 		created_at: new Date(2023, 10, 8),
-		updated_at: new Date(2023, 10, 8)
+		updated_at: new Date(2023, 10, 8, 10)
 	};
 </script>
 
