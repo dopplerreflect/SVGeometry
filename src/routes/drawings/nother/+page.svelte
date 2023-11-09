@@ -98,7 +98,7 @@
 		/>
 	</filter>
 	<style>
-		SVG#NOTHER {
+		svg#NOTHER {
 			& g.pg {
 				filter: url(#NOTHER-shadow);
 				fill: oklch(0 0 0 / 0.125);
