@@ -11,7 +11,7 @@
 	import DopplerSvg from '$lib/components/DopplerSVG.svelte';
 	import { Phi, anglesArray, arrayMap, pentagram, phi, radialPoint } from '$lib/geometry';
 
-	const id = '100TOMATOES';
+	const id = 'PENTAMARBLES';
 	const size = 2 ** 10;
 	const ro = size / 5.5;
 	const angles = anglesArray(10);
@@ -39,21 +39,21 @@
 </script>
 
 <DopplerSvg {id} {size}>
-	<radialGradient id="100TOMATOES-bg" r="0.7">
+	<radialGradient id={`${id}-bg`} r="0.7">
 		<stop offset="0%" stop-color="oklch(0 0 0)" />
 		<stop offset="100%" stop-color="oklch(1 0 0)" />
 	</radialGradient>
-	<radialGradient id="100TOMATOES-rg" r="0.5">
+	<radialGradient id={`${id}-rg`} r="0.5">
 		<stop offset="0%" stop-color="oklch(1 0 0)" />
 		<stop offset="100%" stop-color="oklch(0 10% 300)" />
 	</radialGradient>
-	<Background {size} fill="url(#100TOMATOES-bg)" />
+	<Background {size} fill={`url(#${id}-bg)`} />
 	{#each circles as c, i}
 		<circle
 			r={c.r}
 			cx={c.x}
 			cy={c.y}
-			style={`fill:url(#100TOMATOES-rg);stroke:oklch(0 0 0);stroke-width:1;`}
+			style={`fill:url(#${id}-rg);stroke:oklch(0 0 0);stroke-width:1;`}
 		/>
 		<path
 			d={stars[i]}
