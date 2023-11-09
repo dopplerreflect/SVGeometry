@@ -97,7 +97,6 @@
 	});
 	const circleRadii = new Set([...dots.map((c) => c.r).sort((a, b) => a - b)]);
 	const colors = new Map([...circleRadii].map((r, i) => [r, (180 / circleRadii.size) * i + 180]));
-	console.log(colors);
 </script>
 
 <DopplerSvg {id} {size}>
