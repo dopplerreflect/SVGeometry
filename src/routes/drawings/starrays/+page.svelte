@@ -14,7 +14,7 @@
 
 	const id = 'STARRAYS';
 	const size = 2 ** 10;
-	const ro = size / 8.5;
+	const ro = size / 9;
 	const angles = anglesArray(10);
 	const radii = arrayMap(3, (n) => ro * phi ** n);
 	const circles: Circle[] = [
@@ -75,7 +75,7 @@
 	lineArray.forEach((l) => {
 		boundaryLines.forEach((b) => {
 			let i = intersection(b, l);
-			if (Math.abs(i.x) < size / 2 && Math.abs(i.y) < size / 2) {
+			if (Math.abs(i.x) <= boundaryLines[0][1].x && Math.abs(i.y) <= boundaryLines[1][1].y) {
 				boundaryIntersections.push(i);
 			}
 		});
@@ -102,8 +102,8 @@
 			cx={`${50 + radialPoint(a, 50 * phi ** 2).x}%`}
 			cy={`${50 + radialPoint(a, 50 * phi ** 2).y}%`}
 		>
-			<stop offset="0%" stop-color="oklch(1 100% 90 / 0.5)" />
-			<stop offset="100%" stop-color="oklch(0.0 100% 90 / 0.75)" />
+			<stop offset="0%" stop-color="oklch(1 100% 150 / 0.5)" />
+			<stop offset="100%" stop-color="oklch(0.0 100% 150 / 0.75)" />
 		</radialGradient>
 	{/each}
 	<filter id={`${id}-glow`}>
@@ -122,8 +122,6 @@
 		{#each boundaryIntersections as p}
 			<circle r={2} cx={p.x} cy={p.y} style={`stroke:oklch(1 100% 210);fill:none;`} />
 		{/each}
-		<LineWithLegend lineArray={extendedLines} style={`stroke:oklch(1 100% 210)`} />
-		<LineWithLegend lineArray={boundaryLines} style={`stroke:oklch(1 0 0)`} />
 		<circle
 			r={radii[2] * Math.sqrt(5)}
 			style={`fill:url(#${id}-rg);stroke:oklch(0.5 100% 90);stroke-width:0;`}
@@ -143,6 +141,8 @@
 			<circle r={radii[1] * Math.sqrt(5)} />
 			<circle r={radii[2] * Math.sqrt(5)} />
 		</g>
+		<LineWithLegend lineArray={extendedLines} style={`stroke:oklch(1 100% 240)`} />
+		<LineWithLegend lineArray={boundaryLines} style={`stroke:oklch(1 0 0)`} />
 		{#each circles as c, i}
 			<circle
 				r={c.r}
