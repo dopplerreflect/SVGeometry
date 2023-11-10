@@ -17,7 +17,7 @@
 		radialPoint
 	} from '$lib/geometry';
 
-	const id = 'TEMPLATE';
+	const id = 'RAYTEST';
 	const size = 2 ** 10;
 	const angles = anglesArray(20);
 	const r = (size / 2) * 0.95;
@@ -109,11 +109,11 @@
 
 <DopplerSvg {id} {size}>
 	<defs>
-		<linearGradient id="TEMPLATE-lg" gradientTransform="rotate(90)">
+		<linearGradient id="RAYTEST-lg" gradientTransform="rotate(90)">
 			<stop offset="0%" stop-color="oklch(0.66 33% 60)" />
 			<stop offset="100%" stop-color="oklch(0.33 33% 60)" />
 		</linearGradient>
-		<filter id="TEMPLATE-filter" width={size / 2} height={size / 2}>
+		<filter id="RAYTEST-filter" width={size / 2} height={size / 2}>
 			<feFlood flood-color="oklch(0.25 50% 90)" />
 			<feComposite in2="SourceGraphic" operator="in" />
 			<feGaussianBlur stdDeviation="5" />
@@ -123,7 +123,7 @@
 				<feMergeNode in="SourceGraphic" />
 			</feMerge>
 		</filter>
-		<filter id="TEMPLATE-shrink">
+		<filter id="RAYTEST-shrink">
 			<feMorphology in="SourceAlpha" operator="erode" radius="3" result="smallErode" />
 			<feFlood flood-color="oklch(1 33% 60)" result="color" />
 			<feComposite operator="in" in2="smallErode" result="border" />
@@ -133,25 +133,25 @@
 				<feMergeNode in="bigErode" />
 			</feMerge>
 		</filter>
-		<filter id="TEMPLATE-noise">
+		<filter id="RAYTEST-noise">
 			<feTurbulence type="fractalNoise" baseFrequency="0.66" />
 			<feColorMatrix type="saturate" values="0" />
 		</filter>
 	</defs>
-	<Background {size} fill="url(#TEMPLATE-lg)" />
-	<Background {size} filter="url(#TEMPLATE-noise)" />
+	<Background {size} fill="url(#RAYTEST-lg)" />
+	<Background {size} filter="url(#RAYTEST-noise)" />
 	<circle
 		{r}
-		filter="url(#TEMPLATE-filter)"
+		filter="url(#RAYTEST-filter)"
 		style="fill:oklch(50% 66% 90 / 0.25);stroke:oklch(0.25 33% 60);stroke-width:2;"
 	/>
 	{#each polygonGroups as group, gi}
 		<g
 			style={`fill:oklch(${1 - (1 / (polygonGroups.length + 2)) * gi} 33% 60 / 1);`}
-			filter="url(#TEMPLATE-filter)"
+			filter="url(#RAYTEST-filter)"
 		>
 			{#each group as points, i}
-				<polygon {points} filter="url(#TEMPLATE-shrink" />
+				<polygon {points} filter="url(#RAYTEST-shrink" />
 			{/each}
 		</g>
 	{/each}
