@@ -1,19 +1,28 @@
 <script context="module" lang="ts">
 	export let metadata: DrawingMetadata = {
 		tags: [],
-		created_at: new Date(),
-		updated_at: new Date()
+		created_at: new Date(2023, 10, 10, 12),
+		updated_at: new Date(2023, 10, 10, 12)
 	};
 </script>
 
 <script lang="ts">
 	import Background from '$lib/components/Background.svelte';
 	import DopplerSvg from '$lib/components/DopplerSVG.svelte';
-	import { anglesArray, circleIntersections, phi, pointToString, radialPoint } from '$lib/geometry';
+	import {
+		anglesArray,
+		circleIntersections,
+		phi,
+		pointToString,
+		radialPoint,
+		radialPointString
+	} from '$lib/geometry';
 
 	const id = 'TORUSERPENT';
 	const size = 2 ** 10;
 	const angles = anglesArray(10);
+	const angles2 = anglesArray(30);
+
 	const r = size * 0.35;
 	const circles: Circle[] = [...angles.map((a) => ({ r, ...radialPoint(a, r * phi ** 2) }))];
 	const intersections: Point[] = circles
@@ -129,8 +138,54 @@
 			<stop offset="61%" stop-color={`oklch(1 100% var(--hue) / 0.5)`} />
 			<stop offset="100%" stop-color={`oklch(0 100% var(--hue) / 0)`} />
 		</radialGradient>
+		<filter id="TORUSERPENT-distort" x="-50%" y="-50%" width="200%" height="200%">
+			<feTurbulence
+				type="fractalNoise"
+				baseFrequency="0.05"
+				numOctaves="2"
+				seed="8"
+				result="noise"
+			/>
+			<feDisplacementMap
+				in="SourceGraphic"
+				in2="noise"
+				scale="100"
+				xChannelSelector="R"
+				yChannelSelector="G"
+				result="distort"
+			/>
+			<feGaussianBlur stdDeviation="5" />
+			<feColorMatrix
+				values="1 0 0 0 1
+                0 1 0 0 1
+                0 0 1 0 1
+                0 0 0 1 0.0825"
+			/>
+			<feMerge>
+				<feMergeNode />
+				<feMergeNode in="distort" />
+			</feMerge>
+		</filter>
+		<mask id="TORUSERPENT-radialmask">
+			<radialGradient id="TORUSERPENT-rmrg">
+				<stop offset="0%" stop-color="white" />
+				<stop offset="100%" stop-color="oklch(0.33 0 0)" />
+			</radialGradient>
+			<Background {size} fill="url(#TORUSERPENT-rmrg)" />
+		</mask>
 	</defs>
-	<Background {size} fill="oklch(0.2 0 0)" />
+	<Background {size} fill="oklch(0 50% calc(var(--hue) + 180))" />
+	<g filter="url(#TORUSERPENT-distort)" mask="url(#TORUSERPENT-radialmask)">
+		{#each angles2 as a}
+			<path
+				d={`M${radialPointString(a, r * phi ** 2)} ${radialPointString(
+					a,
+					(size / 2) * Math.sqrt(2)
+				)}`}
+				style={`stroke:oklch(0.5 100% calc(var(--hue) + 180));stroke-width:5;`}
+			/>
+		{/each}
+	</g>
 	<Background {size} fill="url(#TORUSERPENT-rg)" />
 	{#each angles as a}
 		<use href="#TORUSERPENT-arm" transform={`rotate(${a})`} />
