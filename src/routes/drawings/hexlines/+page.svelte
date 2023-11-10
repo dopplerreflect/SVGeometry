@@ -21,7 +21,7 @@
 		radialPoint
 	} from '$lib/geometry';
 
-	const id = 'TEMPLATE';
+	const id = 'HEXLINES';
 	const size = 2 ** 10;
 	const angles = anglesArray(6);
 	const ro = size * 0.18;
@@ -139,7 +139,7 @@
 </script>
 
 <DopplerSvg {id} {size}>
-	<filter id="TEMPLATE-shrink">
+	<filter id="HEXLINES-shrink">
 		<feMorphology in="SourceAlpha" operator="erode" radius={2} />
 		<feColorMatrix
 			values="0 0 0 0 1
@@ -155,14 +155,14 @@
 			<feMergeNode />
 		</feMerge>
 	</filter>
-	<filter id="TEMPLATE-glow">
+	<filter id="HEXLINES-glow">
 		<feGaussianBlur stdDeviation="3" />
 		<feMerge>
 			<feMergeNode />
 			<feMergeNode in="SourceGraphic" />
 		</feMerge>
 	</filter>
-	<filter id="TEMPLATE-glow2">
+	<filter id="HEXLINES-glow2">
 		<feMorphology operator="dilate" radius="1" />
 		<feGaussianBlur stdDeviation="5" />
 		<feColorMatrix
@@ -177,27 +177,27 @@
 		</feMerge>
 	</filter>
 	<style>
-		svg#TEMPLATE {
+		svg#HEXLINES {
 			& .filtered {
 				fill: oklch(0.25 33% 300 / 1);
-				filter: url(#TEMPLATE-shrink);
+				filter: url(#HEXLINES-shrink);
 			}
 		}
 	</style>
-	<radialGradient id="TEMPLATE-rg" r="50%">
+	<radialGradient id="HEXLINES-rg" r="50%">
 		<stop offset="0%" stop-color="oklch(1 100% 90)" />
 		<stop offset="50%" stop-color="oklch(1 100% 60)" />
 		<stop offset="100%" stop-color="oklch(0 100% 300)" />
 	</radialGradient>
 	<HexPattern
-		id="TEMPLATE-hexpattern"
+		id="HEXLINES-hexpattern"
 		stroke="oklch(0.75 100% 60 / 0.25)"
 		size={(radii[2] * phi ** 2) / 4}
 		patternTransform="rotate(30)"
 	/>
-	<Background {size} fill="url(#TEMPLATE-rg)" />
-	<g filter="url(#TEMPLATE-glow)">
-		<Background {size} fill="url(#TEMPLATE-hexpattern)" />
+	<Background {size} fill="url(#HEXLINES-rg)" />
+	<g filter="url(#HEXLINES-glow)">
+		<Background {size} fill="url(#HEXLINES-hexpattern)" />
 		<LineWithLegend {lineArray} style={`stroke:oklch(1 100% 90);`} />
 	</g>
 	{#each polygonGroups as pg, pgi}
@@ -209,7 +209,7 @@
 			/>
 		{/each}
 	{/each}
-	<g filter="url(#TEMPLATE-glow2)">
+	<g filter="url(#HEXLINES-glow2)">
 		{#each circles as c}
 			<circle r={c.r} cx={c.x} cy={c.y} style={`stroke:oklch(1 100% 270);fill:none;`} />
 		{/each}
