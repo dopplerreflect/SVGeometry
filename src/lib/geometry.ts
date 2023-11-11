@@ -37,10 +37,11 @@ export function radialPoint(angle: number, radius: number, options?: GeometryOpt
 export function radialPointString(
 	angle: number,
 	radius: number,
-	options?: GeometryOptions
+	options?: GeometryOptions,
+	px: '' | 'px' = ''
 ): string {
 	let point: Point = radialPoint(angle, radius, options);
-	return `${point.x},${point.y}`;
+	return `${point.x}${px} ${point.y}${px}`;
 }
 
 /**
