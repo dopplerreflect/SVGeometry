@@ -98,12 +98,12 @@
 	<defs>
 		<style>
 			:root {
-				--hue: 120;
+				--hue: 90;
 			}
 		</style>
 		<g id="TORUSERPENT-arm">
 			{#each paths as d, i}
-				<path {d} style={`fill:oklch(0.25 100% var(--hue) );`} filter="url(#TORUSERPENT-shrink)" />
+				<path {d} filter="url(#TORUSERPENT-shrink)" />
 			{/each}
 		</g>
 		<filter id="TORUSERPENT-shrink">
@@ -134,9 +134,9 @@
 			<stop offset="100%" stop-color={`oklch(0.2 100% var(--hue) / 0)`} />
 		</radialGradient>
 		<radialGradient id="TORUSERPENT-rg2" fr="15.5%" r="50%">
-			<stop offset="0%" stop-color={`oklch(0 100% var(--hue) / 0)`} />
-			<stop offset="61%" stop-color={`oklch(1 100% var(--hue) / 0.5)`} />
-			<stop offset="100%" stop-color={`oklch(0 100% var(--hue) / 0)`} />
+			<stop offset="0%" stop-color={`oklch(0 50% var(--hue) / 0)`} />
+			<stop offset="61%" stop-color={`oklch(1 50% var(--hue) / 0.5)`} />
+			<stop offset="100%" stop-color={`oklch(0 50% var(--hue) / 0)`} />
 		</radialGradient>
 		<filter id="TORUSERPENT-distort" x="-50%" y="-50%" width="200%" height="200%">
 			<feTurbulence
@@ -182,23 +182,34 @@
 					a,
 					(size / 2) * Math.sqrt(2)
 				)}`}
-				style={`stroke:oklch(0.5 100% calc(var(--hue) + 180));stroke-width:5;`}
+				style={`stroke:oklch(0.5 100% calc(var(--hue) - 120));stroke-width:5;`}
 			/>
 		{/each}
 	</g>
-	<Background {size} fill="url(#TORUSERPENT-rg)" />
-	{#each angles as a}
-		<use href="#TORUSERPENT-arm" transform={`rotate(${a})`} />
-	{/each}
-	<Background {size} fill="url(#TORUSERPENT-rg2)" />
-	<g filter="url(#TORUSERPENT-glow)">
+	<g filter="url(#TORUSERPENT-glow)" transform="rotate(0)">
 		{#each circles as c}
 			<circle
 				r={c.r}
 				cx={c.x}
 				cy={c.y}
-				style={`fill:none;stroke:oklch(1 100% calc(var(--hue) + 60))`}
+				style={`fill:none;stroke:oklch(1 100% calc(var(--hue) - 60) / 1)`}
 			/>
 		{/each}
 	</g>
+	<Background {size} fill="url(#TORUSERPENT-rg)" />
+	{#each angles.slice(0, 4) as a, i}
+		<use
+			style={`fill:oklch(${1 - (1 / 4) * i} 25% var(--hue) );`}
+			href="#TORUSERPENT-arm"
+			transform={`rotate(${a + 72})`}
+		/>
+	{/each}
+	{#each angles.slice(0, 4) as a, i}
+		<use
+			style={`fill:oklch(${1 - (1 / 4) * i} 25% var(--hue) );`}
+			href="#TORUSERPENT-arm"
+			transform={`rotate(${a + 72 + 180})`}
+		/>
+	{/each}
+	<Background {size} fill="url(#TORUSERPENT-rg2)" />
 </DopplerSvg>
