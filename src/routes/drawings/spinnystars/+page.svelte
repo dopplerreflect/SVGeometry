@@ -118,6 +118,6 @@
 	}
 
 	.rotatable {
-		/* animation: spin 12s linear 0s infinite; */
+		animation: spin 12s linear 0s infinite;
 	}
 </style>
