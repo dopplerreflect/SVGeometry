@@ -1,8 +1,8 @@
 <script context="module" lang="ts">
 	export let metadata: DrawingMetadata = {
 		tags: [],
-		created_at: new Date(),
-		updated_at: new Date()
+		created_at: new Date(2023, 10, 10, 21),
+		updated_at: new Date(2023, 10, 10, 21)
 	};
 </script>
 
@@ -49,8 +49,8 @@
 		/>
 	</filter>
 	<filter id="SPINNYSTARS-glow">
-		<feMorphology operator="dilate" radius="1" />
-		<feGaussianBlur stdDeviation="5" />
+		<feMorphology operator="dilate" radius="0" />
+		<feGaussianBlur stdDeviation="3" />
 		<feMerge>
 			<feMergeNode />
 			<feMergeNode in="SourceGraphic" />
@@ -67,7 +67,7 @@
 		{/each}
 	</g>
 
-	<g filter="url(#SPINNYSTARS-glow)">
+	<g id="figure" filter="url(#SPINNYSTARS-glow)">
 		{#each circles as c}
 			<circle r={c.r} cx={c.x} cy={c.y} style="fill:none;stroke:oklch(1 100% 150)" />
 		{/each}
@@ -119,5 +119,9 @@
 
 	.rotatable {
 		animation: spin 12s linear 0s infinite;
+		transform: rotate(18deg);
+	}
+	#figure {
+		transform: rotate(-18deg);
 	}
 </style>
