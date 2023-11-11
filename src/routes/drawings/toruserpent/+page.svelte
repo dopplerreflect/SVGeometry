@@ -98,7 +98,7 @@
 	<defs>
 		<style>
 			:root {
-				--hue: 90;
+				--hue: 60;
 			}
 		</style>
 		<g id="TORUSERPENT-arm">
@@ -192,7 +192,7 @@
 				r={c.r}
 				cx={c.x}
 				cy={c.y}
-				style={`fill:none;stroke:oklch(1 100% calc(var(--hue) - 60) / 1)`}
+				style={`fill:none;stroke:oklch(1 100% calc(var(--hue) - 30) / 1)`}
 			/>
 		{/each}
 	</g>
