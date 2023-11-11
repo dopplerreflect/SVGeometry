@@ -19,7 +19,7 @@
 		radialPointString
 	} from '$lib/geometry';
 
-	const id = 'TEMPLATE';
+	const id = 'SPINNYSTARS';
 	const size = 2 ** 10;
 	const r = size * 0.18;
 	const radii = arrayMap(4, (n) => r * phi ** n);
@@ -32,7 +32,7 @@
 </script>
 
 <DopplerSvg {id} {size}>
-	<filter id="TEMPLATE-distort">
+	<filter id="SPINNYSTARS-distort">
 		<feTurbulence
 			type="fractalNoise"
 			baseFrequency="0.0125"
@@ -48,7 +48,7 @@
 			yChannelSelector="G"
 		/>
 	</filter>
-	<filter id="TEMPLATE-glow">
+	<filter id="SPINNYSTARS-glow">
 		<feMorphology operator="dilate" radius="1" />
 		<feGaussianBlur stdDeviation="5" />
 		<feMerge>
@@ -57,7 +57,7 @@
 		</feMerge>
 	</filter>
 	<Background {size} fill="oklch(0.2 0 0)" />
-	<g filter="url(#TEMPLATE-distort)">
+	<g filter="url(#SPINNYSTARS-distort)">
 		{#each angles as a, i}
 			<path
 				class="rotatable"
@@ -67,7 +67,7 @@
 		{/each}
 	</g>
 
-	<g filter="url(#TEMPLATE-glow)">
+	<g filter="url(#SPINNYSTARS-glow)">
 		{#each circles as c}
 			<circle r={c.r} cx={c.x} cy={c.y} style="fill:none;stroke:oklch(1 100% 150)" />
 		{/each}
@@ -118,6 +118,6 @@
 	}
 
 	.rotatable {
-		animation: spin 12s linear 0s infinite;
+		/* animation: spin 12s linear 0s infinite; */
 	}
 </style>
