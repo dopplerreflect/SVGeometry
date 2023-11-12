@@ -22,7 +22,8 @@
 
 	const id = 'TILED-SUN';
 	const size = 2 ** 10;
-	const d = 4;
+	const d = 5;
+	const rotate = false;
 	const angles = anglesArray(d);
 	const r = size * 0.25;
 	const radii = arrayMap(3, (n) => r * phi ** n);
@@ -71,7 +72,11 @@
 	{#each circles as c}
 		<circle r={c.r} cx={c.x} cy={c.y} style={`stroke:oklch(0.33 0 0);fill:none;`} />
 		<path
-			d={polygonPath(d, c.r, { center: { x: c.x, y: c.y }, rotate: 0 })}
+			d={polygonPath(d, c.r, { center: { x: c.x, y: c.y }, rotate: rotate ? 360 / d / 2 : 0 })}
+			style={`stroke:oklch(0.75 0 0);fill:none;`}
+		/>
+		<path
+			d={polygonPath(d, c.r, { center: { x: c.x, y: c.y }, rotate: !rotate ? 360 / d / 2 : 0 })}
 			style={`stroke:oklch(0.75 0 0);fill:none;`}
 		/>
 	{/each}
