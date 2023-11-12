@@ -20,7 +20,7 @@
 		radialPoint
 	} from '$lib/geometry';
 
-	const id = 'TEMPLATE';
+	const id = 'TILED-SUN';
 	const size = 2 ** 10;
 	const d = 10;
 	const angles = anglesArray(d);
@@ -254,7 +254,7 @@
 
 <DopplerSvg {id} {size}>
 	<defs>
-		<filter id="TEMPLATE-shrink">
+		<filter id="TILED-SUN-shrink">
 			<feMorphology in="SourceAlpha" operator="erode" radius="1" />
 			<feGaussianBlur stdDeviation="2" />
 			<feOffset dy="3" result="shadow" />
@@ -278,9 +278,9 @@
 			</feMerge>
 		</filter>
 		<style>
-			svg#TEMPLATE {
+			svg#TILED-SUN {
 				& g.filtered {
-					filter: url(#TEMPLATE-shrink);
+					filter: url(#TILED-SUN-shrink);
 					fill: oklch(1 0 0 / 0.25);
 					--hue0: 210;
 					--hue1: calc(var(--hue0) + 60);
@@ -343,12 +343,12 @@
 				}
 			}
 		</style>
-		<radialGradient id="TEMPLATE-rg">
+		<radialGradient id="TILED-SUN-rg">
 			<stop offset="0%" stop-color="oklch(1 100% 60)" />
 			<stop offset="75%" stop-color="oklch(1 100% 90)" />
 			<stop offset="100%" stop-color="oklch(0.05 100% 30)" />
 		</radialGradient>
-		<filter id="TEMPLATE-distort" x="-25%" y="-25%" width="200%" height="200%">
+		<filter id="TILED-SUN-distort" x="-25%" y="-25%" width="200%" height="200%">
 			<feTurbulence
 				seed="13"
 				type="fractalNoise"
@@ -376,16 +376,39 @@
 				<feMergeNode in="fire" />
 			</feMerge>
 		</filter>
+		<filter id="TILED-SUN-tile">
+			<feTurbulence type="fractalNoise" baseFrequency="0.075" result="noise" />
+			<feComposite in="SourceGraphic" in2="noise" operator="in" />
+			<feColorMatrix
+				values="1 0 0 0.75 0
+                0 1 0 0.5 0
+                0 0 1 0.5 0
+                0 0 0 0.1 0"
+				result="wash"
+			/>
+			<feDisplacementMap
+				in="SourceGraphic"
+				in2="noise"
+				scale="3"
+				xChannelSelector="R"
+				yChannelSelector="G"
+			/>
+			<feMerge>
+				<feMergeNode />
+				<feMergeNode in="SourceGraphic" />
+				<feMergeNode in="wash" />
+			</feMerge>
+		</filter>
 	</defs>
-	<Background {size} fill="url(#TEMPLATE-rg)" />
-	<g filter="url(#TEMPLATE-distort)">
+	<Background {size} fill="url(#TILED-SUN-rg)" />
+	<g filter="url(#TILED-SUN-distort)">
 		<LineWithLegend lineArray={raylines} style="stroke:oklch(1 50% 60 / 0.5);stroke-width:10;" />
 	</g>
 	<g id="everything" transform="rotate(18)">
 		<g id="lines">
 			<LineWithLegend {lineArray} style="stroke:oklch(1 0 0)" />
 		</g>
-		<g id="polygons">
+		<g id="polygons" filter="url(#TILED-SUN-tile)">
 			{#each polygonGroups as pg, pgi}
 				{#each pg as points, i}
 					<PolygonToRadial
