@@ -251,7 +251,27 @@
 <DopplerSvg {id} {size}>
 	<defs>
 		<filter id="TEMPLATE-shrink">
-			<feMorphology operator="erode" radius="3" />
+			<feMorphology in="SourceAlpha" operator="erode" radius="1" />
+			<feGaussianBlur stdDeviation="2" />
+			<feOffset dy="3" result="shadow" />
+			<feMorphology in="SourceAlpha" result="erode2" operator="erode" radius="2" />
+			<feColorMatrix
+				in="erode2"
+				result="border"
+				values="1 0 0 0 1
+                0 1 0 0 1
+                0 0 1 0 0.5
+                0 0 0 1 0"
+			/>
+			<feGaussianBlur stdDeviation="1" />
+			<feOffset dy="-2" result="topglow" />
+			<feMorphology in="SourceGraphic" operator="erode" radius="3" />
+			<feMerge>
+				<feMergeNode in="topglow" />
+				<feMergeNode in="shadow" />
+				<!-- <feMergeNode in="border" /> -->
+				<feMergeNode />
+			</feMerge>
 		</filter>
 		<style>
 			svg#TEMPLATE {
@@ -292,36 +312,44 @@
 					fill: oklch(0.25 100% var(--hue2));
 				}
 				& g.pg3 {
-					fill: oklch(1 50% var(--hue3));
+					fill: oklch(0.9 50% var(--hue3));
 				}
 				& g.pg3.p0 {
+					fill: oklch(1 50% var(--hue3));
+				}
+				& g.pg3.p1,
+				g.pg3.p5 {
 					fill: oklch(0.9 50% var(--hue3));
 				}
 				& g.pg3.p2,
 				g.pg3.p3 {
-					fill: oklch(0.9 75% var(--hue3));
+					fill: oklch(0.8 50% var(--hue3));
 				}
 				& g.pg3.p4 {
-					fill: oklch(0.65 50% var(--hue3));
+					fill: oklch(0.7 50% var(--hue3));
 				}
 				& g.pg4 {
 					fill: oklch(1 100% var(--hue4));
 				}
 				& g.pg5 {
-					fill: oklch(0.5 100% var(--hue4));
+					fill: oklch(1 75% var(--hue4));
+				}
+				& #everything {
+					/* display: none; */
 				}
 			}
 		</style>
+		<radialGradient id="TEMPLATE-rg">
+			<stop offset="0%" stop-color="oklch(1 100% 60)" />
+			<stop offset="75%" stop-color="oklch(1 100% 90)" />
+			<stop offset="100%" stop-color="oklch(0 100% 30)" />
+		</radialGradient>
 	</defs>
-	<Background {size} fill="oklch(0.5 0 0)" />
-	<g id="everything" transform="rotate(0)">
-		{#each circles as c}
-			<!-- <circle style="fill:none;stroke:oklch(0.5 0 0);" r={c.r} cx={c.x} cy={c.y} /> -->
-			<!-- <path
-			style="fill:none;stroke:oklch(0.75 0 0)"
-			d={polygonPath(d, c.r, { center: { x: c.x, y: c.y } })}
-		/> -->
-		{/each}
+	<Background {size} fill="url(#TEMPLATE-rg)" />
+	<g id="everything" transform="rotate(18)">
+		<g id="lines">
+			<LineWithLegend {lineArray} style="stroke:oklch(1 0 0)" />
+		</g>
 		<g id="polygons">
 			{#each polygonGroups as pg, pgi}
 				{#each pg as points, i}
@@ -333,12 +361,5 @@
 				{/each}
 			{/each}
 		</g>
-
-		<g id="lines">
-			<LineWithLegend {lineArray} style="stroke:oklch(1 0 0)" />
-		</g>
 	</g>
 </DopplerSvg>
-
-<style>
-</style>
