@@ -24,6 +24,7 @@
 	const size = 2 ** 10;
 	const d = 10;
 	const angles = anglesArray(d);
+	const angles2 = anglesArray(d * 2);
 	const r = size * 0.25;
 	const radii = arrayMap(3, (n) => r * phi ** n);
 	const circles = [
@@ -246,6 +247,9 @@
 		],
 		[polygonFromIntersectionOfLines([118, 117, 119, 118], lineArray)]
 	];
+	const raylines = angles2.map(
+		(a) => [radialPoint(a + 9, 0), radialPoint(a + 9, size * 0.5)] as Line
+	);
 </script>
 
 <DopplerSvg {id} {size}>
@@ -342,10 +346,41 @@
 		<radialGradient id="TEMPLATE-rg">
 			<stop offset="0%" stop-color="oklch(1 100% 60)" />
 			<stop offset="75%" stop-color="oklch(1 100% 90)" />
-			<stop offset="100%" stop-color="oklch(0 100% 30)" />
+			<stop offset="100%" stop-color="oklch(0.05 100% 30)" />
 		</radialGradient>
+		<filter id="TEMPLATE-distort" x="-25%" y="-25%" width="200%" height="200%">
+			<feTurbulence
+				seed="13"
+				type="fractalNoise"
+				baseFrequency="0.03"
+				numOctaves="8"
+				result="turbulence"
+			/>
+			<feDisplacementMap
+				in="SourceGraphic"
+				in2="turbulence"
+				scale="256"
+				xChannelSelector="R"
+				yChannelSelector="&"
+				result="fire"
+			/>
+			<feColorMatrix
+				values="1 0 0 0 0
+                0 0 0 0 0
+                0 0 0 0 0
+                0 0 0 1 0"
+			/>
+			<feGaussianBlur stdDeviation="2" />
+			<feMerge>
+				<feMergeNode />
+				<feMergeNode in="fire" />
+			</feMerge>
+		</filter>
 	</defs>
 	<Background {size} fill="url(#TEMPLATE-rg)" />
+	<g filter="url(#TEMPLATE-distort)">
+		<LineWithLegend lineArray={raylines} style="stroke:oklch(1 50% 60 / 0.5);stroke-width:10;" />
+	</g>
 	<g id="everything" transform="rotate(18)">
 		<g id="lines">
 			<LineWithLegend {lineArray} style="stroke:oklch(1 0 0)" />
