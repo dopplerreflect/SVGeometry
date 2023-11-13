@@ -17,7 +17,7 @@
 		radialPoint
 	} from '$lib/geometry';
 
-	const id = 'TILED-SUN';
+	const id = 'SQRT2MOSAIC';
 	const size = 2 ** 10;
 	const d = 4;
 	const angles = anglesArray(d, 0);
@@ -110,7 +110,7 @@
 
 <DopplerSvg {id} {size}>
 	<defs>
-		<filter id="TILED-SUN-shrink">
+		<filter id="SQRT2MOSAIC-shrink">
 			<feMorphology in="SourceAlpha" operator="erode" radius="1" />
 			<feGaussianBlur stdDeviation="2" />
 			<feOffset dy="3" result="shadow" />
@@ -118,9 +118,9 @@
 			<feColorMatrix
 				in="erode2"
 				result="border"
-				values="1 0 0 0 1
-                0 1 0 0 0.5
-                0 0 1 0 0.25
+				values="0 0 0 0 0.3
+                0 0 0 0 0.2
+                0 0 0 0 0.1
                 0 0 0 1 0"
 			/>
 			<feGaussianBlur stdDeviation="1" />
@@ -133,29 +133,62 @@
 				<feMergeNode />
 			</feMerge>
 		</filter>
-		<filter id="TILED-SUN-dirt">
+		<filter id="SQRT2MOSAIC-flames">
 			<feTurbulence type="fractalNoise" baseFrequency="0.0125" numOctaves="4" />
 			<feDisplacementMap in2="turbulence" scale="128" xChannelSelector="B" yChannelSelector="R" />
 			<feColorMatrix
 				values="0 0 0 0 1
-                0 0 0 0 0
+                0 0 0 0 0.125
                 0 0 0 0 0
                 0 0 0 1 0"
 			/>
 		</filter>
+		<filter id="SQRT2MOSAIC-tile">
+			<feMorphology in="SourceAlpha" operator="dilate" radius="4" result="dilate" />
+			<feFlood flood-color="oklch(0.25 50% 60)" result="glowcolor" />
+			<feComposite in="glowcolor" in2="dilate" operator="in" />
+			<feGaussianBlur stdDeviation="36" />
+			<feOffset dy="9" result="glow" />
+			<feTurbulence type="fractalNoise" baseFrequency="0.33" result="noise" />
+			<feComposite in="SourceGraphic" in2="noise" operator="in" />
+			<feColorMatrix
+				values="0 0 0 0 0.2
+                0 0 0 0 0.05
+                0 0 0 0 0.01
+                0 0 0 0.5 0"
+				result="wash"
+			/>
+			<feDisplacementMap
+				in="SourceGraphic"
+				in2="noise"
+				scale="3"
+				xChannelSelector="R"
+				yChannelSelector="G"
+			/>
+			<feMerge>
+				<feMergeNode in="glow" />
+				<feMergeNode />
+				<feMergeNode in="SourceGraphic" />
+				<feMergeNode in="wash" />
+			</feMerge>
+		</filter>
+
 		<style>
-			svg#TILED-SUN {
+			svg#SQRT2MOSAIC {
 				& g.filtered {
-					filter: url(#TILED-SUN-shrink);
+					filter: url(#SQRT2MOSAIC-shrink);
 				}
+        & #polygons {
+          filter: url(#SQRT2MOSAIC-tile);
+        }
 		</style>
-		<linearGradient id="TILED-SUN-lg" gradientTransform="rotate(90)">
+		<linearGradient id="SQRT2MOSAIC-lg" gradientTransform="rotate(90)">
 			<stop offset="0%" stop-color="oklch(1 50% 60)" />
 			<stop offset="100%" stop-color="oklch(0 50% 60)" />
 		</linearGradient>
 	</defs>
-	<Background {size} fill="url(#TILED-SUN-lg)" />
-	<Background {size} fill="oklch(0.33 10% 30)" filter="url(#TILED-SUN-dirt)" />
+	<Background {size} fill="url(#SQRT2MOSAIC-lg)" />
+	<Background {size} fill="oklch(0.33 10% 30)" filter="url(#SQRT2MOSAIC-flames)" />
 	<g id="polygons">
 		{#each polygonGroups as pg, pgi}
 			{#each pg as points, i}
