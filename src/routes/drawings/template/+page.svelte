@@ -133,14 +133,29 @@
 				<feMergeNode />
 			</feMerge>
 		</filter>
+		<filter id="TILED-SUN-dirt">
+			<feTurbulence type="fractalNoise" baseFrequency="0.0125" numOctaves="4" />
+			<feDisplacementMap in2="turbulence" scale="128" xChannelSelector="B" yChannelSelector="R" />
+			<feColorMatrix
+				values="0 0 0 0 1
+                0 0 0 0 0
+                0 0 0 0 0
+                0 0 0 1 0"
+			/>
+		</filter>
 		<style>
 			svg#TILED-SUN {
 				& g.filtered {
 					filter: url(#TILED-SUN-shrink);
 				}
 		</style>
+		<linearGradient id="TILED-SUN-lg" gradientTransform="rotate(90)">
+			<stop offset="0%" stop-color="oklch(1 50% 60)" />
+			<stop offset="100%" stop-color="oklch(0 50% 60)" />
+		</linearGradient>
 	</defs>
-	<Background {size} fill="oklch(0.33 10% 30)" />
+	<Background {size} fill="url(#TILED-SUN-lg)" />
+	<Background {size} fill="oklch(0.33 10% 30)" filter="url(#TILED-SUN-dirt)" />
 	<g id="polygons">
 		{#each polygonGroups as pg, pgi}
 			{#each pg as points, i}
@@ -148,7 +163,7 @@
 					{points}
 					angles={angles.map((a) => a - 90)}
 					classname={`filtered p${i} pg${pgi}`}
-					style={`fill:oklch(${0.1 + (1 / polygonGroups.length) * pgi} 50% 60 / 1)`}
+					style={`fill:oklch(${0.1 + (1 / polygonGroups.length) * pgi} 50% 60)`}
 				/>
 			{/each}
 		{/each}
