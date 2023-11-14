@@ -9,7 +9,15 @@
 <script lang="ts">
 	import Background from '$lib/components/Background.svelte';
 	import DopplerSvg from '$lib/components/DopplerSVG.svelte';
-	import { Phi, arrayMap, circleIntersections, phi, pointToString } from '$lib/geometry';
+	import {
+		Phi,
+		anglesArray,
+		arrayMap,
+		circleIntersections,
+		phi,
+		pointToString,
+		radialPointString
+	} from '$lib/geometry';
 
 	const id = 'DEV';
 	const size = 2 ** 10;
@@ -23,6 +31,8 @@
 			{ r, x: r0 / 2, y: 0 }
 		])
 		.flat();
+	const ad = 24;
+	const angles = [...Array(ad + 1).keys()].map((i) => -71 + (71 / ad) * i);
 </script>
 
 <DopplerSvg {id} {size}>
@@ -93,4 +103,27 @@
 			filter="url(#DEV-shadow)"
 		/>
 	</g>
+	{#each angles.slice(0, angles.length - 1) as a, i}
+		<path
+			d={`M${radialPointString(a, r1 - d, { center: { x: -r0 / 2, y: 0 } })} ${
+				i === 0 ? `0 ${-r1 + d} ` : radialPointString(a, r1, { center: { x: -r0 / 2, y: 0 } })
+			}A${r1} ${r1} 0 0 1 ${radialPointString(angles[i + 1], r1, {
+				center: { x: -r0 / 2, y: 0 }
+			})}L${radialPointString(angles[i + 1], r1 - d, { center: { x: -r0 / 2, y: 0 } })}A${r1 - d} ${
+				r1 - d
+			} 0 0 0 ${radialPointString(a, r1 - d, { center: { x: -r0 / 2, y: 0 } })}`}
+			style="stroke:oklch(0 0 0);fill:oklch(1 66% 0 / 1);"
+		/>
+		<path
+			d={`M${radialPointString(a, r1 - d, { center: { x: -r0 / 2, y: 0 } })} ${
+				i === 0 ? `0 ${-r1 + d} ` : radialPointString(a, r1, { center: { x: -r0 / 2, y: 0 } })
+			}A${r1} ${r1} 0 0 1 ${radialPointString(angles[i + 1], r1, {
+				center: { x: -r0 / 2, y: 0 }
+			})}L${radialPointString(angles[i + 1], r1 - d, { center: { x: -r0 / 2, y: 0 } })}A${r1 - d} ${
+				r1 - d
+			} 0 0 0 ${radialPointString(a, r1 - d, { center: { x: -r0 / 2, y: 0 } })}`}
+			style="stroke:oklch(0 0 0);fill:oklch(1 66% 0 / 1);"
+			transform="scale(-1 1)"
+		/>
+	{/each}
 </DopplerSvg>
