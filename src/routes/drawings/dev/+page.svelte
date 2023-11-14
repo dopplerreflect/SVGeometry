@@ -33,6 +33,10 @@
 		.flat();
 	const ad = 24;
 	const angles = [...Array(ad + 1).keys()].map((i) => -71 + (71 / ad) * i);
+	const ys: number[] = [];
+	for (let y = 0; y <= r1; y += d) {
+		ys.push(y);
+	}
 </script>
 
 <DopplerSvg {id} {size}>
@@ -70,7 +74,7 @@
 			}
 		</style>
 	</defs>
-	<Background {size} fill="oklch(0 100% 300)" />
+	<Background {size} fill="oklch(0 100% 210)" />
 	<g transform="rotate(0)">
 		<line x1={-size / 2} x2={size / 2} style="stroke:oklch(1 0 0 / 0.5)" />
 		<line y1={-size / 2} y2={size / 2} style="stroke:oklch(1 0 0 / 0.5)" />
@@ -84,7 +88,9 @@
 				}V0A${radii[i + 1]} ${radii[i + 1]} 0 0 0 ${pointToString(
 					circleIntersections(circles[i * 2 + 2], circles[i * 2 + 3])[0]
 				)}A${radii[i + 1]} ${radii[i + 1]} 0 0 0 ${r0 / 2 - radii[i + 1]} 0Z`}
-				style={`fill:oklch(0.66 100% ${30 + 51.4 * i} / 1);fill-rule:evenodd`}
+				style={`stroke:oklch(1 0 0 / 0.5);fill:oklch(75% 100% ${
+					30 + 51.4 * i
+				} / 0.75);fill-rule:evenodd`}
 				filter="url(#DEV-shadow)"
 			/>
 		{/each}
@@ -99,31 +105,38 @@
 			}H${-r0 / 2 + r1 - d}V0A${r1 - d} ${r1 - d} 0 0 0 ${pointToString(
 				circleIntersections(circles[14], circles[15])[0]
 			)}A${r1 - d} ${r1 - d} 0 0 0 ${r0 / 2 - r1 + d} 0Z`}
-			style={`fill:oklch(0.66 100% 0 / 1);fill-rule:evenodd`}
+			style={`fill:oklch(0.5 100% 210 / 0.1);fill-rule:evenodd`}
 			filter="url(#DEV-shadow)"
 		/>
 	</g>
-	{#each angles.slice(0, angles.length - 1) as a, i}
+	<g id="stones" style="display:none;stroke:oklch(0.5 0 0);fill:oklch(1 0 0 / 1);">
+		{#each angles.slice(0, angles.length - 1) as a, i}
+			<path
+				d={`M${radialPointString(a, r1 - d, { center: { x: -r0 / 2, y: 0 } })} ${
+					i === 0 ? `0 ${-r1 + d} ` : radialPointString(a, r1, { center: { x: -r0 / 2, y: 0 } })
+				}A${r1} ${r1} 0 0 1 ${radialPointString(angles[i + 1], r1, {
+					center: { x: -r0 / 2, y: 0 }
+				})}L${radialPointString(angles[i + 1], r1 - d, { center: { x: -r0 / 2, y: 0 } })}A${
+					r1 - d
+				} ${r1 - d} 0 0 0 ${radialPointString(a, r1 - d, { center: { x: -r0 / 2, y: 0 } })}`}
+			/>
+			<path
+				d={`M${radialPointString(a, r1 - d, { center: { x: -r0 / 2, y: 0 } })} ${
+					i === 0 ? `0 ${-r1 + d} ` : radialPointString(a, r1, { center: { x: -r0 / 2, y: 0 } })
+				}A${r1} ${r1} 0 0 1 ${radialPointString(angles[i + 1], r1, {
+					center: { x: -r0 / 2, y: 0 }
+				})}L${radialPointString(angles[i + 1], r1 - d, { center: { x: -r0 / 2, y: 0 } })}A${
+					r1 - d
+				} ${r1 - d} 0 0 0 ${radialPointString(a, r1 - d, { center: { x: -r0 / 2, y: 0 } })}`}
+				transform="scale(-1 1)"
+			/>
+		{/each}
+		{#each ys.slice(0, ys.length - 1) as y, i}
+			<path d={`M${r1 / 2 + 3 * d} ${y}h${d}v${d}h${-d}Z`} />
+			<path d={`M${r1 / 2 + 3 * d} ${y}h${d}v${d}h${-d}Z`} transform="scale(-1 1)" />
+		{/each}
 		<path
-			d={`M${radialPointString(a, r1 - d, { center: { x: -r0 / 2, y: 0 } })} ${
-				i === 0 ? `0 ${-r1 + d} ` : radialPointString(a, r1, { center: { x: -r0 / 2, y: 0 } })
-			}A${r1} ${r1} 0 0 1 ${radialPointString(angles[i + 1], r1, {
-				center: { x: -r0 / 2, y: 0 }
-			})}L${radialPointString(angles[i + 1], r1 - d, { center: { x: -r0 / 2, y: 0 } })}A${r1 - d} ${
-				r1 - d
-			} 0 0 0 ${radialPointString(a, r1 - d, { center: { x: -r0 / 2, y: 0 } })}`}
-			style="stroke:oklch(0 0 0);fill:oklch(1 66% 0 / 1);"
+			d={`M${-r0 - d / 2 - d - 1} ${r1 - d}H${r0 + d / 2 + d + 1}v${d}H${-r0 - d / 2 - d - 1}Z`}
 		/>
-		<path
-			d={`M${radialPointString(a, r1 - d, { center: { x: -r0 / 2, y: 0 } })} ${
-				i === 0 ? `0 ${-r1 + d} ` : radialPointString(a, r1, { center: { x: -r0 / 2, y: 0 } })
-			}A${r1} ${r1} 0 0 1 ${radialPointString(angles[i + 1], r1, {
-				center: { x: -r0 / 2, y: 0 }
-			})}L${radialPointString(angles[i + 1], r1 - d, { center: { x: -r0 / 2, y: 0 } })}A${r1 - d} ${
-				r1 - d
-			} 0 0 0 ${radialPointString(a, r1 - d, { center: { x: -r0 / 2, y: 0 } })}`}
-			style="stroke:oklch(0 0 0);fill:oklch(1 66% 0 / 1);"
-			transform="scale(-1 1)"
-		/>
-	{/each}
+	</g>
 </DopplerSvg>
