@@ -25,13 +25,208 @@
 	const d = 5;
 	const rotate = false;
 	const angles = anglesArray(d);
-	const r = size * 0.25;
+	const r = size * 0.24;
 	const radii = arrayMap(3, (n) => r * phi ** n);
 	const circles = [
 		...radii.map((r) => ({ r, x: 0, y: 0 })),
 		...radii.map((r) => angles.map((a) => ({ r, ...radialPoint(a, radii[0]) }))).flat()
 	];
-	const lineArray: Line[] = [];
+	const lineArray: Line[] = [
+		...angles.map(
+			(a, i) =>
+				[
+					radialPoint(a, radii[0], { center: radialPoint(a, radii[0]) }),
+					radialPoint(angles[(i + 1) % 5], radii[0], {
+						center: radialPoint(angles[(i + 1) % 5], radii[0])
+					})
+				] as Line
+		),
+		...angles.map(
+			(a, i) =>
+				[
+					radialPoint(a - 36, radii[0], { center: radialPoint(a, radii[0]) }),
+					radialPoint(a + 36, radii[0], {
+						center: radialPoint(a, radii[0])
+					})
+				] as Line
+		),
+		...angles.map(
+			(a, i) =>
+				[
+					radialPoint(a - 36, radii[1], { center: radialPoint(a, radii[0]) }),
+					radialPoint(a + 36, radii[1], {
+						center: radialPoint(a, radii[0])
+					})
+				] as Line
+		),
+
+		...angles.map(
+			(a, i) =>
+				[
+					radialPoint(a, radii[1], { center: radialPoint(a, radii[0]) }),
+					radialPoint(a + 72, radii[1], {
+						center: radialPoint(a, radii[0])
+					})
+				] as Line
+		),
+		...angles.map(
+			(a, i) =>
+				[
+					radialPoint(a + 72, radii[1], { center: radialPoint(a, radii[0]) }),
+					radialPoint(a + 144, radii[1], {
+						center: radialPoint(a, radii[0])
+					})
+				] as Line
+		),
+		...angles.map(
+			(a, i) =>
+				[
+					radialPoint(a + 144, radii[1], { center: radialPoint(a, radii[0]) }),
+					radialPoint(a + 216, radii[1], {
+						center: radialPoint(a, radii[0])
+					})
+				] as Line
+		),
+		...angles.map(
+			(a, i) =>
+				[
+					radialPoint(a + 216, radii[1], { center: radialPoint(a, radii[0]) }),
+					radialPoint(a + 288, radii[1], {
+						center: radialPoint(a, radii[0])
+					})
+				] as Line
+		),
+		...angles.map(
+			(a, i) =>
+				[
+					radialPoint(a + 288, radii[1], { center: radialPoint(a, radii[0]) }),
+					radialPoint(a + 360, radii[1], {
+						center: radialPoint(a, radii[0])
+					})
+				] as Line
+		),
+
+		...angles.map(
+			(a, i) =>
+				[
+					radialPoint(a - 36, radii[2], { center: radialPoint(a, radii[0]) }),
+					radialPoint(a + 36, radii[2], {
+						center: radialPoint(a, radii[0])
+					})
+				] as Line
+		),
+		...angles.map(
+			(a, i) =>
+				[
+					radialPoint(a - 108, radii[2], { center: radialPoint(a, radii[0]) }),
+					radialPoint(a - 36, radii[2], {
+						center: radialPoint(a, radii[0])
+					})
+				] as Line
+		),
+		...angles.map(
+			(a, i) =>
+				[
+					radialPoint(a + 36, radii[2], { center: radialPoint(a, radii[0]) }),
+					radialPoint(a + 108, radii[2], {
+						center: radialPoint(a, radii[0])
+					})
+				] as Line
+		),
+		...angles.map(
+			(a, i) =>
+				[
+					radialPoint(a, radii[2], { center: radialPoint(a, radii[0]) }),
+					radialPoint(a + 72, radii[2], {
+						center: radialPoint(a, radii[0])
+					})
+				] as Line
+		),
+		...angles.map(
+			(a, i) =>
+				[
+					radialPoint(a + 144, radii[2], { center: radialPoint(a, radii[0]) }),
+					radialPoint(a + 216, radii[2], {
+						center: radialPoint(a, radii[0])
+					})
+				] as Line
+		),
+		...angles.map(
+			(a, i) =>
+				[
+					radialPoint(a + 288, radii[2], { center: radialPoint(a, radii[0]) }),
+					radialPoint(a + 360, radii[2], {
+						center: radialPoint(a, radii[0])
+					})
+				] as Line
+		),
+		...angles.map(
+			(a, i) =>
+				[
+					radialPoint(a + 72, radii[2], { center: radialPoint(a, radii[0]) }),
+					{ x: 0, y: 0 }
+				] as Line
+		),
+		...angles.map(
+			(a, i) =>
+				[
+					radialPoint(a + 288, radii[2], { center: radialPoint(a, radii[0]) }),
+					{ x: 0, y: 0 }
+				] as Line
+		),
+		...angles.map(
+			(a, i) =>
+				[
+					radialPoint(a - 36, radii[0], { center: radialPoint(a, radii[0]) }),
+					radialPoint(a + 0, radii[2], {
+						center: radialPoint(angles[(i + 4) % 5], radii[0])
+					})
+				] as Line
+		),
+
+		...angles.map(
+			(a, i) =>
+				[
+					radialPoint(a + 36, radii[0], { center: radialPoint(a, radii[0]) }),
+					radialPoint(a + 0, radii[2], {
+						center: radialPoint(angles[(i + 1) % 5], radii[0])
+					})
+				] as Line
+		),
+		...angles.map(
+			(a, i) =>
+				[
+					radialPoint(a + 36, radii[1], { center: radialPoint(a, radii[0]) }),
+					radialPoint(a + 108, radii[1], {
+						center: radialPoint(angles[(i + 2) % 5], radii[0])
+					})
+				] as Line
+		),
+		...angles.map(
+			(a, i) => [radialPoint(a, radii[0]), radialPoint(angles[(i + 1) % 5], radii[0])] as Line
+		),
+		...angles.map(
+			(a, i) =>
+				[radialPoint(a + 36, radii[0]), radialPoint(angles[(i + 2) % 5] + 36, radii[0])] as Line
+		),
+		...angles.map(
+			(a, i) => [radialPoint(a, radii[1]), radialPoint(angles[(i + 2) % 5], radii[1])] as Line
+		),
+		...angles.map(
+			(a, i) =>
+				[radialPoint(a + 36, radii[2]), radialPoint(angles[(i + 1) % 5] + 36, radii[2])] as Line
+		),
+
+		...angles.map(
+			(a, i) =>
+				[
+					radialPoint(a + 72, radii[0], { center: radialPoint(a, radii[0]) }),
+					radialPoint(angles[(i + 2) % 5], radii[0], {
+						center: radialPoint(angles[(i + 3) % 5], radii[0])
+					})
+				] as Line
+		)
+	];
 	const polygonGroups: string[][] = [];
 </script>
 
@@ -71,17 +266,19 @@
 	<Background {size} fill="oklch(0.2 0 0)" />
 	{#each circles as c}
 		<circle r={c.r} cx={c.x} cy={c.y} style={`stroke:oklch(0.33 0 0);fill:none;`} />
-		<path
-			d={polygonPath(d, c.r, { center: { x: c.x, y: c.y }, rotate: rotate ? 360 / d / 2 : 0 })}
-			style={`stroke:oklch(0.75 0 0);fill:none;`}
-		/>
-		<path
-			d={polygonPath(d, c.r, { center: { x: c.x, y: c.y }, rotate: !rotate ? 360 / d / 2 : 0 })}
-			style={`stroke:oklch(0.75 0 0);fill:none;`}
-		/>
 	{/each}
+	<g id="original-polygons" style={`stroke:oklch(1 0 0);fill:oklch(1 0 0 / 0.2)`}>
+		{#each circles as c, i}
+			<path
+				d={polygonPath(d, c.r, { center: { x: c.x, y: c.y }, rotate: rotate ? 360 / d / 2 : 0 })}
+			/>
+			<path
+				d={polygonPath(d, c.r, { center: { x: c.x, y: c.y }, rotate: !rotate ? 360 / d / 2 : 0 })}
+			/>
+		{/each}
+	</g>
 	<g id="lines">
-		<LineWithLegend {lineArray} style="stroke:oklch(1 0 0)" />
+		<!-- <LineWithLegend {lineArray} style="stroke:oklch(0.5 100% 300);" /> -->
 	</g>
 	<g id="polygons">
 		{#each polygonGroups as pg, pgi}
