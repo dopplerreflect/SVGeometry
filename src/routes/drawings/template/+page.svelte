@@ -312,7 +312,7 @@
 		if (!intersectionsWithMagnitudeMap.get(i)) {
 			intersectionsWithMagnitudeMap.set(i, 1);
 		} else {
-			intersectionsWithMagnitudeMap.set(i, intersectionsWithMagnitudeMap.get(i) + phi);
+			intersectionsWithMagnitudeMap.set(i, intersectionsWithMagnitudeMap.get(i) + phi / 2);
 		}
 	});
 	const intersectionCircles: Circle[] = [...intersectionsWithMagnitudeMap].map((e) => {
@@ -334,9 +334,9 @@
 			<feColorMatrix
 				in="erode2"
 				result="border"
-				values="1 0 0 0 1
-                0 1 0 0 0.75
-                0 0 1 0 0
+				values="1 0 0 0 0
+                0 1 0 0 0.25
+                0 0 1 0 1
                 0 0 0 1 0"
 			/>
 			<feGaussianBlur stdDeviation="1" />
@@ -350,7 +350,7 @@
 			</feMerge>
 		</filter>
 		<filter id="THIRTY-SIX-PENTAGONS-blur">
-			<feGaussianBlur stdDeviation="5" />
+			<feGaussianBlur stdDeviation="2.61" />
 			<feMerge>
 				<feMergeNode />
 				<!-- <feMergeNode in="SourceGraphic" /> -->
@@ -367,13 +367,16 @@
         }
 		</style>
 	</defs>
-	<Background {size} fill="oklch(0 0 0)" />
+	<Background {size} fill="oklch(0.125 100% 240)" />
 	{#each circles as c}
 		<!-- <circle r={c.r} cx={c.x} cy={c.y} style={`stroke:oklch(1 0 0);fill:none;`} /> -->
 	{/each}
+	<g id="lines">
+		<LineWithLegend {lineArray} style="stroke:oklch(0.5 100% 240);" />
+	</g>
 	<g filter="url(#THIRTY-SIX-PENTAGONS-blur)">
 		{#each intersectionCircles as c}
-			<circle r={c.r} cx={c.x} cy={c.y} style={`fill:oklch(1 100% 90);`} />
+			<circle r={c.r} cx={c.x} cy={c.y} style={`fill:oklch(1 50% 90);`} />
 		{/each}
 	</g>
 	<!-- <g id="original-polygons" style={`stroke:oklch(1 0 0);fill:oklch(1 0 0 / 0.1)`}>
@@ -394,13 +397,12 @@
 					{points}
 					angles={angles.map((a) => a - 90)}
 					classname={`filtered p${i} pg${pgi}`}
-					style={`fill:oklch(${0.1 + (1 / (polygonGroups.length + 1)) * pgi} 100% 210 )`}
+					style={`fill:oklch(${0.1 + (1 / (polygonGroups.length + 1)) * pgi} 100% ${
+						210 + (30 / polygonGroups.length) * pgi
+					} )`}
 					rotate={36}
 				/>
 			{/each}
 		{/each}
-	</g>
-	<g id="lines">
-		<!-- <LineWithLegend {lineArray} style="stroke:oklch(0.5 100% 300);" /> -->
 	</g>
 </DopplerSvg>
