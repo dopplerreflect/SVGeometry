@@ -55,7 +55,11 @@
 	<Background {size} fill="oklch(0 0 0)" />
 	<Background size={size * Math.sqrt(2)} fill="url(#PHYLO-rg)" />
 	{#each paths as d, i}
-		<path class="p" {d} style={`fill:oklch(0.75 100% ${90 + (180 / paths.length) * i})`} />
+		<path
+			class="p"
+			{d}
+			style={`fill:oklch(${i % 2 === 0 ? 0.7 : 0.85} 100% ${90 + (180 / paths.length) * i})`}
+		/>
 	{/each}
 	{#each points as p, i}
 		<circle
@@ -63,7 +67,7 @@
 			r={8}
 			cx={p.x}
 			cy={p.y}
-			style={`fill:oklch(0.75 100% ${90 + (180 / points.length) * i})`}
+			style={`fill:oklch(${i % 3 === 1 ? 0.5 : 0.65} 100% ${90 + (180 / points.length) * i})`}
 		/>
 	{/each}
 </DopplerSvg>
