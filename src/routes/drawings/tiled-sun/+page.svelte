@@ -361,7 +361,7 @@
 				in2="turbulence"
 				scale="256"
 				xChannelSelector="R"
-				yChannelSelector="&"
+				yChannelSelector="G"
 				result="fire"
 			/>
 			<feColorMatrix
