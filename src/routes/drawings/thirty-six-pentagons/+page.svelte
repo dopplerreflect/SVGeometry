@@ -366,11 +366,13 @@
           /* display: none; */
         }
 		</style>
+		<radialGradient id="THIRTY-SIX-PENTAGONS-bgr">
+			<stop offset="0%" stop-color="oklch(0.5 100% 210)" />
+			<stop offset="100%" stop-color="oklch(0.5 100% 210 / 0)" />
+		</radialGradient>
 	</defs>
-	<Background {size} fill="oklch(0.125 100% 240)" />
-	{#each circles as c}
-		<!-- <circle r={c.r} cx={c.x} cy={c.y} style={`stroke:oklch(1 0 0);fill:none;`} /> -->
-	{/each}
+	<Background {size} fill="oklch(0.15 10% 240)" />
+	<Background size={size * Math.sqrt(2)} fill="url(#THIRTY-SIX-PENTAGONS-bgr" />
 	<g id="lines">
 		<LineWithLegend {lineArray} style="stroke:oklch(0.5 100% 240);" />
 	</g>
@@ -379,16 +381,6 @@
 			<circle r={c.r} cx={c.x} cy={c.y} style={`fill:oklch(1 50% 90);`} />
 		{/each}
 	</g>
-	<!-- <g id="original-polygons" style={`stroke:oklch(1 0 0);fill:oklch(1 0 0 / 0.1)`}>
-		{#each circles as c, i}
-			<path
-				d={polygonPath(d, c.r, { center: { x: c.x, y: c.y }, rotate: rotate ? 360 / d / 2 : 0 })}
-			/>
-			<path
-				d={polygonPath(d, c.r, { center: { x: c.x, y: c.y }, rotate: !rotate ? 360 / d / 2 : 0 })}
-			/>
-		{/each}
-	</g> -->
 
 	<g id="polygons">
 		{#each polygonGroups as pg, pgi}
@@ -405,4 +397,22 @@
 			{/each}
 		{/each}
 	</g>
+	<g filter="url(#THIRTY-SIX-PENTAGONS-blur)">
+		{#each circles as c}
+			<circle r={c.r} cx={c.x} cy={c.y} style={`stroke:oklch(1 0 0);fill:none;`} />
+		{/each}
+	</g>
+	{#each circles as c}
+		<circle r={c.r} cx={c.x} cy={c.y} style={`stroke:oklch(0.75 100% 210);fill:none;`} />
+	{/each}
+	<!-- <g id="original-polygons" style={`stroke:oklch(1 0 0);fill:oklch(1 0 0 / 0.1)`}>
+		{#each circles as c, i}
+			<path
+				d={polygonPath(d, c.r, { center: { x: c.x, y: c.y }, rotate: rotate ? 360 / d / 2 : 0 })}
+			/>
+			<path
+				d={polygonPath(d, c.r, { center: { x: c.x, y: c.y }, rotate: !rotate ? 360 / d / 2 : 0 })}
+			/>
+		{/each}
+	</g> -->
 </DopplerSvg>
