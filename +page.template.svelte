@@ -25,5 +25,5 @@
 			}
 		</style>
 	</defs>
-	<Background {size} fill="none" />
+	<Background {size} fill="oklch(0.2 0 0)" />
 </DopplerSvg>
