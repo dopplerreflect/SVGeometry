@@ -195,12 +195,12 @@
 			/>
 		</g>
 	</defs>
-	<Background {size} fill="oklch(0.25 100% 330)" />
+	<Background {size} fill="oklch(0 100% 330)" />
 	<g transform="rotate(30)">
-		<path d={polygonPath(6, r * 2)} style="fill:oklch(0.5 100% 270)" />
-		{#each circles as c, i}
-			<!-- <circle r={c.r} cx={c.x} cy={c.y} style={`stroke:oklch(1 100% 300);fill:none;`} /> -->
-		{/each}
+		<!-- <path d={polygonPath(6, r * 2)} style="fill:oklch(0.5 100% 270)" /> -->
+		<!-- {#each circles as c, i}
+			<circle r={c.r} cx={c.x} cy={c.y} style={`stroke:oklch(1 0 0);stroke-width:2;fill:none;`} />
+		{/each} -->
 		<use href="#hueMask" />
 		<use href="#lightnessMask" />
 		<LineWithLegend {lineArray} style={`stroke:oklch(0 100% 300);stroke-width:2;`} />
