@@ -42,10 +42,6 @@
 			<path d={pathR} />
 			<path d={pathL} />
 		</g>
-		<mask id="PHISPIRAL-mask">
-			<Background {size} fill="black" />
-			<circle {r} fill="white" />
-		</mask>
 		<radialGradient id="PHISPIRAL-rg" r="70%">
 			<stop offset="0%" stop-color="oklch(0.25 100% 60)" />
 			<stop offset="100%" stop-color="oklch(0 100% 300)" />
