@@ -14,8 +14,8 @@
 	const id = 'PHISPIRAL';
 	const size = 2 ** 10;
 
-	const r = size * 0.45;
-	const radii = arrayMap(7, (n) => r * phi ** n);
+	const r = size * 0.45 * Phi ** 3;
+	const radii = arrayMap(10, (n) => r * phi ** n);
 	const angles = anglesArray(30);
 	const numAngles = 89;
 	const d = 10 / numAngles;
@@ -47,23 +47,22 @@
 			<circle {r} fill="white" />
 		</mask>
 		<radialGradient id="PHISPIRAL-rg" r="70%">
-			<stop offset="0%" stop-color="oklch(0.5 100% 30)" />
+			<stop offset="0%" stop-color="oklch(0.25 100% 60)" />
 			<stop offset="100%" stop-color="oklch(0 100% 300)" />
 		</radialGradient>
 	</defs>
 	<Background {size} fill="url(#PHISPIRAL-rg)" />
-	<g style="stroke:oklch(0.33 100% 300);stroke-width:2;fill:none;">
-		<g id="spirals">
+	<g style="stroke:oklch(0.5 100% 300);stroke-width:0.5;fill:none;">
+		<g id="spirals" filter="url(#PHISPIRAL-glow)">
 			{#each angles as a}
 				<use href="#PHISPIRAL-petal" transform={`rotate(${a})`} />
 			{/each}
 		</g>
 		<g id="lines" style="stroke:oklch(1 100% 90);" filter="url(#PHISPIRAL-glow)">
 			{#each radii as r, i}
-				<path d={pentagram(r)} transform={`rotate(${i * 36})`} />
+				<path d={pentagram(r)} transform={`rotate(${36})`} />
+				<path d={pentagram(r)} transform={`rotate(${0})`} />
 			{/each}
-			<path d={pentagram(r * Phi)} transform={`rotate(${36})`} mask="url(#PHISPIRAL-mask)" />
-			<path d={pentagram(r * Phi ** 2)} transform={`rotate(${0})`} mask="url(#PHISPIRAL-mask)" />
 		</g>
 		<g id="circles" filter="url(#PHISPIRAL-glow)">
 			{#each radii as r, i}
