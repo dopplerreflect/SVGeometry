@@ -18,7 +18,7 @@
 	const radii = arrayMap(7, (n) => r * phi ** n);
 	const angles = anglesArray(30);
 	const numAngles = 89;
-	const d = 6 / numAngles;
+	const d = 10 / numAngles;
 	const pathAngles = anglesArray(numAngles, 0);
 	pathAngles.push(0);
 	const anglesReversed = pathAngles.slice().reverse();
@@ -46,27 +46,29 @@
 			<Background {size} fill="black" />
 			<circle {r} fill="white" />
 		</mask>
+		<radialGradient id="PHISPIRAL-rg" r="70%">
+			<stop offset="0%" stop-color="oklch(0.5 100% 30)" />
+			<stop offset="100%" stop-color="oklch(0 100% 300)" />
+		</radialGradient>
 	</defs>
-	<Background {size} fill="oklch(0.2 0 0)" />
-	<g filter="url(#PHISPIRAL-glow)" style="stroke:oklch(0.5 100% 330);fill:none;">
-		{#each angles as a}
-			<use href="#PHISPIRAL-petal" transform={`rotate(${a})`} />
-		{/each}
-		{#each radii as r, i}
-			<circle {r} style="stroke:oklch(1 100% 150);fill:none;" />
-			<path d={pentagram(r)} style="stroke:oklch(1 100% 90);" transform={`rotate(${i * 36})`} />
-		{/each}
-		<path
-			d={pentagram(r * Phi)}
-			style="stroke:oklch(1 100% 90);"
-			transform={`rotate(${36})`}
-			mask="url(#PHISPIRAL-mask)"
-		/>
-		<path
-			d={pentagram(r * Phi ** 2)}
-			style="stroke:oklch(1 100% 90);"
-			transform={`rotate(${0})`}
-			mask="url(#PHISPIRAL-mask)"
-		/>
+	<Background {size} fill="url(#PHISPIRAL-rg)" />
+	<g style="stroke:oklch(0.33 100% 300);stroke-width:2;fill:none;">
+		<g id="spirals">
+			{#each angles as a}
+				<use href="#PHISPIRAL-petal" transform={`rotate(${a})`} />
+			{/each}
+		</g>
+		<g id="lines" style="stroke:oklch(1 100% 90);" filter="url(#PHISPIRAL-glow)">
+			{#each radii as r, i}
+				<path d={pentagram(r)} transform={`rotate(${i * 36})`} />
+			{/each}
+			<path d={pentagram(r * Phi)} transform={`rotate(${36})`} mask="url(#PHISPIRAL-mask)" />
+			<path d={pentagram(r * Phi ** 2)} transform={`rotate(${0})`} mask="url(#PHISPIRAL-mask)" />
+		</g>
+		<g id="circles" filter="url(#PHISPIRAL-glow)">
+			{#each radii as r, i}
+				<circle {r} style="stroke:oklch(1 100% 240);fill:none;" />
+			{/each}
+		</g>
 	</g>
 </DopplerSvg>
