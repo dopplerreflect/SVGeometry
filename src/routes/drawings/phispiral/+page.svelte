@@ -12,11 +12,11 @@
 	import { Phi, anglesArray, arrayMap, pentagram, phi, radialPointString } from '$lib/geometry';
 
 	const id = 'PHISPIRAL';
-	const size = 2 ** 10;
+	const size = 2 ** 11;
 
-	const r = size * 0.45 * Phi ** 3;
+	const r = size * 0.381 * Phi ** 3;
 	const radii = arrayMap(10, (n) => r * phi ** n);
-	const angles = anglesArray(30);
+	const angles = anglesArray(60);
 	const numAngles = 89;
 	const d = 10 / numAngles;
 	const pathAngles = anglesArray(numAngles, 0);
@@ -31,10 +31,14 @@
 <DopplerSvg {id} {size}>
 	<defs>
 		<filter id="PHISPIRAL-glow">
-			<feMorphology operator="dilate" radius="1" />
-			<feGaussianBlur stdDeviation="3" />
+			<feMorphology operator="dilate" radius="2" />
+			<feGaussianBlur stdDeviation="8" />
 			<feMerge>
 				<feMergeNode />
+				<feMergeNode />
+				<feMergeNode />
+				<feMergeNode in="SourceGraphic" />
+				<feMergeNode in="SourceGraphic" />
 				<feMergeNode in="SourceGraphic" />
 			</feMerge>
 		</filter>
