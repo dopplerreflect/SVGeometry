@@ -69,23 +69,27 @@
 
 	<g id="figure" filter="url(#SPINNYSTARS-glow)">
 		{#each circles as c}
-			<circle r={c.r} cx={c.x} cy={c.y} style="fill:none;stroke:oklch(1 100% 150)" />
+			<circle r={c.r} cx={c.x} cy={c.y} style="fill:none;stroke:oklch(0.5 100% 150)" />
 		{/each}
-		<path class="rotatable" style={`fill:none;stroke:oklch(1 100% 150);`} d={pentagram(radii[0])} />
 		<path
 			class="rotatable"
-			style={`fill:none;stroke:oklch(1 100% 150);`}
+			style={`fill:none;stroke:oklch(0.99 100% 150);`}
+			d={pentagram(radii[0])}
+		/>
+		<path
+			class="rotatable"
+			style={`fill:none;stroke:oklch(0.99 100% 150);`}
 			d={pentagram(radii[0] * Phi)}
 		/>
 		<path
 			class="rotatable"
-			style={`fill:none;stroke:oklch(1 100% 150);`}
+			style={`fill:none;stroke:oklch(0.99 100% 150);`}
 			d={pentagram(radii[0] * Phi ** 2)}
 		/>
 		{#each angles as a}
 			<path
 				class="rotatable"
-				style={`fill:none;stroke:oklch(1 100% 150);transform-origin:${radialPointString(
+				style={`fill:none;stroke:oklch(0.99 100% 150);transform-origin:${radialPointString(
 					a,
 					radii[0],
 					undefined,
@@ -95,7 +99,7 @@
 			/>
 			<path
 				class="rotatable"
-				style={`fill:none;stroke:oklch(1 100% 150);transform-origin:${radialPointString(
+				style={`fill:none;stroke:oklch(0.99 100% 150);transform-origin:${radialPointString(
 					a,
 					radii[0],
 					undefined,
