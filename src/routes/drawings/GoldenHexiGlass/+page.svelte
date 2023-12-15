@@ -102,24 +102,24 @@
 			}
 		</style>
 		<linearGradient id={`${id}-gradient0`} gradientTransform="rotate(120)">
-			<stop offset="0%" stop-color="oklch(1 0.37 90 / 0.8)" />
-			<stop offset="33%" stop-color="oklch(1 0.37 60 / 0.8)" />
-			<stop offset="66%" stop-color="oklch(1 0.37 30 / 0.8)" />
+			<stop offset="0%" stop-color="oklch(0.99 0.37 90 / 0.8)" />
+			<stop offset="33%" stop-color="oklch(0.99 0.37 60 / 0.8)" />
+			<stop offset="66%" stop-color="oklch(0.99 0.37 30 / 0.8)" />
 		</linearGradient>
 		<linearGradient id={`${id}-gradient1`} gradientTransform="rotate(120)">
-			<stop offset="0%" stop-color="oklch(1 0.37 150 / 0.8)" />
-			<stop offset="33%" stop-color="oklch(1 0.37 120 / 0.8)" />
-			<stop offset="66%" stop-color="oklch(1 0.37 90 / 0.8)" />
+			<stop offset="0%" stop-color="oklch(0.99 0.37 150 / 0.8)" />
+			<stop offset="33%" stop-color="oklch(0.99 0.37 120 / 0.8)" />
+			<stop offset="66%" stop-color="oklch(0.99 0.37 90 / 0.8)" />
 		</linearGradient>
 		<linearGradient id={`${id}-gradient2`} gradientTransform="rotate(120)">
-			<stop offset="0%" stop-color="oklch(1 0.37 270 / 0.8)" />
+			<stop offset="0%" stop-color="oklch(0.99 0.37 270 / 0.8)" />
 			<stop offset="50%" stop-color="oklch(0.75 0.37 270 / 0.8)" />
 			<stop offset="100%" stop-color="oklch(0.5 0.37 90 / 0.8)" />
 		</linearGradient>
 		<linearGradient id={`${id}-gradient3`} gradientTransform="rotate(120)">
-			<stop offset="0%" stop-color="oklch(1 0.37 90 / 0.8)" />
-			<stop offset="33%" stop-color="oklch(1 0.37 60 / 0.8)" />
-			<stop offset="44%" stop-color="oklch(1 0.37 30 / 0.8)" />
+			<stop offset="0%" stop-color="oklch(0.99 0.37 90 / 0.8)" />
+			<stop offset="33%" stop-color="oklch(0.99 0.37 60 / 0.8)" />
+			<stop offset="44%" stop-color="oklch(0.99 0.37 30 / 0.8)" />
 		</linearGradient>
 
 		<g id="tiles">
@@ -179,7 +179,7 @@
 			patternTransform="rotate(30)"
 		/>
 	</defs>
-	<Background {size} fill="oklch(0 0.37 300)" />
+	<Background {size} fill="oklch(0.01 0.37 300)" />
 	<Background {size} fill={`url(#${id}-hexpattern)`} />
 	<g>
 		{#each angles as a, i}

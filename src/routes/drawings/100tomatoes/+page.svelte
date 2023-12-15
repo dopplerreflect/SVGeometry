@@ -27,12 +27,12 @@
 
 <DopplerSvg {id} {size}>
 	<radialGradient id="100TOMATOES-bg" r="0.5">
-		<stop offset="0%" stop-color="oklch(1 100% 150)" />
-		<stop offset="100%" stop-color="oklch(0 100% 150)" />
+		<stop offset="0%" stop-color="oklch(0.99 100% 150)" />
+		<stop offset="100%" stop-color="oklch(0.01 100% 150)" />
 	</radialGradient>
 	<radialGradient id="100TOMATOES-rg" r="0.5">
-		<stop offset="0%" stop-color="oklch(1 100% 90)" />
-		<stop offset="100%" stop-color="oklch(0 100% 0)" />
+		<stop offset="0%" stop-color="oklch(0.99 100% 90)" />
+		<stop offset="100%" stop-color="oklch(0.01 100% 0)" />
 	</radialGradient>
 	<Background {size} fill="url(#100TOMATOES-bg)" />
 	{#each circles as c}
@@ -40,7 +40,7 @@
 			r={c.r}
 			cx={c.x}
 			cy={c.y}
-			style={`fill:url(#100TOMATOES-rg);stroke:oklch(0 0 0);stroke-width:2;`}
+			style={`fill:url(#100TOMATOES-rg);stroke:oklch(0.01 0 0);stroke-width:2;`}
 		/>
 	{/each}
 </DopplerSvg>

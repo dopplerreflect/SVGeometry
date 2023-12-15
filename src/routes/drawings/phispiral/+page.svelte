@@ -48,7 +48,7 @@
 		</g>
 		<radialGradient id="PHISPIRAL-rg" r="70%">
 			<stop offset="0%" stop-color="oklch(0.25 100% 60)" />
-			<stop offset="100%" stop-color="oklch(0 100% 300)" />
+			<stop offset="100%" stop-color="oklch(0.01 100% 300)" />
 		</radialGradient>
 	</defs>
 	<Background {size} fill="url(#PHISPIRAL-rg)" />

@@ -89,11 +89,11 @@
 <DopplerSvg {id} {size}>
 	<radialGradient id={`${id}-bg`} r="0.7">
 		<stop offset="0%" stop-color="oklch(0.5 100% 270)" />
-		<stop offset="100%" stop-color="oklch(0 50% 270)" />
+		<stop offset="100%" stop-color="oklch(0.01 50% 270)" />
 	</radialGradient>
 	<radialGradient id={`${id}-rg`} r="72%">
-		<stop offset="0%" stop-color="oklch(1 100% 90 / 0.5)" />
-		<stop offset="100%" stop-color="oklch(0 100% 90 / 0.75)" />
+		<stop offset="0%" stop-color="oklch(0.99 100% 90 / 0.5)" />
+		<stop offset="100%" stop-color="oklch(0.01 100% 90 / 0.75)" />
 	</radialGradient>
 	{#each angles as a, i}
 		<radialGradient
@@ -102,7 +102,7 @@
 			cx={`${50 + radialPoint(a, 50 * phi ** 2).x}%`}
 			cy={`${50 + radialPoint(a, 50 * phi ** 2).y}%`}
 		>
-			<stop offset="0%" stop-color="oklch(1 100% 150 / 0.5)" />
+			<stop offset="0%" stop-color="oklch(0.99 100% 150 / 0.5)" />
 			<stop offset="100%" stop-color="oklch(0.0 100% 150 / 0.75)" />
 		</radialGradient>
 	{/each}
@@ -116,18 +116,18 @@
 			<feMergeNode in="SourceGraphic" />
 		</feMerge>
 	</filter>
-	<Background {size} fill="oklch(1 0 0)" />
+	<Background {size} fill="oklch(0.99 0 0)" />
 	<Background {size} fill={`url(#${id}-bg)`} />
 	<g filter={`url(#${id}-glow)`}>
 		{#each boundaryIntersections as p}
-			<circle r={2} cx={p.x} cy={p.y} style={`stroke:oklch(1 100% 210);fill:none;`} />
+			<circle r={2} cx={p.x} cy={p.y} style={`stroke:oklch(0.99 100% 210);fill:none;`} />
 		{/each}
 		<circle
 			r={radii[2] * Math.sqrt(5)}
 			style={`fill:url(#${id}-rg);stroke:oklch(0.5 100% 90);stroke-width:0;`}
 		/>
 
-		<g id="centerCircles" style={`fill:none;stroke:oklch(1 100% 90);stroke-width:1;`}>
+		<g id="centerCircles" style={`fill:none;stroke:oklch(0.99 100% 90);stroke-width:1;`}>
 			<circle r={radii[0] * Phi ** Math.sqrt(5)} />
 			<circle r={radii[1] * Phi ** Math.sqrt(5)} />
 			<circle r={radii[2] * Phi ** Math.sqrt(5)} />
@@ -141,14 +141,14 @@
 			<circle r={radii[1] * Math.sqrt(5)} />
 			<circle r={radii[2] * Math.sqrt(5)} />
 		</g>
-		<LineWithLegend lineArray={extendedLines} style={`stroke:oklch(1 100% 240)`} />
-		<LineWithLegend lineArray={boundaryLines} style={`stroke:oklch(1 0 0)`} />
+		<LineWithLegend lineArray={extendedLines} style={`stroke:oklch(0.99 100% 240)`} />
+		<LineWithLegend lineArray={boundaryLines} style={`stroke:oklch(0.99 0 0)`} />
 		{#each circles as c, i}
 			<circle
 				r={c.r}
 				cx={c.x}
 				cy={c.y}
-				style={`fill:url(#${id}-rg-${i % 10});stroke:oklch(1 100% 90);stroke-width:1;`}
+				style={`fill:url(#${id}-rg-${i % 10});stroke:oklch(0.99 100% 90);stroke-width:1;`}
 			/>
 		{/each}
 	</g>

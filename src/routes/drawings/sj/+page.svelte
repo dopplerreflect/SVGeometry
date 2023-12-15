@@ -157,15 +157,15 @@
 		<style>
 			svg#SJ {
 				& circle {
-					stroke: oklch(1 100% 90 / 1);
+					stroke: oklch(0.99 100% 90 / 1);
 					fill: none;
 				}
 				& line {
-					stroke: oklch(1 100% 330 / 1);
+					stroke: oklch(0.99 100% 330 / 1);
 				}
 				& line.i {
 					/* display: none; */
-					stroke: oklch(1 100% 210 / 1);
+					stroke: oklch(0.99 100% 210 / 1);
 				}
 				& line.o {
 					/* display: none; */
@@ -184,7 +184,7 @@
 		</filter>
 		<radialGradient id="SJ-rg" r={0.5 * Math.sqrt(2)}>
 			<stop offset="0%" stop-color="oklch(0.5 100% 330 / 1)" />
-			<stop offset="100%" stop-color="oklch(0 100% 330 / 1)" />
+			<stop offset="100%" stop-color="oklch(0.01 100% 330 / 1)" />
 		</radialGradient>
 	</defs>
 	<Background {size} fill="oklch(0.2 100% 210)" />
@@ -202,7 +202,7 @@
 				r={c.r}
 				cx={c.x}
 				cy={c.y}
-				style={`fill:oklch(1 50% ${colors.get(c.r)});stroke:oklch(0.5 100% ${colors.get(c.r)});`}
+				style={`fill:oklch(0.99 50% ${colors.get(c.r)});stroke:oklch(0.5 100% ${colors.get(c.r)});`}
 			/>
 		{/each}
 	</g>

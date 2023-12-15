@@ -125,7 +125,7 @@
 		</filter>
 		<filter id="RAYTEST-shrink">
 			<feMorphology in="SourceAlpha" operator="erode" radius="3" result="smallErode" />
-			<feFlood flood-color="oklch(1 33% 60)" result="color" />
+			<feFlood flood-color="oklch(0.99 33% 60)" result="color" />
 			<feComposite operator="in" in2="smallErode" result="border" />
 			<feMorphology in="SourceGraphic" operator="erode" radius="4" result="bigErode" />
 			<feMerge>

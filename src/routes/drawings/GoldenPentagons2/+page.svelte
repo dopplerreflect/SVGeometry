@@ -80,7 +80,7 @@
 				stroke: oklch(90% 25% 300);
 			}
 			.g0 {
-				fill: oklch(0 0.37 300);
+				fill: oklch(0.01 0.37 300);
 			}
 			.g1 {
 				fill: oklch(0.1 0.37 300);
@@ -95,13 +95,13 @@
 				stroke: oklch(20% 100% 90);
 			}
 			.g4 {
-				fill: oklch(1 0.37 60);
+				fill: oklch(0.99 0.37 60);
 			}
 			.g5 {
-				fill: oklch(1 0.37 75);
+				fill: oklch(0.99 0.37 75);
 			}
 			.g6 {
-				fill: oklch(1 0.37 90);
+				fill: oklch(0.99 0.37 90);
 			}
 		</style>
 	</defs>

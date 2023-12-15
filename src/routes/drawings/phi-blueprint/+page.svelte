@@ -31,7 +31,7 @@
 	<defs>
 		<style>
 			svg#phi-blueprint {
-				--stroke: oklch(1 25% 270);
+				--stroke: oklch(0.99 25% 270);
 				& circle,
 				line,
 				path:not(.Background) {

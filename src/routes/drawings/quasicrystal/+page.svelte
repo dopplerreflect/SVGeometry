@@ -78,7 +78,7 @@
 			</feMerge>
 		</filter>
 	</defs>
-	<Background {size} fill="oklch(0 50% 300)" />
+	<Background {size} fill="oklch(0.01 50% 300)" />
 	<g transform="rotate(0)">
 		<g filter="url(#QUASICRYSTAL-glow)">
 			<LineWithLegend {lineArray} style={`stroke:oklch(0.25 50% 300)`} />

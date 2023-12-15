@@ -92,11 +92,11 @@
 			svg#TENSTACK-SILVER {
 				& circle,
 				path:not(.Background) {
-					stroke: oklch(1 50% 300);
+					stroke: oklch(0.99 50% 300);
 					fill: none;
 				}
 				& line {
-					stroke: oklch(1 100% 90 / 1);
+					stroke: oklch(0.99 100% 90 / 1);
 				}
 				& path.fill {
 					stroke: none;
@@ -127,7 +127,7 @@
 			</feMerge>
 		</filter>
 	</defs>
-	<Background {size} fill="oklch(0 100% 210)" />
+	<Background {size} fill="oklch(0.01 100% 210)" />
 	<LineWithLegend {lineArray} />
 	<g filter="url(#TENSTACK-SILVER-glow)">
 		{#each circles as c, i}
@@ -140,7 +140,7 @@
 			{angles}
 			style={`fill:oklch(${0.3 + (1 / (polygons.length / 1)) * (i + 0)} ${
 				(100 / (polygons.length - 1)) * (i + 1)
-			}% 270 / 0.33);stroke:oklch(1 0 0);`}
+			}% 270 / 0.33);stroke:oklch(0.99 0 0);`}
 			classname="filtered"
 		/>
 	{/each}

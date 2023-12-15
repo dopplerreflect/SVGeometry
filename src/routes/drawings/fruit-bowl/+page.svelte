@@ -61,7 +61,7 @@
 				<feMergeNode in="SourceGraphic" />
 			</feMerge>
 		</filter>
-		<HexPattern size={r / 3} id="FRUITBOWL-hexpattern" stroke="oklch(1 50% 150)" />
+		<HexPattern size={r / 3} id="FRUITBOWL-hexpattern" stroke="oklch(0.99 50% 150)" />
 	</defs>
 	<Background {size} fill="oklch(0.2 0 0)" />
 	<Background {size} fill="url(#FRUITBOWL-hexpattern)" />
@@ -80,7 +80,7 @@
 				r={c.r}
 				cx={c.x}
 				cy={c.y}
-				style="stroke:oklch(1 100% 150);fill:oklch(1 100% 150 / 0.1)"
+				style="stroke:oklch(0.99 100% 150);fill:oklch(0.99 100% 150 / 0.1)"
 			/>
 		{/each}
 		{#each fruitCircles as c}

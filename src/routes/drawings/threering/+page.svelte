@@ -58,7 +58,7 @@
 				& path:not(.Background),
 				circle,
 				line {
-					stroke: oklch(1 0 0);
+					stroke: oklch(0.99 0 0);
 					stroke-width: 5;
 					fill: none;
 				}

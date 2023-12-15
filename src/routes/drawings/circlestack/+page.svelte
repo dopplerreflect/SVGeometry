@@ -79,12 +79,12 @@
 		...angles.map((a, i) => ({ r: radii[4], ...radialPoint(a, radii[1]) }))
 	];
 	const colorMap = new Map();
-	colorMap.set(radii[1], 'oklch(1 100% 270 / 0.15)');
+	colorMap.set(radii[1], 'oklch(0.99 100% 270 / 0.15)');
 	colorMap.set(radii[2], 'oklch(0.75 100% 150 / 0.5)');
-	colorMap.set(radii[3], 'oklch(1 100% 60 / 1)');
-	colorMap.set(radii[4], 'oklch(1 100% 45 / 1)');
+	colorMap.set(radii[3], 'oklch(0.99 100% 60 / 1)');
+	colorMap.set(radii[4], 'oklch(0.99 100% 45 / 1)');
 	colorMap.set(radii[5], 'oklch(0.5 100% 30 / 1)');
-	colorMap.set(radii[6], 'oklch(1 100% 90 / 1)');
+	colorMap.set(radii[6], 'oklch(0.99 100% 90 / 1)');
 	colorMap.set(radii[2] + radii[0], 'oklch(0.5 100% 30 / 0.5)');
 </script>
 
@@ -121,15 +121,15 @@
 			<feDisplacementMap in="SourceGraphic" in2="turbulence" scale="3" />
 		</filter>
 	</defs>
-	<Background {size} fill="oklch(0 100% 300)" />
-	<Background {size} fill="oklch(0 100% 300)" filter="url(#CIRCLESTACK-bg)" />
+	<Background {size} fill="oklch(0.01 100% 300)" />
+	<Background {size} fill="oklch(0.01 100% 300)" filter="url(#CIRCLESTACK-bg)" />
 	<g filter="url(#CIRCLESTACK-grainy)">
 		{#each circles as c}
 			<circle
 				r={c.r}
 				cx={c.x}
 				cy={c.y}
-				style={`stroke:oklch(1 33% 30);fill:${colorMap.get(c.r)};stroke-width:${ro * phi ** 8}`}
+				style={`stroke:oklch(0.99 33% 30);fill:${colorMap.get(c.r)};stroke-width:${ro * phi ** 8}`}
 				filter="url(#CIRCLESTACK-shadow)"
 			/>
 		{/each}

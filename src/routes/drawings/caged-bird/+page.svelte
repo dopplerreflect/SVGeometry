@@ -156,8 +156,8 @@
 			</feMerge>
 		</filter>
 		<radialGradient id="CAGED-BIRD-rg">
-			<stop offset="0%" stop-color="oklch(1 100% 300)" />
-			<stop offset="100%" stop-color="oklch(0 50% 300)" />
+			<stop offset="0%" stop-color="oklch(0.99 100% 300)" />
+			<stop offset="100%" stop-color="oklch(0.01 50% 300)" />
 		</radialGradient>
 		<style>
 			SVG#CAGED-BIRD {
@@ -177,10 +177,10 @@
 					r={c.r}
 					cx={c.x}
 					cy={c.y}
-					style={`fill:none;stroke:oklch(1 100% 270);stroke-width:1;`}
+					style={`fill:none;stroke:oklch(0.99 100% 270);stroke-width:1;`}
 				/>
 			{/each}
 		</g>
-		<LineWithLegend {lineArray} style={`stroke:oklch(1 100% 90);stroke-width:1;`} />
+		<LineWithLegend {lineArray} style={`stroke:oklch(0.99 100% 90);stroke-width:1;`} />
 	</g>
 </DopplerSvg>

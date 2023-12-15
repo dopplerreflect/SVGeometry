@@ -74,7 +74,7 @@
 					stroke: oklch(0.75 15% 300);
 				}
 				& line {
-					stroke: oklch(1 0% 150);
+					stroke: oklch(0.99 0% 150);
 				}
 				& .bg {
 					stroke: oklch(0.5 0% 300);
@@ -87,7 +87,7 @@
 		</style>
 		<GridPattern id="bp-dodeca-grid" size={r} stroke="oklch(0.5 100% 300)" />
 	</defs>
-	<Background {width} {height} fill="oklch(0 100% 300)" />
+	<Background {width} {height} fill="oklch(0.01 100% 300)" />
 	<Background {width} {height} fill="url(#bp-dodeca-grid)" />
 	{#each circles as c}
 		<circle r={c.r} cx={c.x} cy={c.y} />

@@ -103,7 +103,7 @@
 			}
 		</style>
 	</defs>
-	<Background {size} fill="oklch(0 100% 300)" />
+	<Background {size} fill="oklch(0.01 100% 300)" />
 	<!-- {#each vpl as p}
 		<circle r={2} cx={p.x} cy={p.y} />
 	{/each}
@@ -115,6 +115,6 @@
 	{/each}
 	<LineWithLegend lineArray={ellipseLines} /> -->
 	{#each paths as d, i}
-		<path {d} style={`stroke:oklch(1 100% ${(360 / 20) * i} / 1);fill:oklch(0.0 0 0 / 0.2)`} />
+		<path {d} style={`stroke:oklch(0.99 100% ${(360 / 20) * i} / 1);fill:oklch(0.0 0 0 / 0.2)`} />
 	{/each}
 </DopplerSvg>

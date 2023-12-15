@@ -245,7 +245,7 @@
 	];
 
 	const gradientStops: [number, string][][] = paths.map((_, i) => [
-		[0, `oklch(1 15% ${45 + (390 / paths.length) * i})`],
+		[0, `oklch(0.99 15% ${45 + (390 / paths.length) * i})`],
 		[100, `oklch(0.33 100% ${45 + (390 / paths.length) * i})`]
 	]);
 </script>
@@ -259,7 +259,7 @@
 			}
 			svg#FFFF #FFFF-hexes {
 				/* display: none; */
-				stroke: oklch(1 50% 300);
+				stroke: oklch(0.99 50% 300);
 				filter: url(#FFFF-ds);
 			}
 			svg#FFFF path.tile {
@@ -268,7 +268,7 @@
 		</style>
 		<filter id="DDDD-shrink">
 			<feMorphology in="SourceAlpha" operator="erode" radius="1" result="bordererode" />
-			<feFlood flood-color="oklch(1 75% 300)" result="floodcolor" />
+			<feFlood flood-color="oklch(0.99 75% 300)" result="floodcolor" />
 			<feComposite in="floodcolor" in2="bordererode" operator="in" result="border" />
 			<feMorphology in="SourceGraphic" operator="erode" radius="3" result="shrink" />
 
@@ -299,7 +299,7 @@
 			<AngularGradient id={`FFFF-ag${i}`} line={gradientLines[i]} stops={gradientStops[i]} />
 		{/each}
 	</defs>
-	<Background {size} fill="oklch(0 100% 300)" />
+	<Background {size} fill="oklch(0.01 100% 300)" />
 	<Background {size} fill="url(#FFFF-hp)" />
 	<g id="FFFF-tiles" transform="translate(0, -1)">
 		{#each angles as a}

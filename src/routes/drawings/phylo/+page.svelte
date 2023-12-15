@@ -44,7 +44,7 @@
 			<feFlood flood-color="oklch(0.99 0 0 / 0.25)" />
 			<feComposite operator="in" in2="erode1" result="border" />
 			<feGaussianBlur in="erode1" stdDeviation="3" result="blur" />
-			<feFlood flood-color="oklch(0 0 0)" />
+			<feFlood flood-color="oklch(0.01 0 0)" />
 			<feComposite operator="in" in2="blur" />
 			<feOffset dy="4" />
 			<feMerge>
@@ -54,7 +54,7 @@
 			</feMerge>
 		</filter>
 		<filter id="PHYLO-shadow" x="-50%" y="-50%" width="200%" height="200%">
-			<feFlood flood-color="oklch(0 0 0)" />
+			<feFlood flood-color="oklch(0.01 0 0)" />
 			<feComposite operator="in" in2="SourceAlpha" />
 			<feGaussianBlur stdDeviation="5" />
 			<feOffset dy="2" />
@@ -83,7 +83,7 @@
 				r={3 + (5 / points.length) * i}
 				cx={p.x}
 				cy={p.y}
-				style={`stroke:oklch(0 0 0 / 0.5);fill:oklch(${i % 3 === 1 ? 0.5 : 0.99} 75% ${
+				style={`stroke:oklch(0.01 0 0 / 0.5);fill:oklch(${i % 3 === 1 ? 0.5 : 0.99} 75% ${
 					120 + (270 / points.length) * i
 				} / 1)`}
 			/>

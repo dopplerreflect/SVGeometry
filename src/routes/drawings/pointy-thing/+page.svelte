@@ -40,9 +40,9 @@
 			<path d={path} />
 		</symbol>
 		<radialGradient id="POINTY-THING-rg">
-			<stop offset="0%" stop-color="oklch(1 100% 180 / 0.25)" />
+			<stop offset="0%" stop-color="oklch(0.99 100% 180 / 0.25)" />
 			<stop offset="50%" stop-color="oklch(0.33 100% 300 / 0.25)" />
-			<stop offset="75%" stop-color="oklch(1 100% 90 / 0.5)" />
+			<stop offset="75%" stop-color="oklch(0.99 100% 90 / 0.5)" />
 		</radialGradient>
 		<filter id="POINTY-THING-glow">
 			<feMorphology operator="dilate" radius="1" />
@@ -71,7 +71,7 @@
 			/>
 		</filter>
 	</defs>
-	<Background {size} fill="oklch(0 75% 300)" />
+	<Background {size} fill="oklch(0.01 75% 300)" />
 	<Background
 		{size}
 		filter="url(#POINTY-THING-bg)"
@@ -86,14 +86,14 @@
 				href="#sticker"
 				x={p.x}
 				y={p.y}
-				style="stroke:oklch(1 100% 75 / 0.5);stroke-width:2;fill:none;"
+				style="stroke:oklch(0.99 100% 75 / 0.5);stroke-width:2;fill:none;"
 			/>
 		{/each}
 		<use
 			href="#sticker"
 			x={0}
 			y={0}
-			style="stroke:oklch(1 100% 75 / 1);stroke-width:2;fill:url(#POINTY-THING-rg);fill-opacity:1;"
+			style="stroke:oklch(0.99 100% 75 / 1);stroke-width:2;fill:url(#POINTY-THING-rg);fill-opacity:1;"
 			transform={`rotate(${angles[1] / 2})`}
 			filter="url(#POINTY-THING-shadow)"
 		/>

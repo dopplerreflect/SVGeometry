@@ -189,7 +189,7 @@
 			svg#TENEIGHTEEN2023 {
 				& .pgg {
 					fill: oklch(0.5 100% 255 / 0.33);
-					stroke: oklch(1 100% 90);
+					stroke: oklch(0.99 100% 90);
 					fill-opacity: 0.33;
 				}
 				& .filtered {
@@ -215,11 +215,11 @@
 				.pgg12,
 				.pgg13,
 				.pgg17 {
-					fill: oklch(1 0 0);
+					fill: oklch(0.99 0 0);
 				}
 				& .black {
-					stroke: oklch(1 0 0);
-					fill: oklch(1 0 0);
+					stroke: oklch(0.99 0 0);
+					fill: oklch(0.99 0 0);
 				}
 			}
 		</style>
@@ -240,7 +240,7 @@
 			</feMerge>
 		</filter>
 		<mask id="TENEIGHTEEN2023-mask">
-			<Background {size} fill="oklch(1 0 0 / 0.25)" />
+			<Background {size} fill="oklch(0.99 0 0 / 0.25)" />
 			<g transform="rotate(18)">
 				{#each polygons as points, i}
 					<PolygonToRadial {points} {angles} classname={`black`} />
@@ -251,9 +251,9 @@
 	<Background {size} fill="oklch(0.0 50% 300)" />
 	<g filter="url(#TENEIGHTEEN2023-glow)" mask="url(#TENEIGHTEEN2023-mask)">
 		{#each circles as c, i}
-			<circle r={c.r} cx={c.x} cy={c.y} style={`stroke:oklch(1 100% 90);fill:none;`} />
+			<circle r={c.r} cx={c.x} cy={c.y} style={`stroke:oklch(0.99 100% 90);fill:none;`} />
 		{/each}
-		<LineWithLegend lineArray={lineArray.slice()} style={`stroke: oklch(1 100% 210)`} />
+		<LineWithLegend lineArray={lineArray.slice()} style={`stroke: oklch(0.99 100% 210)`} />
 	</g>
 	<g transform="rotate(18)">
 		{#each polygons as points, i}
@@ -262,7 +262,7 @@
 	</g>
 	<polygon
 		points={polygonFromIntersectionOfLines([50, 51, 52, 53, 54, 50], lineArray)}
-		style={`fill:oklch(0.5 100% 255 / 0.33);stroke:oklch(1 100% 90)`}
+		style={`fill:oklch(0.5 100% 255 / 0.33);stroke:oklch(0.99 100% 90)`}
 		class="filtered"
 	/>
 	<!-- <LineWithLegend showLegend {lineArray} style={`stroke: oklch(0.75 0% 150)`} /> -->

@@ -360,7 +360,7 @@
 			svg#THIRTY-SIX-PENTAGONS {
 				& g.filtered {
 					filter: url(#THIRTY-SIX-PENTAGONS-shrink);
-					fill: oklch(0 0 0 / 0.25);
+					fill: oklch(0.01 0 0 / 0.25);
 				}
         & g#polygons, text {
           /* display: none; */
@@ -405,7 +405,7 @@
 	{#each circles as c}
 		<circle r={c.r} cx={c.x} cy={c.y} style={`stroke:oklch(0.75 100% 210);fill:none;`} />
 	{/each}
-	<!-- <g id="original-polygons" style={`stroke:oklch(1 0 0);fill:oklch(1 0 0 / 0.1)`}>
+	<!-- <g id="original-polygons" style={`stroke:oklch(0.99 0 0);fill:oklch(0.99 0 0 / 0.1)`}>
 		{#each circles as c, i}
 			<path
 				d={polygonPath(d, c.r, { center: { x: c.x, y: c.y }, rotate: rotate ? 360 / d / 2 : 0 })}

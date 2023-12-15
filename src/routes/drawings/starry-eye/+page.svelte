@@ -130,21 +130,21 @@
 				}
 				& circle {
 					fill: none;
-					stroke: oklch(1 100% 90);
+					stroke: oklch(0.99 100% 90);
 					stroke-width: 1;
 				}
 				& g#top-circles circle {
-					stroke: oklch(1 25% 60);
+					stroke: oklch(0.99 25% 60);
 				}
 				& g#circles {
 					filter: url(#STARRY-EYE-circle-glow);
 				}
 				& line {
-					stroke: oklch(1 25% 300);
+					stroke: oklch(0.99 25% 300);
 				}
 				& .pg0 {
-					fill: oklch(1 100% 60 / 0.75);
-					stroke: oklch(1 100% 90);
+					fill: oklch(0.99 100% 60 / 0.75);
+					stroke: oklch(0.99 100% 90);
 				}
 				& .pg1 {
 					fill: oklch(0.25 100% 210);
@@ -152,19 +152,19 @@
 				}
 				& .pg2 {
 					fill: oklch(0.5 100% 0 / 0.33);
-					stroke: oklch(1 100% 0);
+					stroke: oklch(0.99 100% 0);
 				}
 				& .pg3 {
-					fill: oklch(1 25% 90 / 0.33);
-					stroke: oklch(1 100% 60);
+					fill: oklch(0.99 25% 90 / 0.33);
+					stroke: oklch(0.99 100% 60);
 				}
 				& .pg4 {
 					fill: oklch(0.5 100% 210 / 0.25);
-					stroke: oklch(1 100% 210);
+					stroke: oklch(0.99 100% 210);
 				}
 				& .pg5 {
 					fill: oklch(0.5 100% 30 / 0.33);
-					stroke: oklch(1 100% 60);
+					stroke: oklch(0.99 100% 60);
 				}
 			}
 		</style>
@@ -182,7 +182,7 @@
 			<feBlend in2="SourceGraphic" mode="multiply" result="fuzz" />
 		</filter>
 	</defs>
-	<Background {size} fill="oklch(0 50% 300)" />
+	<Background {size} fill="oklch(0.01 50% 300)" />
 	<LineWithLegend {lineArray} />
 	<g id="circles">
 		{#each circles as c}

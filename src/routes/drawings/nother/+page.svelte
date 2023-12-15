@@ -101,39 +101,39 @@
 		svg#NOTHER {
 			& g.pg {
 				filter: url(#NOTHER-shadow);
-				fill: oklch(0 0 0 / 0.125);
-				stroke: oklch(1 100% 150);
+				fill: oklch(0.01 0 0 / 0.125);
+				stroke: oklch(0.99 100% 150);
 			}
 			& g.pg0 {
 				fill: oklch(0.5 100% 270 / 0.125);
 			}
 			& g.pg1 {
-				fill: oklch(1 100% 45 / 0.5);
+				fill: oklch(0.99 100% 45 / 0.5);
 			}
 			& g.pg2 {
-				fill: oklch(1 100% 90 / 0.5);
+				fill: oklch(0.99 100% 90 / 0.5);
 			}
 			& g.pg3 {
-				fill: oklch(1 100% 90 / 0.5);
+				fill: oklch(0.99 100% 90 / 0.5);
 			}
 			& g.pg4 {
-				fill: oklch(1 100% 90 / 0.5);
+				fill: oklch(0.99 100% 90 / 0.5);
 			}
 			& g.pg5 {
 				fill: oklch(0.25 100% 270 / 0.25);
 			}
 			& g.pg6 {
-				fill: oklch(0 100% 270 / 0.25);
+				fill: oklch(0.01 100% 270 / 0.25);
 			}
 		}
 	</style>
-	<Background {size} fill="oklch(0 25% 270)" />
+	<Background {size} fill="oklch(0.01 25% 270)" />
 	<Background {size} filter={`url(#${id}-bg)`} />
 	<g filter={`url(#${id}-glow)`}>
 		{#each circles as c}
-			<circle r={c.r} cx={c.x} cy={c.y} style={`fill:none;stroke:oklch(1 100% 30)`} />
+			<circle r={c.r} cx={c.x} cy={c.y} style={`fill:none;stroke:oklch(0.99 100% 30)`} />
 		{/each}
-		<LineWithLegend {lineArray} style={`stroke:oklch(1 100% 30);stroke-width:1;`} />
+		<LineWithLegend {lineArray} style={`stroke:oklch(0.99 100% 30);stroke-width:1;`} />
 	</g>
 	{#each polygons as points, i}
 		<PolygonToRadial {points} angles={angles.map((a) => a + 18)} classname={`pg pg${i}`} />

@@ -63,7 +63,7 @@
 			</feMerge>
 		</filter>
 	</defs>
-	<Background {size} fill="oklch(0 0 0)" />
+	<Background {size} fill="oklch(0.01 0 0)" />
 	{#each circles as c}
 		<circle
 			r={c.r}
@@ -83,7 +83,7 @@
 	{#each circles as c}
 		<path
 			d={starPath(c.r, { center: { x: c.x, y: c.y }, rotate })}
-			style={`stroke:oklch(1 0 0);stroke-width:${1};stroke-linejoin:bevel;fill:none;`}
+			style={`stroke:oklch(0.99 0 0);stroke-width:${1};stroke-linejoin:bevel;fill:none;`}
 		/>
 	{/each}
 </DopplerSvg>

@@ -89,7 +89,7 @@
 	];
 </script>
 
-<DopplerSvg {id} {size} zoom={0} yPan={0} logoProps={{ stroke: 'oklch(1 100% 90 / 0.25)' }}>
+<DopplerSvg {id} {size} zoom={0} yPan={0} logoProps={{ stroke: 'oklch(0.99 100% 90 / 0.25)' }}>
 	<defs>
 		<linearGradient
 			id="lg0"
@@ -99,7 +99,7 @@
 			x2={0}
 			y2={pythag2(radii[2], radii[2] / 2)}
 		>
-			<stop offset="0%" stop-color="oklch(1 100% 90)" />
+			<stop offset="0%" stop-color="oklch(0.99 100% 90)" />
 			<stop offset="100%" stop-color="oklch(0.25 100% 90)" />
 		</linearGradient>
 		<linearGradient
@@ -111,7 +111,7 @@
 			y2={radialPoint(120, radii[2] + 0).y}
 		>
 			<stop offset="0%" stop-color="oklch(0.5 100% 270)" />
-			<stop offset="100%" stop-color="oklch(0 50% 270)" />
+			<stop offset="100%" stop-color="oklch(0.01 50% 270)" />
 		</linearGradient>
 		<linearGradient
 			id="lg3"
@@ -121,7 +121,7 @@
 			x2={radialPoint(90, radii[2] * 1.2).x}
 			y2={radialPoint(90, radii[2] * 1.2).y}
 		>
-			<stop offset="0%" stop-color="oklch(1 100% 240)" />
+			<stop offset="0%" stop-color="oklch(0.99 100% 240)" />
 			<stop offset="100%" stop-color="oklch(0.3 100% 240)" />
 		</linearGradient>
 		<linearGradient
@@ -143,8 +143,8 @@
 			x2={radialPoint(120, radii[2] * 2).x}
 			y2={radialPoint(120, radii[2] * 2).y}
 		>
-			<stop offset="0%" stop-color="oklch(1 100% 240)" />
-			<stop offset="100%" stop-color="oklch(0 50% 240)" />
+			<stop offset="0%" stop-color="oklch(0.99 100% 240)" />
+			<stop offset="100%" stop-color="oklch(0.01 50% 240)" />
 		</linearGradient>
 		<linearGradient
 			id="lg6"
@@ -154,8 +154,8 @@
 			x2={radialPoint(120, radii[1] * 2.5).x}
 			y2={radialPoint(120, radii[1] * 2.5).y}
 		>
-			<stop offset="0%" stop-color="oklch(1 100% 270)" />
-			<stop offset="100%" stop-color="oklch(0 50% 270)" />
+			<stop offset="0%" stop-color="oklch(0.99 100% 270)" />
+			<stop offset="100%" stop-color="oklch(0.01 50% 270)" />
 		</linearGradient>
 		<linearGradient
 			id="lg7"
@@ -165,13 +165,13 @@
 			x2={radialPoint(90, radii[1] * 2.5).x}
 			y2={radialPoint(90, radii[1] * 2.5).y}
 		>
-			<stop offset="0%" stop-color="oklch(1 100% 240 / 0.15)" />
-			<stop offset="100%" stop-color="oklch(0 100% 180 / 0.05)" />
+			<stop offset="0%" stop-color="oklch(0.99 100% 240 / 0.15)" />
+			<stop offset="100%" stop-color="oklch(0.01 100% 180 / 0.05)" />
 		</linearGradient>
 
 		<style>
 			svg#DDDD path:not(.Background) {
-				stroke: oklch(100% 100% 90);
+				stroke: oklch(0.99 100% 90);
 			}
 			svg#DDDD path.p0 {
 				fill: url(#lg0);
@@ -189,7 +189,7 @@
 			}
 			svg#DDDD path.p5,
 			svg#DDDD path.p6 {
-				fill: oklch(1 100% 170 / 1);
+				fill: oklch(0.99 100% 170 / 1);
 			}
 			svg#DDDD path.p7 {
 				fill: url(#lg4);
@@ -244,7 +244,7 @@
 			{#each paths as d, i}
 				<path
 					{d}
-					style={`stroke-width:${size / 1024};stroke: oklch(100% 100% 90);fill:none`}
+					style={`stroke-width:${size / 1024};stroke: oklch(0.99 100% 90);fill:none`}
 					transform={`rotate(${a})`}
 				/>
 			{/each}

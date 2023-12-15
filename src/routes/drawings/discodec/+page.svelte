@@ -125,14 +125,14 @@
 			</feMerge>
 		</filter>
 	</defs>
-	<Background {size} fill="oklch(0 75% 240)" />
+	<Background {size} fill="oklch(0.01 75% 240)" />
 	<LineWithLegend {lineArray} style="stroke:oklch(0.5 100% 150)" />
 	{#each circles as c, i}
 		<circle r={c.r} cx={c.x} cy={c.y} style="stroke:oklch(0.5 50% 210);fill:none;" />
 	{/each}
 	<g filter="url(#DISCODEC-dotglow)">
 		{#each iCircles as c}
-			<circle r={c.r} cx={c.x} cy={c.y} style={`fill:oklch(1 100% ${60 + c.r ** 10} / 1)`} />
+			<circle r={c.r} cx={c.x} cy={c.y} style={`fill:oklch(0.99 100% ${60 + c.r ** 10} / 1)`} />
 		{/each}
 	</g>
 </DopplerSvg>

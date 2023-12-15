@@ -86,10 +86,10 @@
 				& #paths path,
 				& #paths-unfilled path {
 					/* display: none; */
-					stroke: oklch(1 100% 180);
+					stroke: oklch(0.99 100% 180);
 					stroke-width: 5;
 					stroke-linejoin: round;
-					fill: oklch(0 100% 300 / 0.5);
+					fill: oklch(0.01 100% 300 / 0.5);
 				}
 				& #path-unfilled path {
 					fill: none;

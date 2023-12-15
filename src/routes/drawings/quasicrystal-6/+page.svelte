@@ -182,8 +182,8 @@
 			</feMerge>
 		</filter>
 		<radialGradient id="QUASICRYSTAL-6-rg">
-			<stop offset="0%" stop-color="oklch(1 100% 300)" />
-			<stop offset="100%" stop-color="oklch(0 50% 300)" />
+			<stop offset="0%" stop-color="oklch(0.99 100% 300)" />
+			<stop offset="100%" stop-color="oklch(0.01 50% 300)" />
 		</radialGradient>
 	</defs>
 	<Background {size} fill="url(#QUASICRYSTAL-6-rg)" />
@@ -193,17 +193,17 @@
 	<g filter="url(#QUASICRYSTAL-6-glow)">
 		<g id="circles" mask="url(#QUASICRYSTAL-6-hexmask">
 			{#each circles2 as c}
-				<circle r={c.r} cx={c.x} cy={c.y} style={`fill:oklch(1 50% 300);`} />
+				<circle r={c.r} cx={c.x} cy={c.y} style={`fill:oklch(0.99 50% 300);`} />
 			{/each}
 			{#each circles as c}
 				<circle
 					r={c.r}
 					cx={c.x}
 					cy={c.y}
-					style={`fill:none;stroke:oklch(1 100% 270);stroke-width:1;`}
+					style={`fill:none;stroke:oklch(0.99 100% 270);stroke-width:1;`}
 				/>
 			{/each}
 		</g>
-		<LineWithLegend {lineArray} style={`stroke:oklch(1 100% 90);stroke-width:1;`} />
+		<LineWithLegend {lineArray} style={`stroke:oklch(0.99 100% 90);stroke-width:1;`} />
 	</g>
 </DopplerSvg>

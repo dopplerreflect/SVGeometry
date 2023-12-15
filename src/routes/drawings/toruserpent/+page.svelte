@@ -111,7 +111,7 @@
 			<feGaussianBlur stdDeviation="1" />
 			<feOffset dy="3" result="shadow" />
 			<feMorphology in="SourceAlpha" operator="erode" radius="3" result="smallErode" />
-			<feFlood flood-color="oklch(1 100% calc(var(--hue) - 60))" result="color" />
+			<feFlood flood-color="oklch(0.99 100% calc(var(--hue) - 60))" result="color" />
 			<feComposite operator="in" in2="smallErode" result="border" />
 			<feMorphology in="SourceGraphic" operator="erode" radius="4" result="bigErode" />
 			<feMerge>
@@ -130,13 +130,13 @@
 		</filter>
 		<radialGradient id="TORUSERPENT-rg" fr="15.5%" r="50%">
 			<stop offset="0%" stop-color={`oklch(0.2 100% var(--hue) / 0)`} />
-			<stop offset="61%" stop-color={`oklch(1 100% var(--hue) )`} />
+			<stop offset="61%" stop-color={`oklch(0.99 100% var(--hue) )`} />
 			<stop offset="100%" stop-color={`oklch(0.2 100% var(--hue) / 0)`} />
 		</radialGradient>
 		<radialGradient id="TORUSERPENT-rg2" fr="15.5%" r="50%">
-			<stop offset="0%" stop-color={`oklch(0 50% var(--hue) / 0)`} />
-			<stop offset="61%" stop-color={`oklch(1 50% var(--hue) / 0.5)`} />
-			<stop offset="100%" stop-color={`oklch(0 50% var(--hue) / 0)`} />
+			<stop offset="0%" stop-color={`oklch(0.01 50% var(--hue) / 0)`} />
+			<stop offset="61%" stop-color={`oklch(0.99 50% var(--hue) / 0.5)`} />
+			<stop offset="100%" stop-color={`oklch(0.01 50% var(--hue) / 0)`} />
 		</radialGradient>
 		<filter id="TORUSERPENT-distort" x="-50%" y="-50%" width="200%" height="200%">
 			<feTurbulence
@@ -174,7 +174,7 @@
 			<Background {size} fill="url(#TORUSERPENT-rmrg)" />
 		</mask>
 	</defs>
-	<Background {size} fill="oklch(0 50% calc(var(--hue) + 180))" />
+	<Background {size} fill="oklch(0.01 50% calc(var(--hue) + 180))" />
 	<g filter="url(#TORUSERPENT-distort)" mask="url(#TORUSERPENT-radialmask)">
 		{#each angles2 as a}
 			<path
@@ -192,7 +192,7 @@
 				r={c.r}
 				cx={c.x}
 				cy={c.y}
-				style={`fill:none;stroke:oklch(1 100% calc(var(--hue) - 30) / 1)`}
+				style={`fill:none;stroke:oklch(0.99 100% calc(var(--hue) - 30) / 1)`}
 			/>
 		{/each}
 	</g>

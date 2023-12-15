@@ -94,7 +94,7 @@
 				}
 				& #paths path {
 					/* display: none; */
-					stroke: oklch(0 100% 180);
+					stroke: oklch(0.01 100% 180);
 					stroke-width: 0;
 					stroke-linejoin: round;
 					fill: oklch(10% 100% 300 / 1);
@@ -104,7 +104,7 @@
 		</style>
 		<filter id="starmesh2-shrink">
 			<feMorphology in="SourceGraphic" operator="erode" radius={(size / 1024) * 4} result="erode" />
-			<feFlood flood-color="oklch(100% 33% 60)" result="color" />
+			<feFlood flood-color="oklch(0.99 33% 60)" result="color" />
 			<feComposite in="color" in2="erode" operator="in" result="composite" />
 			<feMorphology in="composite" operator="dilate" radius={(size / 1024) * 1} result="dilate" />
 			<feMerge>

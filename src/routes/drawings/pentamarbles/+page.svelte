@@ -40,12 +40,12 @@
 
 <DopplerSvg {id} {size}>
 	<radialGradient id={`${id}-bg`} r="0.7">
-		<stop offset="0%" stop-color="oklch(0 0 0)" />
-		<stop offset="100%" stop-color="oklch(1 0 0)" />
+		<stop offset="0%" stop-color="oklch(0.01 0 0)" />
+		<stop offset="100%" stop-color="oklch(0.99 0 0)" />
 	</radialGradient>
 	<radialGradient id={`${id}-rg`} r="0.5">
-		<stop offset="0%" stop-color="oklch(1 0 0)" />
-		<stop offset="100%" stop-color="oklch(0 10% 300)" />
+		<stop offset="0%" stop-color="oklch(0.99 0 0)" />
+		<stop offset="100%" stop-color="oklch(0.01 10% 300)" />
 	</radialGradient>
 	<Background {size} fill={`url(#${id}-bg)`} />
 	{#each circles as c, i}
@@ -53,11 +53,11 @@
 			r={c.r}
 			cx={c.x}
 			cy={c.y}
-			style={`fill:url(#${id}-rg);stroke:oklch(0 0 0);stroke-width:1;`}
+			style={`fill:url(#${id}-rg);stroke:oklch(0.01 0 0);stroke-width:1;`}
 		/>
 		<path
 			d={stars[i]}
-			style={`fill:oklch(0 0 0 / 0.125);fill-rule:evenodd;stroke:oklch(0.5 0 0);stroke-width:2`}
+			style={`fill:oklch(0.01 0 0 / 0.125);fill-rule:evenodd;stroke:oklch(0.5 0 0);stroke-width:2`}
 		/>
 	{/each}
 </DopplerSvg>

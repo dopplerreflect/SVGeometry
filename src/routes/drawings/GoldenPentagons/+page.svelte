@@ -37,11 +37,11 @@
 	</defs>
 	<Background {size} fill="oklch(0.3 0.09 60)" />
 	{#each paths as d, i}
-		<path {d} fill={`oklch(1 0.37 ${30 + (i % 5) * 20} / ${0.1 + (i % 5) * 0.1})`} />
+		<path {d} fill={`oklch(0.99 0.37 ${30 + (i % 5) * 20} / ${0.1 + (i % 5) * 0.1})`} />
 	{/each}
 	<g filter="url(#GoldenPentagonsFilter)">
 		{#each paths as d, i}
-			<path {d} fill={`none`} stroke-width="1" stroke="oklch(1 0.37 60)" />
+			<path {d} fill={`none`} stroke-width="1" stroke="oklch(0.99 0.37 60)" />
 		{/each}
 	</g>
 </DopplerSvg>

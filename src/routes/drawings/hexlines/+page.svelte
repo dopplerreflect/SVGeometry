@@ -185,9 +185,9 @@
 		}
 	</style>
 	<radialGradient id="HEXLINES-rg" r="50%">
-		<stop offset="0%" stop-color="oklch(1 100% 90)" />
-		<stop offset="50%" stop-color="oklch(1 100% 60)" />
-		<stop offset="100%" stop-color="oklch(0 100% 300)" />
+		<stop offset="0%" stop-color="oklch(0.99 100% 90)" />
+		<stop offset="50%" stop-color="oklch(0.99 100% 60)" />
+		<stop offset="100%" stop-color="oklch(0.01 100% 300)" />
 	</radialGradient>
 	<HexPattern
 		id="HEXLINES-hexpattern"
@@ -198,7 +198,7 @@
 	<Background {size} fill="url(#HEXLINES-rg)" />
 	<g filter="url(#HEXLINES-glow)">
 		<Background {size} fill="url(#HEXLINES-hexpattern)" />
-		<LineWithLegend {lineArray} style={`stroke:oklch(1 100% 90);`} />
+		<LineWithLegend {lineArray} style={`stroke:oklch(0.99 100% 90);`} />
 	</g>
 	{#each polygonGroups as pg, pgi}
 		{#each pg as points, i}
@@ -211,7 +211,7 @@
 	{/each}
 	<g filter="url(#HEXLINES-glow2)">
 		{#each circles as c}
-			<circle r={c.r} cx={c.x} cy={c.y} style={`stroke:oklch(1 100% 270);fill:none;`} />
+			<circle r={c.r} cx={c.x} cy={c.y} style={`stroke:oklch(0.99 100% 270);fill:none;`} />
 		{/each}
 	</g>
 </DopplerSvg>

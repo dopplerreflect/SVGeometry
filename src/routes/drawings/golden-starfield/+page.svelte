@@ -31,11 +31,11 @@
 			svg#GOLDEN-STARFIELD {
 				& g#static {
 					fill: none;
-					stroke: oklch(1 100% 90);
+					stroke: oklch(0.99 100% 90);
 					stroke-width: 1;
 				}
 				& g#animated {
-					fill: oklch(1 0 0 / 0.25);
+					fill: oklch(0.99 0 0 / 0.25);
 				}
 			}
 		</style>
@@ -46,7 +46,7 @@
 			</radialGradient>
 			<Background {size} fill="url(#GSMG)" />
 		</mask>
-		<GridPattern id="GOLDEN-STARFIELD-gp" size={radii[4]} stroke="oklch(1 100% 300)" />
+		<GridPattern id="GOLDEN-STARFIELD-gp" size={radii[4]} stroke="oklch(0.99 100% 300)" />
 	</defs>
 	<Background {size} fill="url(#GOLDEN-STARFIELD-gp)" />
 
@@ -55,7 +55,7 @@
 			<path d={path} />
 		{/each}
 	</g>
-	<Background {size} fill="oklch(0 0 0)" mask="url(#GOLDEN-STARFIELD-mask)" />
+	<Background {size} fill="oklch(0.01 0 0)" mask="url(#GOLDEN-STARFIELD-mask)" />
 	<g style="--phi: {Phi};" id="static" fill-rule="evenodd">
 		{#each pentagramPaths as path, i}
 			<path d={path} />

@@ -86,11 +86,11 @@
 			svg#TENSTACK-GOLDEN-MANDALA {
 				& circle,
 				path:not(.Background) {
-					stroke: oklch(1 50% 300);
+					stroke: oklch(0.99 50% 300);
 					fill: none;
 				}
 				& line {
-					stroke: oklch(1 100% 100 / 1);
+					stroke: oklch(0.99 100% 100 / 1);
 				}
 				& path.fill {
 					stroke: none;
@@ -121,13 +121,13 @@
 			</feMerge>
 		</filter>
 	</defs>
-	<Background {size} fill="oklch(0 100% 210)" />
+	<Background {size} fill="oklch(0.01 100% 210)" />
 
 	<PolygonToRadial
 		points={polygons[0]}
 		{angles}
 		rotate={-18}
-		style="stroke:oklch(1 0 0);fill:oklch(0.1 100% 300 / 1)"
+		style="stroke:oklch(0.99 0 0);fill:oklch(0.1 100% 300 / 1)"
 		classname="filtered"
 	/>
 	<LineWithLegend {lineArray} />
@@ -136,14 +136,14 @@
 		points={polygons[1]}
 		{angles}
 		rotate={-18}
-		style="stroke:oklch(1 100% 300);fill:oklch(0.68 50% 300 / 1)"
+		style="stroke:oklch(0.99 100% 300);fill:oklch(0.68 50% 300 / 1)"
 		classname="filtered"
 	/>
 	<PolygonToRadial
 		points={polygons[2]}
 		{angles}
 		rotate={-18}
-		style="stroke:oklch(1 100% 330);fill:oklch(0.36 100% 330 / 0.5)"
+		style="stroke:oklch(0.99 100% 330);fill:oklch(0.36 100% 330 / 0.5)"
 		classname="filtered"
 	/>
 
@@ -158,21 +158,21 @@
 		points={polygons[4]}
 		{angles}
 		rotate={-18}
-		style="stroke:oklch(1 100% 300);fill:oklch(0.68 50% 300 / 1)"
+		style="stroke:oklch(0.99 100% 300);fill:oklch(0.68 50% 300 / 1)"
 		classname="filtered"
 	/>
 	<PolygonToRadial
 		points={polygons[5]}
 		{angles}
 		rotate={-18}
-		style="stroke:oklch(0 0 0);fill:oklch(0.84 25% 270 / 1)"
+		style="stroke:oklch(0.01 0 0);fill:oklch(0.84 25% 270 / 1)"
 		classname="filtered"
 	/>
 	<PolygonToRadial
 		points={polygons[6]}
 		{angles}
 		rotate={-18}
-		style="stroke:oklch(0 0 0);fill:oklch(1 25% 240 / 1)"
+		style="stroke:oklch(0.01 0 0);fill:oklch(0.99 25% 240 / 1)"
 		classname="filtered"
 	/>
 	<g filter="url(#TENSTACK-GOLDEN-MANDALA-glow)">

@@ -181,9 +181,9 @@
 	<defs>
 		<path id="lightnessPath" d={lightnessPath} />
 		<g id="lightnessMask">
-			<use href="#lightnessPath" style="fill:oklch(1 0 0 / 0.8)" />
-			<use href="#lightnessPath" style="fill:oklch(1 0 0 / 0.5)" transform="rotate(60)" />
-			<use href="#lightnessPath" style="fill:oklch(1 0 0 / 0.2)" transform="rotate(120)" />
+			<use href="#lightnessPath" style="fill:oklch(0.99 0 0 / 0.8)" />
+			<use href="#lightnessPath" style="fill:oklch(0.99 0 0 / 0.5)" transform="rotate(60)" />
+			<use href="#lightnessPath" style="fill:oklch(0.99 0 0 / 0.2)" transform="rotate(120)" />
 		</g>
 		<path id="huePath" d={huePath} />
 		<g id="hueMask">
@@ -199,10 +199,10 @@
 	<g transform="rotate(30)">
 		<!-- <path d={polygonPath(6, r * 2)} style="fill:oklch(0.5 100% 270)" /> -->
 		<!-- {#each circles as c, i}
-			<circle r={c.r} cx={c.x} cy={c.y} style={`stroke:oklch(1 0 0);stroke-width:2;fill:none;`} />
+			<circle r={c.r} cx={c.x} cy={c.y} style={`stroke:oklch(0.99 0 0);stroke-width:2;fill:none;`} />
 		{/each} -->
 		<use href="#hueMask" />
 		<use href="#lightnessMask" />
-		<LineWithLegend {lineArray} style={`stroke:oklch(0 100% 300);stroke-width:2;`} />
+		<LineWithLegend {lineArray} style={`stroke:oklch(0.01 100% 300);stroke-width:2;`} />
 	</g>
 </DopplerSvg>

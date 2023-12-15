@@ -60,7 +60,7 @@
 			svg#RAINBOW-TUBE {
 				& path:not(.Background),
 				circle {
-					stroke: oklch(1 0 0);
+					stroke: oklch(0.99 0 0);
 					fill: none;
 				}
 				& line {
@@ -92,17 +92,17 @@
 	{#each paths as d, i}
 		<path
 			{d}
-			style={`fill:oklch(1 100% ${
+			style={`fill:oklch(0.99 100% ${
 				0 + (360 / angles.length) * i
-			} / 0.25);stroke:oklch(1 0 0 / 1);stroke-width:2;`}
+			} / 0.25);stroke:oklch(0.99 0 0 / 1);stroke-width:2;`}
 		/>
 	{/each}
 	{#each paths2 as d, i}
 		<path
 			{d}
-			style={`fill:oklch(1 100% ${
+			style={`fill:oklch(0.99 100% ${
 				180 + (360 / angles.length) * i
-			} / 0.25);stroke:oklch(1 0 0 / 1);stroke-width:2;`}
+			} / 0.25);stroke:oklch(0.99 0 0 / 1);stroke-width:2;`}
 		/>
 	{/each}
 </DopplerSvg>

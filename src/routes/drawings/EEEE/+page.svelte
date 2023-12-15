@@ -116,11 +116,11 @@
 			}
 			svg#EEEE #EEEE-lines {
 				/* display: none; */
-				stroke: oklch(1 50% 60);
+				stroke: oklch(0.99 50% 60);
 				filter: url(#EEEE-dsFilter);
 			}
 			svg#EEEE path.tile {
-				fill: oklch(1 0 0 / 0.2);
+				fill: oklch(0.99 0 0 / 0.2);
 				filter: url(#EEEE-tileFilter);
 			}
 			svg#EEEE path.tile.t0 {
@@ -195,14 +195,14 @@
 			line={[radialPoint(angles[0], radii[5]), radialPoint(angles[0], radii[3] - radii[6])]}
 			stops={[
 				[0, 'oklch(0.5 100% 120)'],
-				[100, 'oklch(1 100% 120)']
+				[100, 'oklch(0.99 100% 120)']
 			]}
 		/>
 		<AngularGradient
 			id="ag1"
 			line={[radialPoint(angles[0], radii[4]), radialPoint(angles[0], radii[3])]}
 			stops={[
-				[0, 'oklch(1 100% 90)'],
+				[0, 'oklch(0.99 100% 90)'],
 				[100, 'oklch(0.5 100% 90)']
 			]}
 		/>
@@ -210,40 +210,40 @@
 			id="ag2"
 			line={[radialPoint(angles[0], radii[3] - radii[6]), radialPoint(angles[0], radii[2])]}
 			stops={[
-				[0, 'oklch(1 100% 210'],
-				[100, 'oklch(0 100% 210)']
+				[0, 'oklch(0.99 100% 210'],
+				[100, 'oklch(0.01 100% 210)']
 			]}
 		/>
 		<AngularGradient
 			id="ag3"
 			line={[radialPoint(angles[0], radii[3]), radialPoint(angles[0], radii[2] - radii[7])]}
 			stops={[
-				[0, 'oklch(1 100% 300'],
-				[100, 'oklch(0 100% 300)']
+				[0, 'oklch(0.99 100% 300'],
+				[100, 'oklch(0.01 100% 300)']
 			]}
 		/>
 		<AngularGradient
 			id="ag4"
 			line={[radialPoint(angles[0], radii[3]), radialPoint(angles[0], radii[1])]}
 			stops={[
-				[0, 'oklch(1 100% 90'],
-				[100, 'oklch(0 100% 90)']
+				[0, 'oklch(0.99 100% 90'],
+				[100, 'oklch(0.01 100% 90)']
 			]}
 		/>
 		<AngularGradient
 			id="ag5"
 			line={[radialPoint(angles[0], radii[2]), radialPoint(angles[0], radii[0])]}
 			stops={[
-				[0, 'oklch(1 100% 200'],
-				[100, 'oklch(0 100% 200)']
+				[0, 'oklch(0.99 100% 200'],
+				[100, 'oklch(0.01 100% 200)']
 			]}
 		/>
 		<AngularGradient
 			id="ag8"
 			line={[radialPoint(angles[3], radii[3]), radialPoint(angles[3], radii[1])]}
 			stops={[
-				[0, 'oklch(1 100% 120'],
-				[100, 'oklch(0 100% 120)']
+				[0, 'oklch(0.99 100% 120'],
+				[100, 'oklch(0.01 100% 120)']
 			]}
 		/>
 	</defs>

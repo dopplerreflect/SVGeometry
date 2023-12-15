@@ -55,10 +55,10 @@
 				}
 				& path.weave {
 					stroke-width: 5;
-					stroke: oklch(1 50% 60);
+					stroke: oklch(0.99 50% 60);
 				}
 				& path.weave-dark {
-					fill: oklch(0 0 0);
+					fill: oklch(0.01 0 0);
 				}
 				& line {
 					stroke: oklch(0.5 0 0);

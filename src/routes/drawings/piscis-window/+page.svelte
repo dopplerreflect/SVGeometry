@@ -51,7 +51,7 @@
 			</feMerge>
 		</filter>
 		<mask id="DEV-mask">
-			<Background {size} fill="oklch(1 0 0 / 0.25)" />
+			<Background {size} fill="oklch(0.99 0 0 / 0.25)" />
 			<path
 				d={`M${pointToString(circleIntersections(circles[15], circles[0])[1])}A${r1 - d} ${
 					r1 - d
@@ -62,7 +62,7 @@
 				} 0 0 0 ${pointToString(circleIntersections(circles[0], circles[1])[0])}A${r1 - d} ${
 					r1 - d
 				} 0 0 0 ${pointToString(circleIntersections(circles[15], circles[0])[1])}`}
-				style="fill:oklch(1 0 0 / 0.5)"
+				style="fill:oklch(0.99 0 0 / 0.5)"
 			/>
 		</mask>
 		<style>
@@ -74,10 +74,10 @@
 			}
 		</style>
 	</defs>
-	<Background {size} fill="oklch(0 100% 210)" />
+	<Background {size} fill="oklch(0.01 100% 210)" />
 	<g transform="rotate(0)">
-		<line x1={-size / 2} x2={size / 2} style="stroke:oklch(1 0 0 / 0.5)" />
-		<line y1={-size / 2} y2={size / 2} style="stroke:oklch(1 0 0 / 0.5)" />
+		<line x1={-size / 2} x2={size / 2} style="stroke:oklch(0.99 0 0 / 0.5)" />
+		<line y1={-size / 2} y2={size / 2} style="stroke:oklch(0.99 0 0 / 0.5)" />
 
 		{#each radii.slice(0, radii.length - 1) as r, i}
 			<path
@@ -88,7 +88,7 @@
 				}V0A${radii[i + 1]} ${radii[i + 1]} 0 0 0 ${pointToString(
 					circleIntersections(circles[i * 2 + 2], circles[i * 2 + 3])[0]
 				)}A${radii[i + 1]} ${radii[i + 1]} 0 0 0 ${r0 / 2 - radii[i + 1]} 0Z`}
-				style={`stroke:oklch(1 0 0 / 0.5);fill:oklch(75% 100% ${
+				style={`stroke:oklch(0.99 0 0 / 0.5);fill:oklch(75% 100% ${
 					30 + 51.4 * i
 				} / 0.75);fill-rule:evenodd`}
 				filter="url(#DEV-shadow)"
@@ -96,7 +96,7 @@
 		{/each}
 		<g mask="url(#DEV-mask)">
 			{#each circles as c}
-				<circle r={c.r} cx={c.x} cy={c.y} style="stroke:oklch(1 0 0 / 0.5);stroke-width:2" />
+				<circle r={c.r} cx={c.x} cy={c.y} style="stroke:oklch(0.99 0 0 / 0.5);stroke-width:2" />
 			{/each}
 		</g>
 		<path
@@ -109,7 +109,7 @@
 			filter="url(#DEV-shadow)"
 		/>
 	</g>
-	<g id="stones" style="display:none;stroke:oklch(0.5 0 0);fill:oklch(1 0 0 / 1);">
+	<g id="stones" style="display:none;stroke:oklch(0.5 0 0);fill:oklch(0.99 0 0 / 1);">
 		{#each angles.slice(0, angles.length - 1) as a, i}
 			<path
 				d={`M${radialPointString(a, r1 - d, { center: { x: -r0 / 2, y: 0 } })} ${

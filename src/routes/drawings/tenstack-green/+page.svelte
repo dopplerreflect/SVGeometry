@@ -83,7 +83,7 @@
 		<style>
 			svg#TENSTACK-GREEN {
 				& circle {
-					stroke: oklch(1 100% 240);
+					stroke: oklch(0.99 100% 240);
 					fill: none;
 				}
 				& line {
@@ -105,7 +105,7 @@
 		</filter>
 		<filter id="TENSTACK-GREEN-glow">
 			<feMorphology in="SourceGraphic" operator="dilate" radius="1" result="dilate" />
-			<feFlood flood-color="oklch(1 100% 300)" />
+			<feFlood flood-color="oklch(0.99 100% 300)" />
 			<feComposite in2="dilate" operator="in" />
 			<feGaussianBlur stdDeviation="5" />
 			<feMerge>
@@ -124,7 +124,7 @@
 			/>
 		</filter>
 	</defs>
-	<Background {size} fill="oklch(0 0 0)" />
+	<Background {size} fill="oklch(0.01 0 0)" />
 	<Background {size} filter="url(#TENSTACK-GREEN-bg" />
 	{#each arrayMap(polygons.length, (n) => n) as i}
 		<PolygonToRadial
@@ -132,7 +132,7 @@
 			{angles}
 			style={`fill:oklch(${1 / polygons.length + (1 / polygons.length) * (i + 1)} ${
 				(100 / (polygons.length - 1)) * (i + 1)
-			}% ${i > 4 ? '150' : '210'} / 0.33);stroke:oklch(1 25% 90);`}
+			}% ${i > 4 ? '150' : '210'} / 0.33);stroke:oklch(0.99 25% 90);`}
 			classname="filtered"
 		/>
 		{#if i === 1}

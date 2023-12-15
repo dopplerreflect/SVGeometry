@@ -70,7 +70,7 @@
 					fill: none;
 				}
 				& path:not(.Background) {
-					stroke: oklch(0 100% 300);
+					stroke: oklch(0.01 100% 300);
 					stroke-width: 5;
 				}
 			}
@@ -80,8 +80,8 @@
 				id={`PETALS-lg${i}`}
 				{line}
 				stops={[
-					[0, `oklch(1 100% ${30 + 20 * i})`],
-					[100, `oklch(0 100% ${30 + 20 * i})`]
+					[0, `oklch(0.99 100% ${30 + 20 * i})`],
+					[100, `oklch(0.01 100% ${30 + 20 * i})`]
 				]}
 			/>
 		{/each}
@@ -107,14 +107,14 @@
 			</feMerge>
 		</filter>
 	</defs>
-	<Background {size} fill="oklch(0 100% 300)" />
+	<Background {size} fill="oklch(0.01 100% 300)" />
 	{#each ppoints as p, i}
 		<circle
 			filter="url(#PETALS-glow"
 			r={5}
 			cx={p.x}
 			cy={p.y}
-			style={`stroke:oklch(1 100% ${30 + 45 * (i % 89)});fill:oklch(0.75 25% ${
+			style={`stroke:oklch(0.99 100% ${30 + 45 * (i % 89)});fill:oklch(0.75 25% ${
 				30 + 45 * (i % 89)
 			}  / ${1 / (i % 8)})`}
 		/>

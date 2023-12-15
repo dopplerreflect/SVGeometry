@@ -102,11 +102,11 @@
 <DopplerSvg {id} {size}>
 	<radialGradient id={`${id}-bg`} r="0.7">
 		<stop offset="0%" stop-color="oklch(0.5 100% 240)" />
-		<stop offset="100%" stop-color="oklch(0 50% 240)" />
+		<stop offset="100%" stop-color="oklch(0.01 50% 240)" />
 	</radialGradient>
 	<radialGradient id={`${id}-rg`} r="0.5">
 		<stop offset="0%" stop-color="oklch(0.5 100% 300 / 0.25)" />
-		<stop offset="100%" stop-color="oklch(0 100% 300 / 0.25)" />
+		<stop offset="100%" stop-color="oklch(0.01 100% 300 / 0.25)" />
 	</radialGradient>
 	<filter id={`${id}-glow`}>
 		<feGaussianBlur in="SourceGraphic" stdDeviation="3" result="o" />
@@ -124,7 +124,7 @@
               0 0 0 1 0"
 		/>
 	</filter>
-	<Background {size} fill="oklch(1 0 0)" />
+	<Background {size} fill="oklch(0.99 0 0)" />
 	<Background {size} fill={`url(#${id}-bg)`} />
 	<g filter={`url(#${id}-glow)`}>
 		{#each circles as c, i}
@@ -132,20 +132,20 @@
 				r={c.r}
 				cx={c.x}
 				cy={c.y}
-				style={`fill:url(#${id}-rg);stroke:oklch(1 100% 180);stroke-width:1;`}
+				style={`fill:url(#${id}-rg);stroke:oklch(0.99 100% 180);stroke-width:1;`}
 			/>
 		{/each}
-		<LineWithLegend {lineArray} style={`stroke:oklch(1 100% 300)`} />
+		<LineWithLegend {lineArray} style={`stroke:oklch(0.99 100% 300)`} />
 		{#each dots as c, i}
 			<circle
 				r={c.r}
 				cx={c.x}
 				cy={c.y}
-				style={`stroke:oklch(0.75 100% ${colors.get(c.r)});fill:oklch(1 100% ${colors.get(c.r)} );`}
+				style={`stroke:oklch(0.75 100% ${colors.get(c.r)});fill:oklch(0.99 100% ${colors.get(c.r)} );`}
 			/>
 			{#each angles.slice(0, 5) as a, ai}
 				<path
-					style={`fill:none;stroke:oklch(1 0% ${colors.get(c.r)});stroke-width:0.5`}
+					style={`fill:none;stroke:oklch(0.99 0% ${colors.get(c.r)});stroke-width:0.5`}
 					d={`M${radialPointString(a + 18, c.r, {
 						center: { x: c.x, y: c.y }
 					})} ${radialPointString(angles[(ai + 5) % 10] + 18, c.r, {
