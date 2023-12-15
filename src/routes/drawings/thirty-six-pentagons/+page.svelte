@@ -378,7 +378,7 @@
 	</g>
 	<g filter="url(#THIRTY-SIX-PENTAGONS-blur)">
 		{#each intersectionCircles as c}
-			<circle r={c.r} cx={c.x} cy={c.y} style={`fill:oklch(1 50% 90);`} />
+			<circle r={c.r} cx={c.x} cy={c.y} style={`fill:oklch(0.99 50% 90);`} />
 		{/each}
 	</g>
 
@@ -399,7 +399,7 @@
 	</g>
 	<g filter="url(#THIRTY-SIX-PENTAGONS-blur)">
 		{#each circles as c}
-			<circle r={c.r} cx={c.x} cy={c.y} style={`stroke:oklch(1 0 0);fill:none;`} />
+			<circle r={c.r} cx={c.x} cy={c.y} style={`stroke:oklch(0.99 0 0);fill:none;`} />
 		{/each}
 	</g>
 	{#each circles as c}
