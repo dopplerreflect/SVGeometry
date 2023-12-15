@@ -41,7 +41,7 @@
 		<filter id="PHYLO-shrink">
 			<feMorphology operator="erode" radius="2" result="erode" />
 			<feMorphology in="SourceAlpha" operator="erode" radius="1" result="erode1" />
-			<feFlood flood-color="oklch(1 0 0 / 0.25)" />
+			<feFlood flood-color="oklch(0.99 0 0 / 0.25)" />
 			<feComposite operator="in" in2="erode1" result="border" />
 			<feGaussianBlur in="erode1" stdDeviation="3" result="blur" />
 			<feFlood flood-color="oklch(0 0 0)" />
@@ -64,7 +64,7 @@
 			</feMerge>
 		</filter>
 		<radialGradient id="PHYLO-rg">
-			<stop offset="0%" stop-color="oklch(1 100% 150)" />
+			<stop offset="0%" stop-color="oklch(0.99 100% 150)" />
 			<stop offset="100%" stop-color="oklch(0.25 100% 150)" />
 		</radialGradient>
 	</defs>
@@ -83,7 +83,7 @@
 				r={3 + (5 / points.length) * i}
 				cx={p.x}
 				cy={p.y}
-				style={`stroke:oklch(0 0 0 / 0.5);fill:oklch(${i % 3 === 1 ? 0.5 : 1} 75% ${
+				style={`stroke:oklch(0 0 0 / 0.5);fill:oklch(${i % 3 === 1 ? 0.5 : 0.99} 75% ${
 					120 + (270 / points.length) * i
 				} / 1)`}
 			/>
