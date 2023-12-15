@@ -183,8 +183,8 @@
         }
 		</style>
 		<linearGradient id="SQRT2MOSAIC-lg" gradientTransform="rotate(90)">
-			<stop offset="0%" stop-color="oklch(1 50% 60)" />
-			<stop offset="100%" stop-color="oklch(0 50% 60)" />
+			<stop offset="0%" stop-color="oklch(0.99 50% 60)" />
+			<stop offset="100%" stop-color="oklch(0.01 50% 60)" />
 		</linearGradient>
 	</defs>
 	<Background {size} fill="url(#SQRT2MOSAIC-lg)" />
