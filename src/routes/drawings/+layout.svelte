@@ -36,7 +36,9 @@
 
 <div id="container">
 	<div class="item">
-		<slot />
+		<a href="/">
+			<slot />
+		</a>
 	</div>
 </div>
 
