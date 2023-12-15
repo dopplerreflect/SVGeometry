@@ -187,15 +187,15 @@
 		</g>
 		<path id="huePath" d={huePath} />
 		<g id="hueMask">
-			<use href="#huePath" style="fill:oklch(1 100% 150 / 0.75);fill-rule:evenodd" />
+			<use href="#huePath" style="fill:oklch(0.99 100% 150 / 0.75);fill-rule:evenodd" />
 			<use
 				href="#huePath"
-				style="fill:oklch(1 100% 90 / 0.75);fill-rule:evenodd"
+				style="fill:oklch(0.99 100% 90 / 0.75);fill-rule:evenodd"
 				transform="rotate(60)"
 			/>
 		</g>
 	</defs>
-	<Background {size} fill="oklch(0 100% 330)" />
+	<Background {size} fill="oklch(0.05 100% 330)" />
 	<g transform="rotate(30)">
 		<!-- <path d={polygonPath(6, r * 2)} style="fill:oklch(0.5 100% 270)" /> -->
 		<!-- {#each circles as c, i}

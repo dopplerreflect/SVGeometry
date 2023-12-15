@@ -58,7 +58,7 @@
 				<use href="#PHISPIRAL-petal" transform={`rotate(${a})`} />
 			{/each}
 		</g>
-		<g id="lines" style="stroke:oklch(1 100% 90);" filter="url(#PHISPIRAL-glow)">
+		<g id="lines" style="stroke:oklch(99% 100% 90);" filter="url(#PHISPIRAL-glow)">
 			{#each radii as r, i}
 				<path d={pentagram(r)} transform={`rotate(${36})`} />
 				<path d={pentagram(r)} transform={`rotate(${0})`} />
@@ -66,7 +66,7 @@
 		</g>
 		<g id="circles" filter="url(#PHISPIRAL-glow)">
 			{#each radii as r, i}
-				<circle {r} style="stroke:oklch(1 100% 240);fill:none;" />
+				<circle {r} style="stroke:oklch(99% 100% 240);fill:none;" />
 			{/each}
 		</g>
 	</g>
