@@ -281,7 +281,7 @@
 			svg#TILED-SUN {
 				& g.filtered {
 					filter: url(#TILED-SUN-shrink);
-					fill: oklch(1 0 0 / 0.25);
+					fill: oklch(0.99 0 0 / 0.25);
 					--hue0: 210;
 					--hue1: calc(var(--hue0) + 60);
 					--hue2: calc(var(--hue0) + 30);
@@ -319,7 +319,7 @@
 					fill: oklch(0.9 50% var(--hue3));
 				}
 				& g.pg3.p0 {
-					fill: oklch(1 50% var(--hue3));
+					fill: oklch(0.99 50% var(--hue3));
 				}
 				& g.pg3.p1,
 				g.pg3.p5 {
@@ -333,10 +333,10 @@
 					fill: oklch(0.7 50% var(--hue3));
 				}
 				& g.pg4 {
-					fill: oklch(1 100% var(--hue4));
+					fill: oklch(0.99 100% var(--hue4));
 				}
 				& g.pg5 {
-					fill: oklch(1 75% var(--hue4));
+					fill: oklch(0.99 75% var(--hue4));
 				}
 				& #everything {
 					/* display: none; */
@@ -344,8 +344,8 @@
 			}
 		</style>
 		<radialGradient id="TILED-SUN-rg">
-			<stop offset="0%" stop-color="oklch(1 100% 60)" />
-			<stop offset="75%" stop-color="oklch(1 100% 90)" />
+			<stop offset="0%" stop-color="oklch(0.99 100% 60)" />
+			<stop offset="75%" stop-color="oklch(0.99 100% 90)" />
 			<stop offset="100%" stop-color="oklch(0.05 100% 30)" />
 		</radialGradient>
 		<filter id="TILED-SUN-distort" x="-25%" y="-25%" width="200%" height="200%">
@@ -402,11 +402,11 @@
 	</defs>
 	<Background {size} fill="url(#TILED-SUN-rg)" />
 	<g filter="url(#TILED-SUN-distort)">
-		<LineWithLegend lineArray={raylines} style="stroke:oklch(1 50% 60 / 0.5);stroke-width:10;" />
+		<LineWithLegend lineArray={raylines} style="stroke:oklch(0.99 50% 60 / 0.5);stroke-width:10;" />
 	</g>
 	<g id="everything" transform="rotate(18)">
 		<g id="lines">
-			<LineWithLegend {lineArray} style="stroke:oklch(1 0 0)" />
+			<LineWithLegend {lineArray} style="stroke:oklch(0.99 0 0)" />
 		</g>
 		<g id="polygons" filter="url(#TILED-SUN-tile)">
 			{#each polygonGroups as pg, pgi}
