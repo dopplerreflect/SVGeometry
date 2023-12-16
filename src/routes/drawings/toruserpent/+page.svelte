@@ -199,14 +199,14 @@
 	<Background {size} fill="url(#TORUSERPENT-rg)" />
 	{#each angles.slice(0, 4) as a, i}
 		<use
-			style={`fill:oklch(${1 - (1 / 4) * i} 25% var(--hue) );`}
+			style={`fill:oklch(${0.99 - (1 / 4) * i} 25% var(--hue) );`}
 			href="#TORUSERPENT-arm"
 			transform={`rotate(${a + 72})`}
 		/>
 	{/each}
 	{#each angles.slice(0, 4) as a, i}
 		<use
-			style={`fill:oklch(${1 - (1 / 4) * i} 25% var(--hue) );`}
+			style={`fill:oklch(${0.99 - (1 / 4) * i} 25% var(--hue) );`}
 			href="#TORUSERPENT-arm"
 			transform={`rotate(${a + 72 + 180})`}
 		/>

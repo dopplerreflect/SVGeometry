@@ -95,12 +95,12 @@
 	<g transform="rotate(36)">
 		<LineWithLegend name="bg" {lineArray} />
 		{#each paths as d, i}
-			<path {d} style={`fill:oklch(${1 - (0.15 + 0.15 * i)} 50% 300 / 0.1)`} />
+			<path {d} style={`fill:oklch(${0.99 - (0.15 + 0.15 * i)} 50% 300 / 0.1)`} />
 		{/each}
 	</g>
 	<LineWithLegend {lineArray} />
 	{#each paths as d, i}
-		<path {d} style={`fill:oklch(${1 - (0.15 + 0.15 * i)} 100% 300 / 0.25)`} />
+		<path {d} style={`fill:oklch(${0.99 - (0.15 + 0.15 * i)} 100% 300 / 0.25)`} />
 	{/each}
 	<path d={`M${0} ${-r} ${-r / 2} 0`} class="dashed" />
 	<path d={`M${0} ${-r}A${r2} ${r2} 0 0 1 ${r * phi} 0`} class="dashed" />

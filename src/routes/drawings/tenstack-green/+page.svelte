@@ -130,7 +130,7 @@
 		<PolygonToRadial
 			points={polygons[i]}
 			{angles}
-			style={`fill:oklch(${1 / polygons.length + (1 / polygons.length) * (i + 1)} ${
+			style={`fill:oklch(${0.99 / polygons.length + (1 / polygons.length) * (i + 1)} ${
 				(100 / (polygons.length - 1)) * (i + 1)
 			}% ${i > 4 ? '150' : '210'} / 0.33);stroke:oklch(0.99 25% 90);`}
 			classname="filtered"

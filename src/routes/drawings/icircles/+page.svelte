@@ -17,6 +17,7 @@
 	const angles = anglesArray(60);
 	const circles: Circle[] = angles.map((a) => ({ r, ...radialPoint(a, r) }));
 	const ci = multiCircleIntersections(circles);
+	console.log(ci.length);
 </script>
 
 <DopplerSvg {id} {size} logoProps={{ stroke: 'oklch(0.25 100% 240)' }}>
