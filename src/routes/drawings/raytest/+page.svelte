@@ -147,7 +147,7 @@
 	/>
 	{#each polygonGroups as group, gi}
 		<g
-			style={`fill:oklch(${1 - (1 / (polygonGroups.length + 2)) * gi} 33% 60 / 1);`}
+			style={`fill:oklch(${0.99 - (1 / (polygonGroups.length + 2)) * gi} 33% 60 / 1);`}
 			filter="url(#RAYTEST-filter)"
 		>
 			{#each group as points, i}
