@@ -71,7 +71,7 @@
 				style={`stroke-width:4;stroke:${i % 2 === 0 ? 'none' : 'oklch(0.2 0 0)'};fill:${
 					i % 2 === 0
 						? `none`
-						: `oklch(${i < ellipse.length / 2 ? 1 : 0.75} 100% ${
+						: `oklch(${i < ellipse.length / 2 ? 0.99 : 0.75} 100% ${
 								30 + (360 / ellipses.length) * ei
 						  } / 1)`
 				};`}
