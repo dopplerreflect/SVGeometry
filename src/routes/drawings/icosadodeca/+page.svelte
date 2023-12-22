@@ -128,16 +128,31 @@
 
 <DopplerSvg {id} {size}>
 	<defs>
-		<filter id="ICOSADODECA-filter">
+		<filter id="ICOSADODECA-alpha-filter">
 			<feColorMatrix
 				values="1 0 0 0 0
                 0 1 0 0 0
                 0 0 1 0 0
-                0 0 0 0.75 0"
+                0 0 0 0.66 0"
 			/>
 		</filter>
+		<filter id="ICOSADODECA-glow">
+			<feGaussianBlur stdDeviation="2" result="tightblur" />
+			<feMorphology operator="dilate" radius="1" in="SourceGraphic" />
+			<feGaussianBlur stdDeviation="5" />
+			<feMerge>
+				<feMergeNode />
+				<feMergeNode in="tightblur" />
+				<feMergeNode in="tightblur" />
+				<feMergeNode in="SourceGraphic" />
+			</feMerge>
+		</filter>
+		<radialGradient id="ICOSADODECA-lg" r="50%">
+			<stop offset="0%" stop-color="oklch(0.9 100% 30)" />
+			<stop offset="100%" stop-color="oklch(0 0 0)" />
+		</radialGradient>
 	</defs>
-	<Background {size} fill="oklch(0.2 0 0)" />
+	<Background {size} fill="url(#ICOSADODECA-lg)" />
 	<!-- {#each c as c, i}
 		<text
 			x={radialPoint(270, c.r, { center: { x: c.x, y: c.y } }).x}
@@ -145,14 +160,17 @@
 			style="fill:white;">{i}</text
 		>
 	{/each} -->
-	<LineWithLegend lineArray={l} style="stroke:oklch(0.99 100% 150);" />
-	{#each c as c}
-		<circle r={c.r} cx={c.x} cy={c.y} style={`stroke:oklch(0.99 100% 150);fill:none;`} />
-	{/each}
+	<!-- <LineWithLegend lineArray={l} style="stroke:oklch(0.5 100% 300);" /> -->
+
+	<g filter="url(#ICOSADODECA-glow)">
+		{#each c as c}
+			<circle r={c.r} cx={c.x} cy={c.y} style={`stroke:oklch(0.5 100% 210);fill:none;`} />
+		{/each}
+	</g>
 
 	<g
-		filter="url(#ICOSADODECA-filter)"
-		style="stroke:oklch(0.99 100% 150);fill:oklch(0.25 100% 300 );"
+		filter="url(#ICOSADODECA-alpha-filter)"
+		style="stroke:oklch(0.99 100% 90);stroke-width:2;fill:oklch(0.25 100% 300 );"
 	>
 		{#each angles.filter((a, i) => i % 2 == 1) as a, i}
 			<g transform={`translate(${radialPointString(a, radii[3])})`}>
