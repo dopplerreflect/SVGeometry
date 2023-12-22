@@ -18,6 +18,7 @@
 		circleLineIntersections as cli,
 		phi,
 		pointToString,
+		polygon,
 		radialPoint,
 		radialPointString
 	} from '$lib/geometry';
@@ -140,31 +141,36 @@
 				values="1 0 0 0 0
                 0 1 0 0 0
                 0 0 1 0 0
-                0 0 0 0.75 0"
+                0 0 0 0.66 0"
 			/>
 		</filter>
 		<filter id="ICOSADODECA-glow">
 			<feGaussianBlur stdDeviation="2" result="tightblur" />
 			<feMorphology operator="dilate" radius="1" in="SourceGraphic" />
-			<feGaussianBlur stdDeviation="5" />
+			<feGaussianBlur stdDeviation="8" />
 			<feMerge>
 				<feMergeNode />
 				<feMergeNode in="tightblur" />
 				<feMergeNode in="SourceGraphic" />
 			</feMerge>
 		</filter>
-		<radialGradient id="ICOSADODECA-lg" r="71%">
-			<stop offset="0%" stop-color="oklch(0.5 100% 300)" />
-			<stop offset="100%" stop-color="oklch(0 0 0)" />
+		<radialGradient id="ICOSADODECA-lg" r="75%">
+			<stop offset="0%" stop-color="oklch(0.5 100% calc(var(--hue) + 120))" />
+			<stop offset="100%" stop-color="oklch(0.05 100% calc(var(--hue) + 120))" />
 		</radialGradient>
 		<style>
 			svg#ICOSADODECA {
-				--lightness: 0.99;
+				--lightness: 0.66;
 				--chroma: 100%;
-				--hue: 90;
+				--hue: 210;
 				& polygon {
-					stroke: oklch(0.99 50% 90);
 					stroke-width: 2;
+				}
+				& polygon.clear {
+					fill: none;
+					stroke: oklch(0.99 100% calc(var(--hue) - 30));
+
+					filter: url(#ICOSADODECA-glow);
 				}
 				& polygon.pi-0 {
 					fill: oklch(var(--lightness) var(--chroma) var(--hue));
@@ -196,22 +202,18 @@
 				& polygon.pi-9 {
 					fill: oklch(calc(var(--lightness) - 0.45) var(--chroma) var(--hue));
 				}
+				& circle {
+					stroke: oklch(0.99 100% calc(var(--hue) + 120));
+					fill: none;
+				}
 			}
 		</style>
 	</defs>
 	<Background {size} fill="url(#ICOSADODECA-lg)" />
-	<!-- {#each c as c, i}
-		<text
-			x={radialPoint(270, c.r, { center: { x: c.x, y: c.y } }).x}
-			y={radialPoint(270, c.r, { center: { x: c.x, y: c.y } }).y}
-			style="fill:white;">{i}</text
-		>
-	{/each} -->
-	<!-- <LineWithLegend lineArray={l} style="stroke:oklch(0.5 100% 300);" /> -->
 
 	<g id="circles" filter="url(#ICOSADODECA-glow)">
 		{#each c as c}
-			<circle r={c.r} cx={c.x} cy={c.y} style={`stroke:oklch(0.99 50% 210);fill:none;`} />
+			<circle r={c.r} cx={c.x} cy={c.y} />
 		{/each}
 	</g>
 
@@ -222,6 +224,7 @@
 					{#each polygonPoints as points, pi}
 						{#if !isHiddenBasedOnPolygonAndAngleIndices(a, pi)}
 							<polygon {points} class="pi-{pi}" />
+							<polygon {points} class="clear" />
 						{/if}
 					{/each}
 				</g>
@@ -233,6 +236,7 @@
 					<g transform={`translate(${radialPointString(a, radii[3])})`}>
 						{#if !isHiddenBasedOnPolygonAndAngleIndices(a, pi)}
 							<polygon {points} class="pi-{pi}" />
+							<polygon {points} class="clear" />
 						{/if}
 					</g>
 				{/each}
@@ -247,20 +251,20 @@
 					class="pi-1"
 					transform={`rotate(${a + 18})`}
 				/>
+				<polygon
+					points={[ci(c[18], c[21])[0], ci(c[18], c[21])[1], ci(c[16], c[19])[0]]
+						.map((e) => pointToString(e))
+						.join(' ')}
+					class="clear"
+					transform={`rotate(${a + 18})`}
+				/>
 			{/each}
 		</g>
 		<g id="center">
 			{#each polygonPoints as points, pi}
 				<polygon {points} class="pi-{pi}" />
+				<polygon {points} class="clear" />
 			{/each}
 		</g>
 	</g>
-	<!-- <g id="angles">
-		{#each angles as a, ai}
-			<path d={`M0 0 ${radialPointString(a, radii[1] * 2)}`} style="stroke:white;" />
-			<text x={radialPoint(a, radii[1] * 2).x} y={radialPoint(a, radii[1] * 2).y} style="fill:white"
-				>{a}</text
-			>
-		{/each}
-	</g> -->
 </DopplerSvg>
