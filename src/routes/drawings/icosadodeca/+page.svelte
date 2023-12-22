@@ -61,6 +61,7 @@
 			ci(c[7], c[16])[1],
 			ci(c[13], c[16])[1]
 		],
+
 		[
 			ci(c[24], c[27])[1],
 			ci(c[24], c[27])[0],
@@ -112,18 +113,24 @@
 		]
 	].map((o) => o.map((e) => pointToString(e)).join(' '));
 
-	const blobs = [
-		polygonPoints,
-		polygonPoints.slice(0, 11).concat(polygonPoints.slice(12)),
-		polygonPoints.slice(0, 13).concat(polygonPoints.slice(14)),
-		polygonPoints.slice(0, 5).concat(polygonPoints.slice(6)),
-		polygonPoints
-			.slice(0, 7)
-			.concat(polygonPoints.slice(8))
-			.slice(0, 12)
-			.concat(polygonPoints.slice(14))
-	];
-	// console.log(polygonPoints);
+	function isHiddenBasedOnPolygonAndAngleIndices(angle: number, polygonIndex: number): boolean {
+		const hiddenIndices = hiddenMap.get(angle);
+		if (hiddenIndices && hiddenIndices.includes(polygonIndex)) {
+			return true;
+		}
+		return false;
+	}
+
+	const hiddenMap = new Map();
+	hiddenMap.set(-126, [1, 2, 3, 5, 6, 7, 8, 9, 10, 11, 12]);
+	hiddenMap.set(-54, [2, 3, 4, 7, 8, 9, 10, 11, 12, 13, 14]);
+	hiddenMap.set(18, [0, 3, 4, 5, 6, 9, 10, 11, 12, 13, 14]);
+	hiddenMap.set(90, [0, 1, 4, 5, 6, 7, 8, 11, 12, 13, 14]);
+	hiddenMap.set(162, [0, 1, 2, 5, 6, 7, 8, 9, 10, 13, 14]);
+	hiddenMap.set(-90, [11]);
+	hiddenMap.set(-18, [13]);
+	hiddenMap.set(54, [5]);
+	hiddenMap.set(126, [7, 13]);
 </script>
 
 <DopplerSvg {id} {size}>
@@ -133,7 +140,7 @@
 				values="1 0 0 0 0
                 0 1 0 0 0
                 0 0 1 0 0
-                0 0 0 0.66 0"
+                0 0 0 0.75 0"
 			/>
 		</filter>
 		<filter id="ICOSADODECA-glow">
@@ -143,14 +150,54 @@
 			<feMerge>
 				<feMergeNode />
 				<feMergeNode in="tightblur" />
-				<feMergeNode in="tightblur" />
 				<feMergeNode in="SourceGraphic" />
 			</feMerge>
 		</filter>
-		<radialGradient id="ICOSADODECA-lg" r="50%">
-			<stop offset="0%" stop-color="oklch(0.9 100% 30)" />
+		<radialGradient id="ICOSADODECA-lg" r="71%">
+			<stop offset="0%" stop-color="oklch(0.5 100% 300)" />
 			<stop offset="100%" stop-color="oklch(0 0 0)" />
 		</radialGradient>
+		<style>
+			svg#ICOSADODECA {
+				--lightness: 0.99;
+				--chroma: 100%;
+				--hue: 90;
+				& polygon {
+					stroke: oklch(0.99 50% 90);
+					stroke-width: 2;
+				}
+				& polygon.pi-0 {
+					fill: oklch(var(--lightness) var(--chroma) var(--hue));
+				}
+				& polygon.pi-5,
+				& polygon.pi-6,
+				& polygon.pi-13,
+				& polygon.pi-14 {
+					fill: oklch(calc(var(--lightness) - 0.1) var(--chroma) var(--hue));
+				}
+				& polygon.pi-1,
+				& polygon.pi-4,
+				& polygon.pi-15 {
+					fill: oklch(calc(var(--lightness) - 0.2) var(--chroma) var(--hue));
+				}
+				& polygon.pi-8,
+				& polygon.pi-12 {
+					fill: oklch(calc(var(--lightness) - 0.3) var(--chroma) var(--hue));
+				}
+				& polygon.pi-7,
+				& polygon.pi-10,
+				& polygon.pi-11 {
+					fill: oklch(calc(var(--lightness) - 0.35) var(--chroma) var(--hue));
+				}
+				& polygon.pi-2,
+				& polygon.pi-3 {
+					fill: oklch(calc(var(--lightness) - 0.4) var(--chroma) var(--hue));
+				}
+				& polygon.pi-9 {
+					fill: oklch(calc(var(--lightness) - 0.45) var(--chroma) var(--hue));
+				}
+			}
+		</style>
 	</defs>
 	<Background {size} fill="url(#ICOSADODECA-lg)" />
 	<!-- {#each c as c, i}
@@ -162,41 +209,58 @@
 	{/each} -->
 	<!-- <LineWithLegend lineArray={l} style="stroke:oklch(0.5 100% 300);" /> -->
 
-	<g filter="url(#ICOSADODECA-glow)">
+	<g id="circles" filter="url(#ICOSADODECA-glow)">
 		{#each c as c}
-			<circle r={c.r} cx={c.x} cy={c.y} style={`stroke:oklch(0.5 100% 210);fill:none;`} />
+			<circle r={c.r} cx={c.x} cy={c.y} style={`stroke:oklch(0.99 50% 210);fill:none;`} />
 		{/each}
 	</g>
 
-	<g
-		filter="url(#ICOSADODECA-alpha-filter)"
-		style="stroke:oklch(0.99 100% 90);stroke-width:2;fill:oklch(0.25 100% 300 );"
-	>
-		{#each angles.filter((a, i) => i % 2 == 1) as a, i}
-			<g transform={`translate(${radialPointString(a, radii[3])})`}>
-				{#each polygonPoints as points}
-					<polygon {points} />
-				{/each}
-			</g>
-		{/each}
-
-		{#each angles.filter((a, i) => i % 2 == 0) as a, i}
-			{#each blobs[i] as points}
+	<g id="whole" filter="url(#ICOSADODECA-alpha-filter)">
+		<g id="odd">
+			{#each angles.filter((a, i) => i % 2 == 1) as a, ai}
 				<g transform={`translate(${radialPointString(a, radii[3])})`}>
-					<polygon {points} />
+					{#each polygonPoints as points, pi}
+						{#if !isHiddenBasedOnPolygonAndAngleIndices(a, pi)}
+							<polygon {points} class="pi-{pi}" />
+						{/if}
+					{/each}
 				</g>
 			{/each}
-		{/each}
-		{#each angles.filter((a, i) => i % 2 === 0) as a}
-			<polygon
-				points={[ci(c[18], c[21])[0], ci(c[18], c[21])[1], ci(c[16], c[19])[0]]
-					.map((e) => pointToString(e))
-					.join(' ')}
-				transform={`rotate(${a + 18})`}
-			/>
-		{/each}
-		{#each polygonPoints as points}
-			<polygon {points} />
-		{/each}
+		</g>
+		<g id="even">
+			{#each angles.filter((a, i) => i % 2 == 0) as a, ai}
+				{#each polygonPoints as points, pi}
+					<g transform={`translate(${radialPointString(a, radii[3])})`}>
+						{#if !isHiddenBasedOnPolygonAndAngleIndices(a, pi)}
+							<polygon {points} class="pi-{pi}" />
+						{/if}
+					</g>
+				{/each}
+			{/each}
+		</g>
+		<g id="triangles">
+			{#each angles.filter((a, i) => i % 2 === 0) as a}
+				<polygon
+					points={[ci(c[18], c[21])[0], ci(c[18], c[21])[1], ci(c[16], c[19])[0]]
+						.map((e) => pointToString(e))
+						.join(' ')}
+					class="pi-1"
+					transform={`rotate(${a + 18})`}
+				/>
+			{/each}
+		</g>
+		<g id="center">
+			{#each polygonPoints as points, pi}
+				<polygon {points} class="pi-{pi}" />
+			{/each}
+		</g>
 	</g>
+	<!-- <g id="angles">
+		{#each angles as a, ai}
+			<path d={`M0 0 ${radialPointString(a, radii[1] * 2)}`} style="stroke:white;" />
+			<text x={radialPoint(a, radii[1] * 2).x} y={radialPoint(a, radii[1] * 2).y} style="fill:white"
+				>{a}</text
+			>
+		{/each}
+	</g> -->
 </DopplerSvg>
