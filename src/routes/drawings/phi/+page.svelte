@@ -13,7 +13,6 @@
 	import LineWithLegend from '$lib/components/LineWithLegend.svelte';
 	import {
 		Phi,
-		anglesArray,
 		arrayMap,
 		circleLineIntersections,
 		intersection,
@@ -26,11 +25,9 @@
 	const size = 2 ** 10;
 	const r = (size * phi) / 10;
 	const radii = arrayMap(5, (n) => r * Phi ** n);
-	const angles = anglesArray(10);
-	// const angles = [-72, 72, 108, 252]
-	// console.log(angles.map((a) => a + 18));
+	const angles = [-72, 72, 108, 252];
 	const circles: Circle[] = [
-		...angles.map((a) => ({ r, ...radialPoint(a + 18, radii[3] + radii[0]) })),
+		...angles.map((a) => ({ r, ...radialPoint(a, radii[3] + radii[0]) })),
 		...radii.map((r) => ({ r, x: 0, y: 0 }))
 	];
 	const lineArray: Line[] = [
@@ -51,21 +48,21 @@
 			{ x: r, y: size / 2 }
 		],
 		[
-			{ x: circles[4].x, y: circles[9].y },
-			{ x: circles[5].x, y: circles[0].y }
+			{ x: circles[1].x, y: circles[3].y },
+			{ x: circles[2].x, y: circles[0].y }
 		],
 		[
-			{ x: circles[4].x, y: circles[4].y },
-			{ x: circles[5].x, y: circles[5].y }
+			{ x: circles[1].x, y: circles[1].y },
+			{ x: circles[2].x, y: circles[2].y }
 		],
 
 		[
-			{ x: circles[4].x, y: circles[9].y - r },
-			{ x: circles[5].x, y: circles[0].y - r }
+			{ x: circles[1].x, y: circles[3].y - r },
+			{ x: circles[2].x, y: circles[0].y - r }
 		],
 		[
-			{ x: circles[4].x, y: circles[4].y + r },
-			{ x: circles[5].x, y: circles[5].y + r }
+			{ x: circles[1].x, y: circles[1].y + r },
+			{ x: circles[2].x, y: circles[2].y + r }
 		]
 	];
 	const d: string = [
@@ -79,60 +76,58 @@
 		'0 0 0',
 		pointToString(intersection(lineArray[1], lineArray[4])),
 		'L',
-		pointToString(circleLineIntersections(circles[13], lineArray[1])[0]),
+		pointToString(circleLineIntersections(circles[7], lineArray[1])[0]),
 		'A',
 		radii[3],
 		radii[3],
 		'0 0 1',
-		pointToString(circleLineIntersections(circles[13], lineArray[1])[1]),
+		pointToString(circleLineIntersections(circles[7], lineArray[1])[1]),
 		'L',
 		pointToString(intersection(lineArray[1], lineArray[5])),
 		'A',
 		r,
 		r,
 		'0 0 0',
-		pointToString(circleLineIntersections(circles[4], lineArray[3])[1]),
+		pointToString(circleLineIntersections(circles[1], lineArray[3])[1]),
 		'L',
 		pointToString(intersection(lineArray[3], lineArray[7])),
 		pointToString(intersection(lineArray[2], lineArray[7])),
-		pointToString(circleLineIntersections(circles[5], lineArray[2])[1]),
+		pointToString(circleLineIntersections(circles[2], lineArray[2])[1]),
 		'A',
 		r,
 		r,
 		'0 0 0',
 		pointToString(intersection(lineArray[0], lineArray[5])),
 		'L',
-		pointToString(circleLineIntersections(circles[13], lineArray[0])[1]),
+		pointToString(circleLineIntersections(circles[7], lineArray[0])[1]),
 		'A',
 		radii[3],
 		radii[3],
 		'0 0 1',
-		pointToString(circleLineIntersections(circles[13], lineArray[0])[0]),
+		pointToString(circleLineIntersections(circles[7], lineArray[0])[0]),
 		'L',
 		pointToString(intersection(lineArray[0], lineArray[4])),
 		'A',
 		r,
 		r,
 		'0 0 0',
-		pointToString(circleLineIntersections(circles[9], lineArray[2])[0]),
-		// 'L',
-		// pointToString(intersection(lineArray[2], lineArray[6]))
+		pointToString(circleLineIntersections(circles[3], lineArray[2])[0]),
 		'Z',
 		'M',
-		pointToString(circleLineIntersections(circles[12], lineArray[1])[0]),
+		pointToString(circleLineIntersections(circles[6], lineArray[1])[0]),
 		'A',
 		radii[2],
 		radii[2],
 		'0 0 1',
-		pointToString(circleLineIntersections(circles[12], lineArray[1])[1]),
+		pointToString(circleLineIntersections(circles[6], lineArray[1])[1]),
 		'Z',
 		'M',
-		pointToString(circleLineIntersections(circles[12], lineArray[0])[0]),
+		pointToString(circleLineIntersections(circles[6], lineArray[0])[0]),
 		'A',
 		radii[2],
 		radii[2],
 		'0 0 0',
-		pointToString(circleLineIntersections(circles[12], lineArray[0])[1]),
+		pointToString(circleLineIntersections(circles[6], lineArray[0])[1]),
 		'Z'
 	].join(' ');
 </script>
