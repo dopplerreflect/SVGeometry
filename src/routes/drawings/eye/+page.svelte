@@ -39,14 +39,14 @@
 					fill: none;
 				}
 				& circle.dim {
-					stroke: oklch(0.5 100% 300);
+					stroke: oklch(0.33 100% 330);
 					stroke-width: 2;
 				}
 			}
 		</style>
 		<radialGradient id="EYE-rg">
 			<stop offset="0%" stop-color="oklch(0.1 100% 210)" />
-			<stop offset="100%" stop-color="oklch(0.75 100% 210)" />
+			<stop offset="100%" stop-color="oklch(0.5 100% 210)" />
 		</radialGradient>
 		<mask id="EYE-mask">
 			<radialGradient id="EYE-mask-rg">
