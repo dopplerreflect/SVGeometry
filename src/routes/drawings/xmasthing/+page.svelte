@@ -134,9 +134,9 @@
 	roundedIntersections.forEach((intersection) => {
 		const i = JSON.stringify(intersection);
 		if (!intersectionsWithMagnitudeMap.get(i)) {
-			intersectionsWithMagnitudeMap.set(i, 1);
+			intersectionsWithMagnitudeMap.set(i, 2);
 		} else {
-			intersectionsWithMagnitudeMap.set(i, intersectionsWithMagnitudeMap.get(i) + 1);
+			intersectionsWithMagnitudeMap.set(i, intersectionsWithMagnitudeMap.get(i) + phi);
 		}
 	});
 	const dots: Circle[] = [...intersectionsWithMagnitudeMap]
@@ -146,7 +146,7 @@
 		})
 		.sort((a, b) => b.r - a.r);
 	const circleRadii = new Set([...dots.map((c) => c.r).sort((a, b) => a - b)]);
-	const colors = new Map([...circleRadii].map((r, i) => [r, (120 / circleRadii.size) * i + 30]));
+	const colors = new Map([...circleRadii].map((r, i) => [r, (120 / circleRadii.size) * i + 60]));
 </script>
 
 <DopplerSvg {id} {size}>
@@ -156,9 +156,18 @@
 			<stop offset="100%" stop-color="oklch(0.25 50% 150)" />
 		</radialGradient>
 		<filter id="XMAS-circleglow">
-			<feGaussianBlur stdDeviation="3" />
+			<feGaussianBlur stdDeviation="2" result="smallblur" />
+			<feMorphology in="SourceGraphic" operator="dilate" radius="1" />
+			<feGaussianBlur stdDeviation="5" />
+			<feColorMatrix
+				values="1 0 0 0 0
+                0 1 0 0 0
+                0 0 1 0 0
+                0 0 0 0.75 0"
+			/>
 			<feMerge>
 				<feMergeNode />
+				<feMergeNode in="smallblur" />
 				<feMergeNode in="SourceGraphic" />
 			</feMerge>
 		</filter>
@@ -166,14 +175,14 @@
 	<Background {size} fill="url(#XMAS-rg)" />
 	<g filter="url(#XMAS-circleglow)">
 		{#each circles as c}
-			<circle r={c.r} cx={c.x} cy={c.y} style={`stroke:oklch(0.66 100% 150);fill:none;`} />
+			<circle r={c.r} cx={c.x} cy={c.y} style={`stroke:oklch(0.99 25% 90);fill:none;`} />
 		{/each}
 	</g>
 	{#each stars as d}
-		<path {d} style={`fill:oklch(0.75 100% 30 / 0.25)`} />
+		<path {d} style={`fill:oklch(0.66 100% 30 / 0.25)`} />
 	{/each}
 	<g filter="url(#XMAS-circleglow)">
-		<LineWithLegend {lineArray} style="stroke:oklch(0.99 50% 90)" />
+		<LineWithLegend {lineArray} style="stroke:oklch(0.99 25% 150)" />
 	</g>
 	<g filter="url(#XMAS-circleglow)">
 		{#each dots as c, i}
@@ -181,7 +190,7 @@
 				r={c.r}
 				cx={c.x}
 				cy={c.y}
-				style={`stroke:oklch(0.99 0% ${colors.get(c.r)});fill:oklch(0.5 100% ${colors.get(
+				style={`stroke:oklch(0.99 0% ${colors.get(c.r)});fill:oklch(0.66 100% ${colors.get(
 					c.r
 				)} / 0.5);`}
 			/>
