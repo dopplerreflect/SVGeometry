@@ -1,0 +1,99 @@
+<script context="module" lang="ts">
+	export let metadata: DrawingMetadata = {
+		tags: [],
+		created_at: new Date(2023, 11, 24, 19),
+		updated_at: new Date(2023, 11, 24, 19)
+	};
+</script>
+
+<script lang="ts">
+	import Background from '$lib/components/Background.svelte';
+	import DopplerSvg from '$lib/components/DopplerSVG.svelte';
+	import LineWithLegend from '$lib/components/LineWithLegend.svelte';
+	import {
+		anglesArray,
+		arrayMap,
+		intersection,
+		pentagram,
+		phi,
+		radialPoint,
+		radialPointString
+	} from '$lib/geometry';
+
+	const id = 'XMAS';
+	const size = 2 ** 10;
+	const angles = anglesArray(10);
+	const r = size * 0.2401;
+	const radii = arrayMap(3, (n) => r * phi ** n);
+	const circles: Circle[] = [
+		...angles.map((a) => radii.map((r) => ({ r, ...radialPoint(a, radii[0]) }))).flat()
+	];
+	const stars: string[] = angles
+		.map((a, i) => [
+			...radii.map((r) => pentagram(r, { center: radialPoint(a, radii[0]), rotate: a + 90 }))
+		])
+		.flat();
+	const lineArray: Line[] = [
+		...angles.map(
+			(a, i) =>
+				[
+					radialPoint(angles[(i + 1) % 10], radii[0], { center: radialPoint(a, radii[0]) }),
+					radialPoint(angles[(i + 4) % 10], radii[0], {
+						center: radialPoint(angles[(i + 5) % 10], radii[0])
+					})
+				] as Line
+		),
+		...angles.map(
+			(a, i) =>
+				[
+					radialPoint(angles[(i + 8) % 10], radii[0], { center: radialPoint(a, radii[0]) }),
+					radialPoint(angles[(i + 3) % 10], radii[0], {
+						center: radialPoint(angles[(i + 1) % 10], radii[0])
+					})
+				] as Line
+		)
+		// ...angles.map(
+		// 	(a, i) =>
+		// 		[
+		// 			radialPoint(angles[(i + 1) % 10], radii[1], { center: radialPoint(a, radii[0]) }),
+		// 			radialPoint(angles[(i + 4) % 10], radii[1], {
+		// 				center: radialPoint(angles[(i + 5) % 10], radii[0])
+		// 			})
+		// 		] as Line
+		// )
+	];
+</script>
+
+<DopplerSvg {id} {size}>
+	<defs>
+		<radialGradient id="XMAS-rg">
+			<stop offset="0%" stop-color="oklch(0.66 50% 150)" />
+			<stop offset="100%" stop-color="oklch(0.25 50% 150)" />
+		</radialGradient>
+		<filter id="XMAS-circleglow">
+			<feGaussianBlur stdDeviation="2" result="smallblur" />
+			<feMorphology in="SourceGraphic" operator="dilate" radius="1" />
+			<feGaussianBlur stdDeviation="5" />
+			<feColorMatrix
+				values="1 0 0 0 0
+                0 1 0 0 0
+                0 0 1 0 0
+                0 0 0 0.75 0"
+			/>
+			<feMerge>
+				<feMergeNode />
+				<feMergeNode in="smallblur" />
+				<feMergeNode in="SourceGraphic" />
+			</feMerge>
+		</filter>
+	</defs>
+	<Background {size} fill="oklch(0 0 0)" />
+	<g filter="url(#XMAS-circleglow)">
+		{#each circles as c}
+			<circle r={c.r} cx={c.x} cy={c.y} style={`stroke:oklch(0.99 100% 330);fill:none;`} />
+		{/each}
+	</g>
+	<g filter="url(#XMAS-circleglow)">
+		<LineWithLegend {lineArray} style="stroke:oklch(0.99 100% 210)" />
+	</g>
+</DopplerSvg>
