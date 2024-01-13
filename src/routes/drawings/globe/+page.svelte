@@ -42,18 +42,20 @@
 		</filter>
 	</defs>
 	<Background {size} fill="oklch(0.0 0 0)" />
-	<g filter="url(#GLOBE-blur)" transform="rotate(23.5)">
-		{#each ellipses as ellipsePoints, ei}
-			{#each ellipsePoints as p, i}
-				<circle
-					r={2 + Math.abs(angleCount / 2 - i) * 0.0625}
-					cx={p.x}
-					cy={p.y}
-					style={`fill:oklch(0.99 100% ${
-						270 + ei * (360 / (angleCount / 2)) + i * (360 / angleCount)
-					})`}
-				/>
+	<g filter="url(#GLOBE-blur)">
+		<g transform="rotate(23.5)">
+			{#each ellipses as ellipsePoints, ei}
+				{#each ellipsePoints as p, i}
+					<circle
+						r={2 + Math.abs(angleCount / 2 - i) * 0.0625}
+						cx={p.x}
+						cy={p.y}
+						style={`fill:oklch(0.99 100% ${
+							270 + ei * (360 / (angleCount / 2)) + i * (360 / angleCount)
+						})`}
+					/>
+				{/each}
 			{/each}
-		{/each}
+		</g>
 	</g>
 </DopplerSvg>
