@@ -32,26 +32,40 @@
 	});
 </script>
 
-<DopplerSvg {id} {size}>
+<DopplerSvg {id} {size} logoProps={{ stroke: 'oklch(0.125 100% 300)' }}>
 	<defs>
+		<filter id="3-12-shadow">
+			<feMorphology operator="dilate" radius="5" result="dilate" />
+			<feFlood flood-color="oklch(0 0 0)" />
+			<feComposite in2="dilate" operator="in" />
+			<feGaussianBlur stdDeviation="8" />
+			<feMerge>
+				<feMergeNode />
+				<feMergeNode in="SourceGraphic" />
+			</feMerge>
+		</filter>
 		<filter id="3-12-glow">
-			<feMorphology operator="dilate" radius="1" />
-			<feGaussianBlur stdDeviation="5" />
+			<feMorphology operator="dilate" radius="2" />
+			<feGaussianBlur stdDeviation="8" />
 			<feMerge>
 				<feMergeNode />
 				<feMergeNode in="SourceGraphic" />
 			</feMerge>
 		</filter>
 	</defs>
-	<Background {size} fill="oklch(0.2 0 0)" />
-	<g filter="">
+	<Background {size} fill="oklch(0.1 50% 300)" />
+	<g>
 		{#each polygons as points, i}
-			<polygon {points} style={`fill:oklch(${0.09 + (1 / polygons.length) * i} 50% 60);`} />
+			<polygon
+				{points}
+				style={`fill:oklch(${0.25 + (0.25 / polygons.length) * i} 50% ${300 - 10 * i});`}
+				filter="url(#3-12-shadow)"
+			/>
 		{/each}
 	</g>
 	<g filter="url(#3-12-glow)">
 		{#each polygons as points, i}
-			<polygon {points} style={`fill:none;stroke:oklch(0.5 100% 300);`} />
+			<polygon {points} style={`fill:none;stroke:oklch(0.99 100% ${300 - 10 * i});`} />
 		{/each}
 	</g>
 </DopplerSvg>
