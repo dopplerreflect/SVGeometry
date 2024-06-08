@@ -20,13 +20,16 @@
 		pointToString,
 		polygon,
 		radialPoint,
-		radialPointString
+		radialPointString,
+		viewBox
 	} from '$lib/geometry';
 
 	const id = 'ICOSADODECA';
-	const size = 2 ** 10;
+	// const size = 2 ** 10;
+	const width = 1920;
+	const height = 1920; // 1080
 	const angles = anglesArray(10, -162);
-	const r = (size * phi) / 10;
+	const r = (height * phi) / 10;
 	const radii = arrayMap(4, (n) => r * Phi ** n);
 	const c: Circle[] = [
 		...angles.map((a, i) => [
@@ -134,7 +137,11 @@
 	hiddenMap.set(126, [7, 13]);
 </script>
 
-<DopplerSvg {id} {size}>
+<DopplerSvg
+	{id}
+	viewBox={viewBox(width, height)}
+	logoProps={{ transform: `translate(${width / 2 - width / 32}, ${height / 2 - height / 18})` }}
+>
 	<defs>
 		<filter id="ICOSADODECA-alpha-filter">
 			<feColorMatrix
@@ -209,7 +216,7 @@
 			}
 		</style>
 	</defs>
-	<Background {size} fill="url(#ICOSADODECA-lg)" />
+	<Background {width} {height} fill="url(#ICOSADODECA-lg)" />
 
 	<g id="circles" filter="url(#ICOSADODECA-glow)">
 		{#each c as c}
