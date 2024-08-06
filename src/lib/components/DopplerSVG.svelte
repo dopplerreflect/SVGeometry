@@ -45,7 +45,15 @@
 	});
 </script>
 
-<svg bind:this={svg} {id} viewBox={viewBox ? viewBox : vb(size)} width="100%" height="100%" {style}>
+<svg
+	xmlns:xlink="http://www.w3.org/1999/xlink"
+	bind:this={svg}
+	{id}
+	viewBox={viewBox ? viewBox : vb(size)}
+	width="100%"
+	height="100%"
+	{style}
+>
 	<slot />
 	<DrLogo {...mergedLogoProps} />
 </svg>

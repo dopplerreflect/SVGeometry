@@ -1,5 +1,5 @@
 const debounce = (func: Function, wait: number): Function => {
-	let timeout: NodeJS.Timeout;
+	let timeout: number;
 	return function executedFunction(...args: any) {
 		const later = () => {
 			clearTimeout(timeout);
@@ -36,6 +36,51 @@ const saveSvg = debounce(async (svg: SVGSVGElement, options: SaveOptions) => {
 		console.log('Nevermind...', e);
 		return false;
 	}
+}, 500);
+
+const saveJpg = debounce(async (svg: SVGSVGElement, options: SaveOptions) => {
+	console.log('saving jpeg');
+	const startTime = Date.now();
+	const svgText = new XMLSerializer().serializeToString(svg);
+	const svgBlob = new Blob([svgText], { type: 'image/svg+xml;charset=utf-8' });
+	const url = window.URL.createObjectURL(svgBlob);
+	const canvas = document.createElement('canvas');
+	canvas.width = svg.viewBox.baseVal.width;
+	canvas.height = svg.viewBox.baseVal.height;
+	const ctx = canvas.getContext('2d');
+	const img = new Image();
+	img.onload = async function () {
+		ctx?.drawImage(img, 0, 0);
+		window.URL.revokeObjectURL(url);
+		const image: Blob = await new Promise((resolve, reject) => {
+			canvas.toBlob((blob) => {
+				if (blob) {
+					resolve(blob);
+				} else {
+					reject('failed to turn canvas to blob');
+				}
+			}, 'image/jpeg');
+		});
+		const endTime = Date.now();
+		console.log('Total time: ', (endTime - startTime) / 1000);
+		try {
+			let suggestedName = svg.id;
+			if (options.timestamp) suggestedName += `-${new Date().toISOString()}`;
+			suggestedName += '.jpg';
+			const fileHandle = await window.showSaveFilePicker({
+				suggestedName,
+				types: [{ description: 'JPEG File', accept: { 'image/jpeg': ['.jpg'] } }]
+			});
+			const writable = await fileHandle.createWritable();
+			await writable.write(image);
+			await writable.close();
+			return true;
+		} catch (e) {
+			console.log('Nevermind...', e);
+			return false;
+		}
+	};
+	img.src = url;
 }, 500);
 
 const savePng = debounce(async (svg: SVGSVGElement, options: SaveOptions) => {
@@ -95,6 +140,9 @@ export function useSaveFile(svg: SVGSVGElement, options: SaveOptions = {}) {
 		}
 		if (event.key === 'P') {
 			await savePng(svg, options);
+		}
+		if (event.key === 'J') {
+			await saveJpg(svg, options);
 		}
 	}
 	return () => {
